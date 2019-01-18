@@ -17,8 +17,9 @@ class PartySearch extends Party implements SearchInterface {
      */
     public function rules() {
         return [
+            // todo - date and time dynamic fields
             [['id', 'place_id'], 'integer'],
-            [['time', 'date', 'timestamp', 'description', 'created_at', 'updated_at'], 'safe'],
+            [['timestamp', 'description', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -63,9 +64,7 @@ class PartySearch extends Party implements SearchInterface {
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'time', $this->time])
-            ->andFilterWhere(['like', 'date', $this->date])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

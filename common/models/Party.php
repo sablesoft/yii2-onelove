@@ -8,8 +8,6 @@ use common\models\query\PartyQuery;
  *
  * @property int $id
  * @property int $place_id
- * @property string $time
- * @property string $date
  * @property string $timestamp
  * @property string $description
  * @property string $created_at
@@ -37,10 +35,11 @@ class Party extends \yii\db\ActiveRecord {
             [['place_id'], 'integer'],
             [['timestamp', 'created_at', 'updated_at'], 'safe'],
             [['description'], 'string'],
-            [['time'], 'string', 'max' => 5],
-            [['date'], 'string', 'max' => 8],
             [['place_id', 'timestamp'], 'unique', 'targetAttribute' => ['place_id', 'timestamp']],
-            [['place_id'], 'exist', 'skipOnError' => true, 'targetClass' => Place::className(), 'targetAttribute' => ['place_id' => 'id']],
+            [
+                ['place_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Place::class, 'targetAttribute' => ['place_id' => 'id']
+            ],
         ];
     }
 
@@ -51,8 +50,6 @@ class Party extends \yii\db\ActiveRecord {
         return [
             'id' => 'ID',
             'place_id' => 'Place ID',
-            'time' => 'Time',
-            'date' => 'Date',
             'timestamp' => 'Timestamp',
             'description' => 'Description',
             'created_at' => 'Created At',

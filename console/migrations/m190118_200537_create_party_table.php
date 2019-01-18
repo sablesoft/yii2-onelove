@@ -14,8 +14,6 @@ class m190118_200537_create_party_table extends Migration {
         $this->createTable('party', [
             'id'            => $this->primaryKey(),
             'place_id'      => $this->integer()->notNull(),
-            'time'          => $this->string(5)->notNull(),
-            'date'          => $this->string(8)->notNull(),
             'timestamp'     => $this->timestamp()->notNull(),
             'description'   => $this->text()->null(),
             'created_at'    => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
