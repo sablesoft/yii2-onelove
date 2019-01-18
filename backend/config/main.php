@@ -7,7 +7,7 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'onelove-backend',
+    'id' => 'back',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
