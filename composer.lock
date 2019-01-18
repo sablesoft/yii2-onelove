@@ -4,8 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9a0a9f84278d9f0c96842973ccb40ec",
+    "content-hash": "e4900c2c5ffe14555c49911b2bd17a71",
     "packages": [
+        {
+            "name": "bower-asset/axios",
+            "version": "v0.18.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/axios/axios.git",
+                "reference": "d59c70fdfd35106130e9f783d0dbdcddd145b58f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/axios/axios/zipball/d59c70fdfd35106130e9f783d0dbdcddd145b58f",
+                "reference": "d59c70fdfd35106130e9f783d0dbdcddd145b58f",
+                "shasum": null
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.7",
@@ -70,6 +89,22 @@
             ]
         },
         {
+            "name": "bower-asset/lodash",
+            "version": "3.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lodash/lodash.git",
+                "reference": "51e459b386f8301c803442f7fc722e46fc192d35"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lodash/lodash/zipball/51e459b386f8301c803442f7fc722e46fc192d35",
+                "reference": "51e459b386f8301c803442f7fc722e46fc192d35",
+                "shasum": null
+            },
+            "type": "bower-asset"
+        },
+        {
             "name": "bower-asset/punycode",
             "version": "v1.3.2",
             "source": {
@@ -101,6 +136,22 @@
             },
             "require": {
                 "bower-asset/jquery": ">=1.7"
+            },
+            "type": "bower-asset"
+        },
+        {
+            "name": "bower-asset/vue",
+            "version": "v2.5.16",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vuejs/vue.git",
+                "reference": "25342194016dc3bcc81cb3e8e229b0fb7ba1d1d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vuejs/vue/zipball/25342194016dc3bcc81cb3e8e229b0fb7ba1d1d6",
+                "reference": "25342194016dc3bcc81cb3e8e229b0fb7ba1d1d6",
+                "shasum": null
             },
             "type": "bower-asset"
         },
@@ -381,6 +432,108 @@
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
             "time": "2016-04-07T12:29:16+00:00"
+        },
+        {
+            "name": "sablerom/yii2-vue",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sablerom/yii2-vue.git",
+                "reference": "aa488528d1e6b5ec8614e2fe8c267d36504c4901"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sablerom/yii2-vue/zipball/aa488528d1e6b5ec8614e2fe8c267d36504c4901",
+                "reference": "aa488528d1e6b5ec8614e2fe8c267d36504c4901",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/axios": "0.18.0",
+                "bower-asset/lodash": "3.5.0",
+                "bower-asset/vue": "2.5.16",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "sablerom\\vue\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Sable",
+                    "email": "sable.lair@gmail.com"
+                }
+            ],
+            "description": "Vue.js manager component for yii2 web application",
+            "keywords": [
+                " vue.js",
+                "axios",
+                "lodash",
+                "sablerom",
+                "vue",
+                "vuejs",
+                "yii2",
+                "yii2-vue"
+            ],
+            "time": "2018-04-20T12:21:21+00:00"
+        },
+        {
+            "name": "smarty/smarty",
+            "version": "v3.1.33",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smarty-php/smarty.git",
+                "reference": "dd55b23121e55a3b4f1af90a707a6c4e5969530f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/dd55b23121e55a3b4f1af90a707a6c4e5969530f",
+                "reference": "dd55b23121e55a3b4f1af90a707a6c4e5969530f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "libs/bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Monte Ohrt",
+                    "email": "monte@ohrt.com"
+                },
+                {
+                    "name": "Uwe Tews",
+                    "email": "uwe.tews@googlemail.com"
+                },
+                {
+                    "name": "Rodney Rehm",
+                    "email": "rodney.rehm@medialize.de"
+                }
+            ],
+            "description": "Smarty - the compiling PHP template engine",
+            "homepage": "http://www.smarty.net",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2018-09-12T20:54:16+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -750,6 +903,53 @@
                 "yii2"
             ],
             "time": "2018-12-08T10:07:49+00:00"
+        },
+        {
+            "name": "yiisoft/yii2-smarty",
+            "version": "2.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-smarty.git",
+                "reference": "f4bfa622f48ed6333fd4e2eb27990b2082c51008"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-smarty/zipball/f4bfa622f48ed6333fd4e2eb27990b2082c51008",
+                "reference": "f4bfa622f48ed6333fd4e2eb27990b2082c51008",
+                "shasum": ""
+            },
+            "require": {
+                "smarty/smarty": "~3.1.0",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\smarty\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Makarov",
+                    "email": "sam@rmcreative.ru"
+                }
+            ],
+            "description": "The Smarty integration for the Yii framework",
+            "keywords": [
+                "renderer",
+                "smarty",
+                "yii2"
+            ],
+            "time": "2018-04-24T23:07:14+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",
@@ -3551,7 +3751,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.0"
+        "php": "^7.2.0"
     },
     "platform-dev": []
 }
