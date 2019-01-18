@@ -17,16 +17,13 @@ class m190118_200537_create_party_table extends Migration {
             'time'          => $this->string(5)->notNull(),
             'date'          => $this->string(8)->notNull(),
             'timestamp'     => $this->timestamp()->notNull(),
-            'requests'      => $this->integer()->unsigned(),
-            'members'       => $this->integer()->unsigned(),
+            'description'   => $this->text()->null(),
             'created_at'    => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at'    => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP')
         ]);
         // creates indexes for columns `place_id`, 'timestamp', 'requests', 'members'...
         $this->createIndex( 'idx-party-place_id', 'party',  'place_id' );
         $this->createIndex( 'idx-party-timestamp', 'party',  'timestamp' );
-        $this->createIndex( 'idx-party-requests', 'party',  'requests' );
-        $this->createIndex( 'idx-party-members', 'party',  'members' );
         // add foreign key for table `place`
         $this->addForeignKey(
             'fk-party-place_id',
@@ -50,8 +47,6 @@ class m190118_200537_create_party_table extends Migration {
         $this->dropIndex( 'idx-unique-party-place-time', 'party' );
         $this->dropIndex( 'idx-party-place_id', 'party' );
         $this->dropIndex( 'idx-party-timestamp', 'party' );
-        $this->dropIndex( 'idx-party-requests', 'party' );
-        $this->dropIndex( 'idx-party-members', 'party' );
         // drop table:
         $this->dropTable('party');
     }
