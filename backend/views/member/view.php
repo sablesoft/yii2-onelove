@@ -43,3 +43,5 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+
+<?php // todo - add parties search!!! ?>

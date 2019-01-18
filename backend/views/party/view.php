@@ -38,3 +38,4 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+<?php // todo - add members search!!! ?>
