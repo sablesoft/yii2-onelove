@@ -18,7 +18,7 @@ class MemberSearch extends Member implements SearchInterface {
     public function rules() {
         return [
             [['id', 'user_id', 'age', 'sex'], 'integer'],
-            [['name', 'dob', 'phone', 'email', 'resume', 'created_at', 'updated_at'], 'safe'],
+            [['name', 'dob', 'phone', 'photo', 'email', 'resume', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 

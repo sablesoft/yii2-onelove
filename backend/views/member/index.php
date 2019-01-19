@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            'photo', // todo - show html image
             'name',
             'sex', // todo labels!
             'age',

@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
 <!--    < ?= $form->field($model, 'user_id')->textInput() todo !!! ?>-->
 
+    <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) // todo - file uploader ?>
+
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'age')->textInput(); // todo - age validation ?>

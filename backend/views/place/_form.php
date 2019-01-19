@@ -16,6 +16,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) // todo - uploader!! ?>
+
+    <?= $form->field($model, 'map')->textarea(['rows' => 3]); ?>
+
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'is_default')->checkbox(); ?>

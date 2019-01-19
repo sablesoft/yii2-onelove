@@ -8,6 +8,7 @@ use common\models\query\MemberQuery;
  *
  * @property int $id
  * @property int $user_id
+ * @property string $photo
  * @property string $name
  * @property int $age
  * @property string $dob
@@ -35,10 +36,11 @@ class Member extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
+            // todo - validate photo path
             [['user_id', 'age', 'sex'], 'integer'],
             [['age', 'sex'], 'required'],
             [['dob', 'created_at', 'updated_at'], 'safe'],
-            [['resume'], 'string'],
+            [['resume', 'photo'], 'string'],
             [['name'], 'string', 'max' => 10],
             [['phone', 'email'], 'string', 'max' => 20],
             [['user_id'], 'unique'],
@@ -63,6 +65,7 @@ class Member extends \yii\db\ActiveRecord {
             'dob' => \Yii::t('app', 'Dob'),
             'sex' => \Yii::t('app', 'Sex'),
             'phone' => \Yii::t('app', 'Phone'),
+            'photo' => \Yii::t('app', 'Photo'),
             'email' => \Yii::t('app', 'Email'),
             'resume' => \Yii::t('app', 'Resume'),
             'created_at' => \Yii::t('app', 'Created At'),

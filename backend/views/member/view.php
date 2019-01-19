@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'photo', // todo show html image!!
             'name',
             'sex', // todo labels
             'age',

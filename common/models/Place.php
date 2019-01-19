@@ -10,6 +10,8 @@ use common\models\query\PlaceQuery;
  * @property string $name
  * @property string $address
  * @property string $phone
+ * @property string $map
+ * @property string $photo
  * @property int $is_default
  * @property string $created_at
  * @property string $updated_at
@@ -28,14 +30,15 @@ class Place extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
+            // todo validate photo path
             [['name', 'address'], 'required'],
             [['is_default'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['name'], 'string', 'max' => 40],
+            [['name', 'photo'], 'string', 'max' => 40],
             [['address'], 'string', 'max' => 100],
+            [['map'], 'string'],
             [['phone'], 'string', 'max' => 20],
             [['name'], 'unique'],
             [['address'], 'unique']
@@ -51,6 +54,8 @@ class Place extends \yii\db\ActiveRecord {
             'name' => \Yii::t('app', 'Name'),
             'address' => \Yii::t('app', 'Address'),
             'phone' => \Yii::t('app', 'Phone'),
+            'map' => \Yii::t('app', 'Map'),
+            'photo' => \Yii::t('app', 'Photo'),
             'is_default' => \Yii::t('app', 'Is Default'),
             'created_at' => \Yii::t('app', 'Created At'),
             'updated_at' => \Yii::t('app', 'Updated At')

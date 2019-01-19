@@ -18,7 +18,7 @@ class PlaceSearch extends Place implements SearchInterface {
     public function rules() {
         return [
             [['id', 'is_default'], 'integer'],
-            [['name', 'address', 'phone', 'created_at', 'updated_at'], 'safe']
+            [['name', 'photo', 'map', 'address', 'phone', 'created_at', 'updated_at'], 'safe']
         ];
     }
 

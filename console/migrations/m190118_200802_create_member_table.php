@@ -14,6 +14,7 @@ class m190118_200802_create_member_table extends Migration {
             'id'            => $this->primaryKey(),
             'user_id'       => $this->integer()->null()->unique(),
             'name'          => $this->string(10),
+            'photo'         => $this->string(40)->null(),
             'age'           => $this->integer()->unsigned()->notNull(),
             'dob'           => $this->timestamp()->null(),
             'sex'           => $this->tinyInteger(1)->notNull(),
