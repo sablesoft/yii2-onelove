@@ -36,5 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn']
         ]
     ]); ?>
+    <?php // todo - add paid sum column!!! ?>
+    <?php // todo - add parties sum column!!! ?>
     <?php Pjax::end(); ?>
 </div>

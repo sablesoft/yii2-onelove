@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-//            'place_id', // todo - place name
+            'place_id', // todo - place name
             'date', // todo - prepare from timestamp
             'time', // todo - prepare from timestamp
             'timestamp', // todo - format
@@ -35,5 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn']
         ]
     ]); ?>
+    <?php // todo - add paid column!!! ?>
+    <?php // todo - add members column!!! ?>
+    <?php // todo - add is_complete column!!! ?>
     <?php Pjax::end(); ?>
 </div>

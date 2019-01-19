@@ -38,6 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+<?php // todo - add paid sum!!! ?>
+<?php // todo - add members sum!!! ?>
+<?php // todo - add party sum!!! ?>
 </div>
 
 <?php // todo - add parties search!!! ?>

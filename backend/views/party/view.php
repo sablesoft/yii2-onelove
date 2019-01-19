@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-           // 'place_id', // todo - place name
+            'place_id', // todo - place name
             'timestamp', // todo - format
             'description:ntext',
             'created_at',
@@ -37,5 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+<?php // todo - add prices view!!! ?>
+
+<?php // todo - add paid sum!!! ?>
+<?php // todo - add members sum!!! ?>
 </div>
 <?php // todo - add members search!!! ?>

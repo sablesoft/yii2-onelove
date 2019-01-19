@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-//            'user_id', todo - user flag!!!
             'name',
             'sex', // todo labels
             'age',
@@ -37,11 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'phone',
             'email:email',
             'resume:ntext',
+//            'user_id', todo - user flag!!!
             'created_at', // todo format
             'updated_at', // todo format
         ],
     ]) ?>
 
+<?php // todo - add paid sum!!! ?>
+<?php // todo - add parties sum!!! ?>
 </div>
 
 <?php // todo - add parties search!!! ?>
