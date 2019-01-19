@@ -102,6 +102,7 @@ class SiteController extends Controller {
         if (!Yii::$app->user->isGuest)
             return $this->goHome();
 
+        $this->view->title = Yii::t('yii', 'Login');
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();

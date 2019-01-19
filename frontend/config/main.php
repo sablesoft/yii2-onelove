@@ -8,7 +8,6 @@ $params = array_merge(
 
 return [
     'id' => 'front',
-    'layout' => 'main.tpl',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',

@@ -1,14 +1,15 @@
 <?php
-namespace common\widgets;
+namespace backend\widgets;
 
 use Yii;
 use yii\helpers\Html;
+use common\interfaces\NavInterface;
 
 /**
  * Class Nav
  * @package common\widgets
  */
-class Nav extends \yii\bootstrap\Nav {
+class Nav extends \yii\bootstrap\Nav implements NavInterface {
 
     /**
      * @return array
@@ -17,13 +18,13 @@ class Nav extends \yii\bootstrap\Nav {
         $menuItems = [];
 
         if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-            $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+            $menuItems[] = ['label' => Yii::t('yii', 'Login'), 'url' => ['/site/login']];
         } else {
             $menuItems[] = '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    Yii::t('yii', 'Logout')
+                    .' (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()

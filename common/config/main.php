@@ -2,6 +2,7 @@
 return [
     'name'       => 'OneLove',
     'language'   => 'ru-RU',
+    'layout' => 'main.tpl',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset'

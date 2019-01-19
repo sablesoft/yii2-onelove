@@ -55,4 +55,15 @@ class SignupForm extends Model
         
         return $user->save() ? $user : null;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels() {
+        return [
+            'username'  => \Yii::t('yii', 'Username'),
+            'email'     => \Yii::t('yii', 'Email'),
+            'password'  => \Yii::t('yii', 'Password')
+        ];
+    }
 }

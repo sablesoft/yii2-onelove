@@ -1,4 +1,4 @@
-{use class='frontend\widgets\Nav'}
+{use class='backend\widgets\Nav'}
 {use class='yii\bootstrap\NavBar'}
 {NavBar::begin([
     'brandLabel' => Yii::$app->name,

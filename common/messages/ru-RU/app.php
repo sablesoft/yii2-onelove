@@ -20,7 +20,6 @@ return [
     'Asks' => 'Заявки',
     'Confirmed' => 'Записан',
     'Create Ask' => 'Создать заявку',
-    'Email' => 'Email',
     'ID' => '',
     'Member ID' => '',
     'Party ID' => '',
@@ -49,7 +48,6 @@ return [
     'Name' => 'Имя',
     'Paid' => 'Оплачено',
     'Parties' => 'Встречи',
-    'Password' => 'Пароль',
     'Phone' => 'Телефон',
     'Photo' => 'Фото',
     'Places' => 'Места',
@@ -65,6 +63,5 @@ return [
     'Update Place: {0}' => 'Обновить место: {0}',
     'Update Price: {0}' => 'Обновить стоимость: {0}',
     'Updated At' => 'Обновлен От',
-    'Username' => 'Логин',
     'Visited' => 'Посетил',
 ];

@@ -1,4 +1,4 @@
-{use class='frontend\assets\AppAsset'}
+{use class='backend\assets\AppAsset'}
 {use class='common\widgets\Alert'}
 {use class='common\models\Helper'}
 {use class='yii\helpers\Html'}
@@ -15,15 +15,12 @@
     {Html::csrfMetaTags()}
     <title>{$this->title}</title>
     {$this->head()}
-    {registerJsFile url='/js/yandex.metrika.js' position='POS_END'}
-    <noscript><div><img src="https://mc.yandex.ru/watch/51928937"
-                        style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </head>
 <body id="{Helper::pageId()}">
 {$this->beginBody()}
 
 <div class="wrap">
-    {include '@frontend/views/layouts/navbar.tpl'}
+    {include '@backend/views/layouts/navbar.tpl'}
     <div id="main-container" class="container">
         {include '@common/views/layouts/breadcrumbs.tpl'}
         {Alert::widget()}
@@ -31,7 +28,7 @@
     </div>
 </div>
 
-{include '@frontend/views/layouts/footer.tpl'}
+{include '@backend/views/layouts/footer.tpl'}
 
 {$this->endBody()}
 </body>
