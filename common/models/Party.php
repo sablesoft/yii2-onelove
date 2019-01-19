@@ -14,6 +14,7 @@ use common\models\query\PartyQuery;
  * @property string $updated_at
  *
  * @property Place $place
+ * @property Price $price
  * @property PartyMember[] $partyMembers
  * @property Member[] $members
  */
@@ -31,8 +32,8 @@ class Party extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['place_id', 'time', 'date', 'timestamp'], 'required'],
-            [['place_id'], 'integer'],
+            [['place_id', 'price_id', 'timestamp'], 'required'],
+            [['place_id', 'price_id'], 'integer'],
             [['timestamp', 'created_at', 'updated_at'], 'safe'],
             [['description'], 'string'],
             [['place_id', 'timestamp'], 'unique', 'targetAttribute' => ['place_id', 'timestamp']],
@@ -40,6 +41,10 @@ class Party extends \yii\db\ActiveRecord {
                 ['place_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Place::class, 'targetAttribute' => ['place_id' => 'id']
             ],
+            [
+                ['price_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Price::class, 'targetAttribute' => ['price_id' => 'id']
+            ]
         ];
     }
 
@@ -50,6 +55,7 @@ class Party extends \yii\db\ActiveRecord {
         return [
             'id' => 'ID',
             'place_id' => 'Place ID',
+            'price_id'  => 'Price ID',
             'timestamp' => 'Timestamp',
             'description' => 'Description',
             'created_at' => 'Created At',
@@ -62,6 +68,13 @@ class Party extends \yii\db\ActiveRecord {
      */
     public function getPlace() {
         return $this->hasOne(Place::class, ['id' => 'place_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPrice() {
+        return $this->hasOne(Price::class, ['id' => 'price_id']);
     }
 
     /**

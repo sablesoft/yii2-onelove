@@ -10,6 +10,7 @@ use common\models\query\PartyMemberQuery;
  * @property int $party_id
  * @property int $member_id
  * @property int $visited
+ * @property int $paid
  *
  * @property Member $member
  * @property Party $party
@@ -29,7 +30,7 @@ class PartyMember extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['party_id', 'member_id'], 'required'],
-            [['party_id', 'member_id', 'visited'], 'integer'],
+            [['party_id', 'member_id', 'visited', 'paid'], 'integer'],
             [['member_id', 'party_id'], 'unique', 'targetAttribute' => ['member_id', 'party_id']],
             [['member_id'], 'exist', 'skipOnError' => true, 'targetClass' => Member::class, 'targetAttribute' => ['member_id' => 'id']],
             [['party_id'], 'exist', 'skipOnError' => true, 'targetClass' => Party::class, 'targetAttribute' => ['party_id' => 'id']],
@@ -44,7 +45,8 @@ class PartyMember extends \yii\db\ActiveRecord {
             'id' => 'ID',
             'party_id' => 'Party ID',
             'member_id' => 'Member ID',
-            'visited' => 'Visited'
+            'visited' => 'Visited',
+            'paid'      => 'Paid'
         ];
     }
 
