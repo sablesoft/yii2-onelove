@@ -21,6 +21,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'place_id') ?>
+    <?= $form->field($model, 'price_id') ?>
+    <?= $form->field($model, 'max_members') ?>
 
     <?= $form->field($model, 'time') ?>
 

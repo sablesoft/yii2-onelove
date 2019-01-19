@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'place_id', // todo - place name
             'timestamp', // todo - format
+            'max_members',
             'description:ntext',
             'created_at',
             'updated_at',

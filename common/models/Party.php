@@ -10,6 +10,7 @@ use common\models\query\PartyQuery;
  * @property int $place_id
  * @property int $price_id
  * @property string $timestamp
+ * @property integer $max_members
  * @property string $description
  * @property string $created_at
  * @property string $updated_at
@@ -33,11 +34,14 @@ class Party extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['place_id', 'price_id', 'timestamp'], 'required'],
-            [['place_id', 'price_id'], 'integer'],
+            [['place_id', 'price_id', 'timestamp', 'max_members'], 'required'],
+            [['place_id', 'price_id', 'max_members'], 'integer'],
             [['timestamp', 'created_at', 'updated_at'], 'safe'],
             [['description'], 'string'],
-            [['place_id', 'timestamp'], 'unique', 'targetAttribute' => ['place_id', 'timestamp']],
+            [
+                ['place_id', 'timestamp'], 'unique',
+                'targetAttribute' => ['place_id', 'timestamp']
+            ],
             [
                 ['place_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Place::class, 'targetAttribute' => ['place_id' => 'id']
@@ -58,6 +62,7 @@ class Party extends \yii\db\ActiveRecord {
             'place_id' => \Yii::t('app', 'Place ID'),
             'price_id'  => \Yii::t('app', 'Price ID'),
             'timestamp' => \Yii::t('app', 'Timestamp'),
+            'max_members'    => \Yii::t('app', 'Max Members'),
             'description' => \Yii::t('app', 'Description'),
             'created_at' => \Yii::t('app', 'Created At'),
             'updated_at' => \Yii::t('app', 'Updated At')

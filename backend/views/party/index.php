@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'date', // todo - prepare from timestamp
             'time', // todo - prepare from timestamp
             'timestamp', // todo - format
-            'description:ntext',
+            'max_members',
 
             ['class' => 'yii\grid\ActionColumn']
         ]

@@ -18,7 +18,7 @@ class PartySearch extends Party implements SearchInterface {
     public function rules() {
         return [
             // todo - date and time dynamic fields
-            [['id', 'place_id'], 'integer'],
+            [['id', 'place_id', 'price_id', 'max_members'], 'integer'],
             [['timestamp', 'description', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -57,11 +57,13 @@ class PartySearch extends Party implements SearchInterface {
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'place_id' => $this->place_id,
-            'timestamp' => $this->timestamp,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'id'            => $this->id,
+            'place_id'      => $this->place_id,
+            'price_id'      => $this->place_id,
+            'timestamp'     => $this->timestamp,
+            'max_members'   => $this->max_members,
+            'created_at'    => $this->created_at,
+            'updated_at'    => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'description', $this->description]);
