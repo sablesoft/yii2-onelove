@@ -12,15 +12,23 @@ class m190118_200802_create_member_table extends Migration {
     public function safeUp() {
         $this->createTable('member', [
             'id'            => $this->primaryKey(),
-            'user_id'       => $this->integer()->null()->unique(),
-            'name'          => $this->string(10),
-            'photo'         => $this->string(40)->null(),
-            'age'           => $this->integer()->unsigned()->notNull(),
-            'dob'           => $this->timestamp()->null(),
-            'sex'           => $this->tinyInteger(1)->notNull(),
-            'phone'         => $this->string(20)->null()->unique(),
-            'email'         => $this->string(20)->null()->unique(),
-            'resume'        => $this->text()->null(),
+            'user_id'       => $this->integer()->null()->unique()
+                ->comment('Member account ID'),
+            'name'          => $this->string(10)
+                ->comment('Member real or nickname'),
+            'photo'         => $this->string(40)->null()
+                ->comment('Member photo or avatar web-path'),
+            'age'           => $this->integer()->unsigned()->notNull()
+                ->comment('Member age'),
+            'dob'           => $this->timestamp()->null()
+                ->comment('Member day of birth'),
+            'sex'           => $this->tinyInteger(1)->notNull()
+                ->comment('Member sex flag: Female\Male (0\1)'),
+            'phone'         => $this->string(20)->null()->unique()
+                ->comment('Member international format phone number'),
+            'email'         => $this->string(20)->null()->unique()
+                ->comment('Member email'),
+            'resume'        => $this->text()->null()->comment('Member self-description'),
             'created_at'    => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at'    => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP')
         ]);

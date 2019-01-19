@@ -13,11 +13,15 @@ class m190118_200500_create_price_table extends Migration {
     public function safeUp() {
         $this->createTable('price', [
             'id'            => $this->primaryKey(),
-            'name'          => $this->string(30)->notNull(),
-            'base'          => $this->integer()->notNull(),
-            'repeat'        => $this->integer()->notNull(),
-            'company'       => $this->integer()->notNull(),
-            'is_default'    => $this->tinyInteger(1)->notNull()->defaultValue(0)
+            'name'          => $this->string(30)
+                ->notNull()->comment('Price list label'),
+            'base'          => $this->integer()->notNull()->comment('Base price'),
+            'repeat'        => $this->integer()->notNull()
+                ->comment('Price for repeat visit'),
+            'company'       => $this->integer()->notNull()
+                ->comment('Price for members company'),
+            'is_default'    => $this->tinyInteger(1)->notNull()
+                ->defaultValue(0)->comment('Is default price list flag')
         ]);
     }
 
