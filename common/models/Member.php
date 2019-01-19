@@ -44,7 +44,10 @@ class Member extends \yii\db\ActiveRecord {
             [['user_id'], 'unique'],
             [['phone'], 'unique'],
             [['email'], 'unique'],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [
+                ['user_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']
+            ]
         ];
     }
 
@@ -53,17 +56,17 @@ class Member extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'name' => 'Name',
-            'age' => 'Age',
-            'dob' => 'Dob',
-            'sex' => 'Sex',
-            'phone' => 'Phone',
-            'email' => 'Email',
-            'resume' => 'Resume',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'id' => \Yii::t('app', 'ID'),
+            'user_id' => \Yii::t('app', 'User ID'),
+            'name' => \Yii::t('app', 'Name'),
+            'age' => \Yii::t('app', 'Age'),
+            'dob' => \Yii::t('app', 'Dob'),
+            'sex' => \Yii::t('app', 'Sex'),
+            'phone' => \Yii::t('app', 'Phone'),
+            'email' => \Yii::t('app', 'Email'),
+            'resume' => \Yii::t('app', 'Resume'),
+            'created_at' => \Yii::t('app', 'Created At'),
+            'updated_at' => \Yii::t('app', 'Updated At'),
         ];
     }
 

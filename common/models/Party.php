@@ -53,13 +53,13 @@ class Party extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id' => 'ID',
-            'place_id' => 'Place ID',
-            'price_id'  => 'Price ID',
-            'timestamp' => 'Timestamp',
-            'description' => 'Description',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'id' => \Yii::t('app', 'ID'),
+            'place_id' => \Yii::t('app', 'Place ID'),
+            'price_id'  => \Yii::t('app', 'Price ID'),
+            'timestamp' => \Yii::t('app', 'Timestamp'),
+            'description' => \Yii::t('app', 'Description'),
+            'created_at' => \Yii::t('app', 'Created At'),
+            'updated_at' => \Yii::t('app', 'Updated At'),
         ];
     }
 

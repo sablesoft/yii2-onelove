@@ -47,13 +47,13 @@ class Place extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'address' => 'Address',
-            'phone' => 'Phone',
-            'is_default' => 'Is Default',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At'
+            'id' => \Yii::t('app', 'ID'),
+            'name' => \Yii::t('app', 'Name'),
+            'address' => \Yii::t('app', 'Address'),
+            'phone' => \Yii::t('app', 'Phone'),
+            'is_default' => \Yii::t('app', 'Is Default'),
+            'created_at' => \Yii::t('app', 'Created At'),
+            'updated_at' => \Yii::t('app', 'Updated At')
         ];
     }
 

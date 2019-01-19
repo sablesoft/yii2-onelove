@@ -39,12 +39,12 @@ class Price extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'base' => 'Base',
-            'repeat' => 'Repeat',
-            'company' => 'Company',
-            'is_default' => 'Is Default'
+            'id' => \Yii::t('app', 'ID'),
+            'name' => \Yii::t('app', 'Name'),
+            'base' => \Yii::t('app', 'Base'),
+            'repeat' => \Yii::t('app', 'Repeat'),
+            'company' => \Yii::t('app', 'Company'),
+            'is_default' => \Yii::t('app', 'Is Default')
         ];
     }
 

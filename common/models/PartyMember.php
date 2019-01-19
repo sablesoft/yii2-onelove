@@ -42,11 +42,11 @@ class PartyMember extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id' => 'ID',
-            'party_id' => 'Party ID',
-            'member_id' => 'Member ID',
-            'visited' => 'Visited',
-            'paid'      => 'Paid'
+            'id' => \Yii::t('app', 'ID'),
+            'party_id' => \Yii::t('app', 'Party ID'),
+            'member_id' => \Yii::t('app', 'Member ID'),
+            'visited' => \Yii::t('app', 'Visited'),
+            'paid'      => \Yii::t('app', 'Paid')
         ];
     }
 

@@ -1,6 +1,7 @@
 <?php
 return [
     'name'       => 'OneLove',
+    'language'   => 'ru-RU',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset'
@@ -9,6 +10,20 @@ return [
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache'
+        ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/messages',
+                    'sourceLanguage' => 'en-US',
+                ],
+                'yii' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'sourceLanguage' => 'en-US',
+                    'basePath' => '@common/messages'
+                ],
+            ]
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
