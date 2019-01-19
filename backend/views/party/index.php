@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'place_id', // todo - place name
+            'price_id', // todo - price name
             'date', // todo - prepare from timestamp
             'time', // todo - prepare from timestamp
             'timestamp', // todo - format

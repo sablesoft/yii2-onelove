@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'place_id')->textInput() // todo - places dropdown ?>
 
+    <?= $form->field($model, 'price_id')->textInput() // todo - prices dropdown ?>
+
     <?= $form->field($model, 'timestamp')->textInput() // todo - date time picker ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
