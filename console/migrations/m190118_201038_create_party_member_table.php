@@ -15,11 +15,13 @@ class m190118_201038_create_party_member_table extends Migration {
             'id'        => $this->primaryKey(),
             'party_id'  => $this->integer()->notNull(),
             'member_id' => $this->integer()->notNull(),
-            'visited'   => $this->tinyInteger(1)->notNull()->defaultValue(0)
+            'visited'   => $this->tinyInteger(1)->notNull()->defaultValue(0),
+            'paid'      => $this->integer()->null()
         ]);
         $this->createIndex( 'idx-party_member-member_id', 'party_member',  'member_id' );
         $this->createIndex( 'idx-party_member-party_id', 'party_member',  'party_id' );
         $this->createIndex( 'idx-party_member-visited', 'party_member',  'visited' );
+        $this->createIndex( 'idx-party_member-paid', 'party_member',  'paid' );
         // add foreign key for table `member`
         $this->addForeignKey(
             'fk-party_member-member_id',
@@ -51,6 +53,7 @@ class m190118_201038_create_party_member_table extends Migration {
         $this->dropIndex( 'idx-party_member-member_id', 'party_member' );
         $this->dropIndex( 'idx-party_member-party_id', 'party_member' );
         $this->dropIndex( 'idx-party_member-visited', 'party_member' );
+        $this->dropIndex( 'idx-party_member-paid', 'party_member' );
         // drop table:
         $this->dropTable('party_member');
     }
