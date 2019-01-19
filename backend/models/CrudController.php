@@ -132,7 +132,7 @@ class CrudController extends Controller {
             return $model;
 
         throw new NotFoundHttpException(
-            \Yii::t('app', 'The requested page does not exist.')
+            \Yii::t('yii', 'The requested page does not exist.')
         );
     }
 }

@@ -21,7 +21,7 @@ $this->title = $name;
         <?= Yii::t('yii', 'The above error occurred while the Web server was processing your request.'); ?>
     </p>
     <p>
-        <?= Yii::t('app', 'Please contact us if you think this is a server error. Thank you.'); ?>
+        <?= Yii::t('yii', 'Please contact us if you think this is a server error. Thank you.'); ?>
     </p>
 
 </div>
