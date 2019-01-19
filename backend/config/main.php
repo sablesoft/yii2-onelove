@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'back',
+    'name' => 'OneLove : Admin Panel',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],

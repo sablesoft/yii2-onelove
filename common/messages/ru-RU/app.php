@@ -18,6 +18,7 @@
  */
 return [
     'Address' => 'Адрес',
+    'Admin Panel' => 'Панель Администратора',
     'Age' => 'Возраст',
     'Base' => 'Базовая',
     'Choose your language' => '',
