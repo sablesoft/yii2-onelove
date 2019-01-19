@@ -42,6 +42,7 @@ return [
     'Paid' => 'Оплачено',
     'Parties' => 'Встречи',
     'Party ID' => '',
+    'Password' => 'Пароль',
     'Phone' => 'Телефон',
     'Place ID' => '',
     'Places' => 'Места',
@@ -49,6 +50,7 @@ return [
     'Price ID' => '',
     'Prices' => 'Расценки',
     'Repeat' => 'Повторная',
+    'Remember Me' => 'Запомнить',
     'Resume' => 'Продолжить',
     'Russian' => 'Русский',
     'Sex' => 'Пол',
@@ -60,5 +62,6 @@ return [
     'Update Price: {0}' => 'Обновить стоимость: {0}',
     'Updated At' => 'Обновлен От',
     'User ID' => '',
+    'Username' => 'Логин',
     'Visited' => 'Посещено',
 ];

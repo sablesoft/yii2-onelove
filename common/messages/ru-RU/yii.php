@@ -40,7 +40,7 @@ return [
     'Operator "{operator}" must be used with a search attribute.' => '',
     'Operator "{operator}" requires multiple operands.' => '',
     'Page not found.' => 'Страница не найдена.',
-    'Please fill out the following fields to login' => '',
+    'Please fill out the following fields to login' => 'Пожалуйста, заполните необходимые поля чтобы войти',
     'Please fix the following errors:' => '',
     'Please upload a file.' => '',
     'Powered by {yii}' => '',
