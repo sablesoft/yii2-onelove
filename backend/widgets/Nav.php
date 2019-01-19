@@ -18,8 +18,33 @@ class Nav extends \yii\bootstrap\Nav implements NavInterface {
         $menuItems = [];
 
         if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => Yii::t('yii', 'Login'), 'url' => ['/site/login']];
+            $menuItems[] = [
+                'label' => Yii::t('yii', 'Login'),
+                'url' => ['/site/login']
+            ];
         } else {
+            $menuItems = [
+                [
+                    'label' => Yii::t('app', 'Asks'),
+                    'url'   => ['/ask']
+                ],
+                [
+                    'label' => Yii::t('app', 'Parties'),
+                    'url'   => ['/party']
+                ],
+                [
+                    'label' => Yii::t('app', 'Prices'),
+                    'url'   => ['/price']
+                ],
+                [
+                    'label' => Yii::t('app', 'Places'),
+                    'url'   => ['/place']
+                ],
+                [
+                    'label' => Yii::t('app', 'Members'),
+                    'url'   => ['/member']
+                ]
+            ];
             $menuItems[] = '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
