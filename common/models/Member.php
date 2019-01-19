@@ -20,10 +20,11 @@ use common\models\query\MemberQuery;
  * @property string $updated_at
  *
  * @property User $user
- * @property PartyMember[] $partyMembers
+ * @property Ask[] $asks
  * @property Party[] $parties
  */
 class Member extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
@@ -40,8 +41,9 @@ class Member extends \yii\db\ActiveRecord {
             [['user_id', 'age', 'sex'], 'integer'],
             [['age', 'sex'], 'required'],
             [['dob', 'created_at', 'updated_at'], 'safe'],
-            [['resume', 'photo'], 'string'],
+            [['resume'], 'string'],
             [['name'], 'string', 'max' => 10],
+            [['photo'], 'string', 'max' => 40],
             [['phone', 'email'], 'string', 'max' => 20],
             [['user_id'], 'unique'],
             [['phone'], 'unique'],
@@ -69,7 +71,7 @@ class Member extends \yii\db\ActiveRecord {
             'email' => \Yii::t('app', 'Email'),
             'resume' => \Yii::t('app', 'Resume'),
             'created_at' => \Yii::t('app', 'Created At'),
-            'updated_at' => \Yii::t('app', 'Updated At'),
+            'updated_at' => \Yii::t('app', 'Updated At')
         ];
     }
 
@@ -83,8 +85,8 @@ class Member extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPartyMembers() {
-        return $this->hasMany( PartyMember::class, ['member_id' => 'id'] );
+    public function getAsks() {
+        return $this->hasMany( Ask::class, ['member_id' => 'id'] );
     }
 
     /**
@@ -92,7 +94,7 @@ class Member extends \yii\db\ActiveRecord {
      */
     public function getParties() {
         return $this->hasMany( Party::class, ['id' => 'party_id'] )
-            ->viaTable('party_member', ['member_id' => 'id'] );
+            ->viaTable( Ask::tableName(), ['member_id' => 'id'] );
     }
 
     /**

@@ -1,14 +1,14 @@
 <?php
 namespace common\models\query;
 
-use common\models\PartyMember;
+use common\models\Ask;
 
 /**
- * This is the ActiveQuery class for [[PartyMember]].
+ * This is the ActiveQuery class for [[Ask]].
  *
- * @see PartyMember
+ * @see Ask
  */
-class PartyMemberQuery extends \yii\db\ActiveQuery {
+class AskQuery extends \yii\db\ActiveQuery {
 
     /*public function active()
     {
@@ -17,7 +17,7 @@ class PartyMemberQuery extends \yii\db\ActiveQuery {
 
     /**
      * {@inheritdoc}
-     * @return PartyMember[]|array
+     * @return Ask[]|array
      */
     public function all( $db = null ) {
         return parent::all( $db );
@@ -25,7 +25,7 @@ class PartyMemberQuery extends \yii\db\ActiveQuery {
 
     /**
      * {@inheritdoc}
-     * @return PartyMember|array|null
+     * @return Ask|array|null
      */
     public function one( $db = null ) {
         return parent::one( $db );

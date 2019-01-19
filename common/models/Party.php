@@ -8,14 +8,15 @@ use common\models\query\PartyQuery;
  *
  * @property int $id
  * @property int $place_id
+ * @property int $price_id
  * @property string $timestamp
  * @property string $description
  * @property string $created_at
  * @property string $updated_at
  *
+ * @property Ask[] $asks
  * @property Place $place
  * @property Price $price
- * @property PartyMember[] $partyMembers
  * @property Member[] $members
  */
 class Party extends \yii\db\ActiveRecord {
@@ -59,7 +60,7 @@ class Party extends \yii\db\ActiveRecord {
             'timestamp' => \Yii::t('app', 'Timestamp'),
             'description' => \Yii::t('app', 'Description'),
             'created_at' => \Yii::t('app', 'Created At'),
-            'updated_at' => \Yii::t('app', 'Updated At'),
+            'updated_at' => \Yii::t('app', 'Updated At')
         ];
     }
 
@@ -80,8 +81,8 @@ class Party extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPartyMembers() {
-        return $this->hasMany( PartyMember::class, ['party_id' => 'id'] );
+    public function getAsks() {
+        return $this->hasMany( Ask::class, ['party_id' => 'id'] );
     }
 
     /**
@@ -89,7 +90,7 @@ class Party extends \yii\db\ActiveRecord {
      */
     public function getMembers() {
         return $this->hasMany( Member::class, ['id' => 'member_id'] )
-            ->viaTable('party_member', ['party_id' => 'id'] );
+            ->viaTable( Ask::tableName(), ['party_id' => 'id'] );
     }
 
     /**

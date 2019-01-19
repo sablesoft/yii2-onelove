@@ -2,23 +2,22 @@
 
 namespace common\models\search;
 
-use common\interfaces\SearchInterface;
 use yii\base\Model;
+use common\models\Ask;
 use yii\data\ActiveDataProvider;
-use common\models\Member;
+use common\interfaces\SearchInterface;
 
 /**
- * MemberSearch represents the model behind the search form of `common\models\Member`.
+ * AskSearch represents the model behind the search form of `Ask`.
  */
-class MemberSearch extends Member implements SearchInterface {
+class AskSearch extends Ask implements SearchInterface {
 
     /**
      * {@inheritdoc}
      */
     public function rules() {
         return [
-            [['id', 'user_id', 'age', 'sex'], 'integer'],
-            [['name', 'dob', 'phone', 'photo', 'email', 'resume', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'party_id', 'member_id', 'processed', 'confirmed', 'visited', 'paid'], 'integer']
         ];
     }
 
@@ -38,7 +37,8 @@ class MemberSearch extends Member implements SearchInterface {
      * @return ActiveDataProvider
      */
     public function search( array $params ) : ActiveDataProvider {
-        $query = Member::find();
+
+        $query = Ask::find();
 
         // add conditions that should always apply here
 
@@ -57,18 +57,13 @@ class MemberSearch extends Member implements SearchInterface {
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'age' => $this->age,
-            'dob' => $this->dob,
-            'sex' => $this->sex,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'party_id' => $this->party_id,
+            'member_id' => $this->member_id,
+            'processed' => $this->processed,
+            'confirmed' => $this->confirmed,
+            'visited' => $this->visited,
+            'paid' => $this->paid
         ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'resume', $this->resume]);
 
         return $dataProvider;
     }
