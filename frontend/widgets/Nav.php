@@ -20,15 +20,15 @@ class Nav extends \yii\bootstrap\Nav implements NavInterface {
         if (Yii::$app->user->isGuest) {
             $menuItems[] = [
                 'label' => Yii::t('yii', 'Signup'),
-                'url' => ['/site/signup']
+                'url' => ['/signup']
             ];
             $menuItems[] = [
                 'label' => Yii::t('yii', 'Login'),
-                'url' => ['/site/login']
+                'url' => ['/login']
             ];
         } else {
             $menuItems[] = '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
+                . Html::beginForm(['/logout'], 'post')
                 . Html::submitButton(
                     Yii::t('yii', 'Logout')
                     .' (' . Yii::$app->user->identity->username . ')',
