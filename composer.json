@@ -21,7 +21,11 @@
         "yiisoft/yii2-gii": "^2",
         "yiisoft/yii2-debug": "^2",
         "yiisoft/yii2-smarty": "^2.0",
-        "sablerom/yii2-vue": "^1.0"
+        "sablerom/yii2-vue": "^1.0",
+        "kartik-v/yii2-widget-datetimepicker": "^1.4",
+        "kartik-v/yii2-widget-datepicker": "dev-master",
+        "dektrium/yii2-rbac": "dev-master",
+        "dektrium/yii2-user": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-faker": "^2",
