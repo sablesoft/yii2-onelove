@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => Html::a( $model->placeLabel, $model->placeUrl )
             ],
-            'formattedTimestamp',
+            'timestamp:datetime',
             [
                 'attribute' => 'priceLabel',
                 'format' => 'raw',
@@ -42,9 +42,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'max_members',
             'description:ntext',
-            'created_at',
-            'updated_at'
-        ],
+            'created_at:datetime',
+            'updated_at:datetime'
+        ]
     ]) ?>
 
 <?php // todo - add prices view!!! ?>

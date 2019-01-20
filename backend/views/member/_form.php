@@ -18,7 +18,21 @@ use yii\widgets\ActiveForm;
         <div class="col-sm-4">
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'trueAge')->textInput(); // todo - age validation ?>
-            <?= $form->field($model, 'dob')->textInput(); // todo - date picker ?>
+            <?= $form->field($model, 'dob')->widget(
+                'kartik\datetime\DateTimePicker',
+                [
+                    'options' => [
+                            'placeholder' => Yii::t('app','Select your day of birth') .' ...'
+                    ],
+                    'removeButton'  => false,
+                    'pluginOptions' => [
+                        'forceParse'    => true,
+                        'format' => 'yyyy-mm-dd H:i',
+                        'autoclose' => true,
+                        'todayHighlight' => true
+                    ]
+                ]
+            ); ?>
         </div>
         <div class="col-sm-4">
             <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) // todo - file uploader ?>

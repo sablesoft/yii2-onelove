@@ -56,6 +56,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn']
         ]
     ]); ?>
-    <?php // todo - add is repeat flag column ?>
+    <?php // todo - add is active flag column ?>
     <?php Pjax::end(); ?>
 </div>

@@ -21,7 +21,22 @@ use yii\widgets\ActiveForm;
                 ->label( Yii::t('app', 'Place') ); ?>
         </div>
         <div class="col-sm-6">
-            <?= $form->field($model, 'timestamp')->textInput() // todo - date time picker ?>
+            <?= $form->field($model, 'timestamp')->widget(
+                'kartik\datetime\DateTimePicker',
+                [
+                    'options' => [
+                        'autocomplete' => 'off',
+                        'placeholder' => Yii::t('app','Select party date and time') .' ...'
+                    ],
+                    'removeButton'  => false,
+                    'pluginOptions' => [
+                        'forceParse' => true,
+                        'format' => 'yyyy-mm-dd H:i',
+                        'autoclose' => true,
+                        'todayHighlight' => true
+                    ]
+                ]
+            ); ?>
         </div>
     </div>
     <div class="row">

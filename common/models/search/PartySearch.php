@@ -60,13 +60,13 @@ class PartySearch extends Party implements SearchInterface {
             'id'            => $this->id,
             'place_id'      => $this->place_id,
             'price_id'      => $this->place_id,
-            'timestamp'     => $this->timestamp,
             'max_members'   => $this->max_members,
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'description', $this->description])
+                ->andFilterWhere(['like', 'timestamp', $this->timestamp])
                 ->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;

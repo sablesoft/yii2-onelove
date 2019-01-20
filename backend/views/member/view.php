@@ -47,13 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'sexLabel',
             'ageLabel',
-            'dob', // todo datetime
+            'dob:date',
             'phone',
             'email:email',
             'resume:ntext',
             'username',
-            'created_at', // todo format
-            'updated_at', // todo format
+            'created_at:datetime',
+            'updated_at:datetime'
         ]
     ]); ?>
 

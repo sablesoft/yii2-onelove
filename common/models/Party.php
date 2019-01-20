@@ -30,7 +30,7 @@ use yii\db\ActiveRecord;
  */
 class Party extends BaseModel {
 
-    const DATETIME_FORMAT = 'd.m.y (H:i)';
+    const WIDGET_DATETIME = 'y-m-d H:i';
 
     /**
      * {@inheritdoc}
@@ -45,10 +45,11 @@ class Party extends BaseModel {
                 'class'      => AttributeBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['timestamp'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['timestamp'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['timestamp']
                 ],
                 'value' => function( $event ) {
-                    return date('Y-m-d', strtotime( $this->timestamp ) );
+                    $timestamp = strtotime( $this->timestamp );
+                    return date('Y-m-d H:i', $timestamp );
                 }
             ]
         ];
@@ -179,7 +180,7 @@ class Party extends BaseModel {
         return $this->placeLabel . ' - ' . $this->formattedTimestamp;
     }
 
-    public function getFormattedTimestamp( $format = self::DATETIME_FORMAT ) : string {
+    public function getFormattedTimestamp( $format = self::WIDGET_DATETIME ) : string {
         return date( $format, strtotime( $this->timestamp ) );
     }
 

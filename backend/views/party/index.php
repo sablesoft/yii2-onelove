@@ -39,10 +39,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'timestamp',
-                'value' => function( $model ) {
-                    /** @var \common\models\Party $model */
-                    return $model->formattedTimestamp;
-                }
+                'format' => 'datetime',
+                'filter'  => \kartik\date\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'timestamp',
+                    'options' => [
+                        'autocomplete' => 'off',
+                        'placeholder' => Yii::t('app','Date filter') .'...'
+                    ],
+                    'pluginOptions' => [
+                        'forceParse' => true,
+                        'format' => 'yyyy-mm-dd',
+                        'autoclose' => true,
+                        'todayHighlight' => true
+                    ]
+                ])
             ],
             [
                 'attribute' => 'price_id',
