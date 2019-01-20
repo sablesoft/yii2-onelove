@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2901ac6ceb866439ee219d8efb031da3",
+    "content-hash": "f9915172b839cc63e77e045175a7dc67",
     "packages": [
         {
             "name": "bower-asset/axios",
@@ -759,17 +759,17 @@
             "time": "2016-04-07T12:29:16+00:00"
         },
         {
-            "name": "sablerom/yii2-vue",
+            "name": "sablesoft/yii2-vue",
             "version": "v1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sablerom/yii2-vue.git",
-                "reference": "aa488528d1e6b5ec8614e2fe8c267d36504c4901"
+                "url": "https://github.com/sablesoft/yii2-vue.git",
+                "reference": "1c37de834f780b05b8b990ac4c48efb6a970f1e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sablerom/yii2-vue/zipball/aa488528d1e6b5ec8614e2fe8c267d36504c4901",
-                "reference": "aa488528d1e6b5ec8614e2fe8c267d36504c4901",
+                "url": "https://api.github.com/repos/sablesoft/yii2-vue/zipball/1c37de834f780b05b8b990ac4c48efb6a970f1e3",
+                "reference": "1c37de834f780b05b8b990ac4c48efb6a970f1e3",
                 "shasum": ""
             },
             "require": {
@@ -781,7 +781,7 @@
             "type": "yii2-extension",
             "autoload": {
                 "psr-4": {
-                    "sablerom\\vue\\": ""
+                    "sablesoft\\vue\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -790,7 +790,7 @@
             ],
             "authors": [
                 {
-                    "name": "Roman Sable",
+                    "name": "SableSoft (Raman Sobal)",
                     "email": "sable.lair@gmail.com"
                 }
             ],
@@ -799,13 +799,13 @@
                 " vue.js",
                 "axios",
                 "lodash",
-                "sablerom",
+                "sablesoft",
                 "vue",
                 "vuejs",
                 "yii2",
                 "yii2-vue"
             ],
-            "time": "2018-04-20T12:21:21+00:00"
+            "time": "2019-01-20T22:17:02+00:00"
         },
         {
             "name": "smarty/smarty",
