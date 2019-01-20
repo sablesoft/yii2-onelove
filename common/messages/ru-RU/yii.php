@@ -21,7 +21,7 @@ return [
     '"{attribute}" does not support operator "{operator}".' => '',
     '(not set)' => '',
     'An internal server error occurred.' => '',
-    'Are you sure you want to delete this item?' => '',
+    'Are you sure you want to delete this item?' => 'Вы уверены, что хотите удалить эту запись?',
     'Condition for "{attribute}" should be either a value or valid operator specification.' => '',
     'Delete' => 'Удалить',
     'Error' => 'Ошибка',
@@ -35,7 +35,7 @@ return [
     'Logout' => 'Выйти',
     'Missing required arguments: {params}' => '',
     'Missing required parameters: {params}' => '',
-    'No' => '',
+    'No' => 'Нет',
     'No results found.' => 'Ничего не найдено.',
     'Only files with these MIME types are allowed: {mimeTypes}.' => '',
     'Only files with these extensions are allowed: {extensions}.' => '',
@@ -56,7 +56,8 @@ return [
     'Showing <b>{begin, number}-{end, number}</b> of <b>{totalCount, number}</b> {totalCount, plural, one{item} other{items}}.'
         => 'Показаны <b>{begin, number}-{end, number}</b> из <b>{totalCount, number}</b> {totalCount, plural, one{элемента} other{элементов}}.',
     'The above error occurred while the Web server was processing your request.' => '',
-    'The combination {values} of {attributes} has already been taken.' => '',
+    'The combination {values} of {attributes} has already been taken.'
+        => 'Сочетание {values} для {attributes} уже существует.',
     'The file "{file}" is not an image.' => '',
     'The file "{file}" is too big. Its size cannot exceed {formattedLimit}.' => '',
     'The file "{file}" is too small. Its size cannot be smaller than {formattedLimit}.' => '',
