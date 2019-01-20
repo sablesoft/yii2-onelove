@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Party */
 
-$this->title = $model->id;
+$this->title = $model->label;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Parties'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -29,12 +29,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'place_id', // todo - place name
-            'timestamp', // todo - format
+            [
+                'attribute' => 'placeLabel',
+                'format' => 'raw',
+                'value' => Html::a( $model->placeLabel, $model->placeUrl )
+            ],
+            'formattedTimestamp',
+            [
+                'attribute' => 'priceLabel',
+                'format' => 'raw',
+                'value' => Html::a( $model->priceLabel, $model->priceUrl )
+            ],
             'max_members',
             'description:ntext',
             'created_at',
-            'updated_at',
+            'updated_at'
         ],
     ]) ?>
 

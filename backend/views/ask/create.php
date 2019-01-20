@@ -6,7 +6,10 @@ use yii\helpers\Html;
 /* @var $model common\models\Ask */
 
 $this->title = Yii::t('app', 'Create Ask');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Asks'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('app', 'Asks'),
+    'url' => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ask-create">

@@ -25,12 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'photo', // todo - image column!!!
+            [
+                // todo - image column!!!
+                'attribute' => 'photo',
+                'filter' => false
+            ],
             'name',
             'address',
             'phone',
-            'is_default',
+            'is_default:boolean',
             //'created_at',
             //'updated_at',
 

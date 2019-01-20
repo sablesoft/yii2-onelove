@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'base',
             'repeat',
             'company',
-            'is_default', // todo - yesno label
+            'is_default:boolean'
         ],
     ]) ?>
 

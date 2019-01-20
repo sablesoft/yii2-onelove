@@ -1,6 +1,8 @@
 <?php
 
 use yii\helpers\Html;
+use common\models\User;
+use common\models\Member;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -12,21 +14,26 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-<!--    < ?= $form->field($model, 'user_id')->textInput() todo !!! ?>-->
-
-    <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) // todo - file uploader ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'age')->textInput(); // todo - age validation ?>
-
-    <?= $form->field($model, 'dob')->textInput(); // todo - date picker ?>
-
-    <?= $form->field($model, 'sex')->textInput(); // todo - sex dropdown!!! ?>
-
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) // todo - phone mask ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) // todo - email validation ?>
+    <div class="row">
+        <div class="col-sm-4">
+            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'trueAge')->textInput(); // todo - age validation ?>
+            <?= $form->field($model, 'dob')->textInput(); // todo - date picker ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) // todo - file uploader ?>
+            <?= $form->field($model, 'sex')->dropDownList( Member::getSexDropDownList() ); ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) // todo - phone mask ?>
+            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) // todo - email validation ?>
+            <?= $form->field($model, 'user_id')->dropDownList(
+                ...User::getDropDownList([
+                'prompt' => Yii::t('app', 'Select user account')
+            ])
+            ); ?>
+        </div>
+    </div>
 
     <?= $form->field($model, 'resume')->textarea(['rows' => 6]); // todo - editor ?>
 

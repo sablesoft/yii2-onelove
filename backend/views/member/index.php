@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\Member;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\MemberSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -17,7 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Member'), ['create'], ['class' => 'btn btn-success']); ?>
+        <?= Html::a(
+                Yii::t('app', 'Create Member'),
+                ['create'],
+                ['class' => 'btn btn-success']
+        ); ?>
     </p>
 
     <?= GridView::widget([
@@ -26,10 +31,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'photo', // todo - show html image
+            [
+                // todo - photo column!!!
+                'attribute' => 'photo',
+                'filter' => false
+            ],
             'name',
-            'sex', // todo labels!
-            'age',
+            [
+                'attribute' => 'sex',
+                'value'     => function( $model ) {
+                    /** @var \common\models\Member $model */
+                    return $model->sexLabel;
+                },
+                'filter' => Member::getSexDropDownList()
+            ],
+            [
+                'attribute' => 'age',
+                'value'     => function( $model ) {
+                    /** @var \common\models\Member $model */
+                    return $model->ageLabel;
+                }
+            ],
             'dob', // todo date
             'phone',
             'email:email',

@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\Party;
+use common\models\Member;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\AskSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -17,7 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Ask'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(
+                Yii::t('app', 'Create Ask'),
+                ['create'],
+                ['class' => 'btn btn-success']
+        ); ?>
     </p>
 
     <?= GridView::widget([
@@ -26,11 +32,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'party_id', // todo - party label
-            'member_id', // todo - member label
-            'processed', // todo - yesno label
-            'confirmed', // todo - yesno label
-            'visited', // todo - yesno label
+            [
+                'attribute' => 'party_id', // todo
+                'value' => function( $model ) {
+                    /** @var \common\models\Ask $model */
+                    return $model->partyLabel;
+                },
+                'filter' => Party::getDropDownList()[0]
+            ],
+            [
+                'attribute' => 'member_id', // todo
+                'value' => function( $model ) {
+                    /** @var \common\models\Ask $model */
+                    return $model->memberLabel;
+                },
+                'filter' => Member::getDropDownList()[0]
+            ],
+            'processed:boolean',
+            'confirmed:boolean',
+            'visited:boolean',
             'paid',
 
             ['class' => 'yii\grid\ActionColumn']

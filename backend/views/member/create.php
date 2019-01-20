@@ -6,7 +6,10 @@ use yii\helpers\Html;
 /* @var $model common\models\Member */
 
 $this->title = Yii::t('app', 'Create Member');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Members'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('app', 'Members'),
+    'url' => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="member-create">

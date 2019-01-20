@@ -28,13 +28,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'confirmed') ?>
 
-    <?php // echo $form->field($model, 'visited') ?>
+    <?= $form->field($model, 'visited') ?>
 
-    <?php // echo $form->field($model, 'paid') ?>
+    <?= $form->field($model, 'paid') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('yii', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('yii', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(
+                Yii::t('yii', 'Search'),
+                ['class' => 'btn btn-primary']
+        ); ?>
+        <?= Html::resetButton(
+                Yii::t('yii', 'Reset'),
+                ['class' => 'btn btn-default']
+        ); ?>
     </div>
 
     <?php ActiveForm::end(); ?>

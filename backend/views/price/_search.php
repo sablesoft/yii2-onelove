@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'company') ?>
 
-    <?php // echo $form->field($model, 'is_default') ?>
+    <?= $form->field($model, 'is_default') ?>
 
     <div class="form-group">
         <?= Html::submitButton( Yii::t('yii', 'Search'), ['class' => 'btn btn-primary']) ?>

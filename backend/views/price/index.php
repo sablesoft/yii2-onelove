@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'base',
             'repeat',
             'company',
-            'is_default', // todo - yesno label
+            'is_default:boolean',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

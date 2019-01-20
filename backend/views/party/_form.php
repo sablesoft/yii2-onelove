@@ -1,6 +1,8 @@
 <?php
 
 use yii\helpers\Html;
+use common\models\Place;
+use common\models\Price;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -14,7 +16,9 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-sm-6">
-            <?= $form->field($model, 'place_id')->textInput() // todo - places dropdown ?>
+            <?= $form->field( $model, 'place_id')
+                ->dropDownList( ...Place::getDropDownList([ 'selected' => true ]) )
+                ->label( Yii::t('app', 'Place') ); ?>
         </div>
         <div class="col-sm-6">
             <?= $form->field($model, 'timestamp')->textInput() // todo - date time picker ?>
@@ -22,13 +26,16 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <?= $form->field($model, 'price_id')->textInput() // todo - prices dropdown ?>
+            <?= $form->field($model, 'price_id')
+                ->dropDownList( ...Price::getDropDownList([ 'selected' => true ]) )
+                ->label( Yii::t('app', 'Price') ); ?>
         </div>
         <div class="col-sm-6">
             <?= $form->field($model, 'max_members')->input('number'); // todo - validate min max ?>
         </div>
     </div>
 
+    <?= $form->field($model, 'name')->textInput(); ?>
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">

@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\Place;
+use common\models\Price;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\PartySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -26,11 +28,32 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'place_id', // todo - place name
-            'price_id', // todo - price name
-            'date', // todo - prepare from timestamp
-            'time', // todo - prepare from timestamp
-            'timestamp', // todo - format
+            'name',
+            [
+                'attribute' => 'place_id',
+                'value' => function( $model ) {
+                    /** @var \common\models\Party $model */
+                    return $model->placeLabel;
+                },
+                'filter' => Place::getDropDownList()[0]
+            ],
+            [
+                'attribute' => 'timestamp',
+                'value' => function( $model ) {
+                    /** @var \common\models\Party $model */
+                    return $model->formattedTimestamp;
+                }
+            ],
+            [
+                'attribute' => 'price_id',
+                'value' => function( $model ) {
+                    /** @var \common\models\Party $model */
+                    return $model->priceLabel;
+                },
+                'filter' => Price::getDropDownList()[0]
+            ],
+//            'date', // todo - prepare from timestamp
+//            'time', // todo - prepare from timestamp
             'max_members',
 
             ['class' => 'yii\grid\ActionColumn']
