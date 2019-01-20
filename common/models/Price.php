@@ -5,7 +5,6 @@ namespace common\models;
 /**
  * This is the model class for table "price".
  *
- * @property int $id
  * @property string $name
  * @property int $base
  * @property int $repeat
@@ -14,7 +13,7 @@ namespace common\models;
  *
  * @property Party[] $parties
  */
-class Price extends \yii\db\ActiveRecord {
+class Price extends BaseModel {
 
     /**
      * {@inheritdoc}
@@ -53,6 +52,21 @@ class Price extends \yii\db\ActiveRecord {
      */
     public function getParties() {
         return $this->hasMany(Party::class, ['price_id' => 'id']);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel() : string {
+        return $this->name . ' ( ' . $this->base . ' / ' .
+            $this->repeat . ' / ' . $this->company . ' )';
     }
 
     /**

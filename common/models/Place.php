@@ -6,7 +6,6 @@ use common\models\query\PlaceQuery;
 /**
  * This is the model class for table "place".
  *
- * @property int $id
  * @property string $name
  * @property string $address
  * @property string $phone
@@ -18,7 +17,7 @@ use common\models\query\PlaceQuery;
  *
  * @property Party[] $parties
  */
-class Place extends \yii\db\ActiveRecord {
+class Place extends BaseModel {
 
     /**
      * {@inheritdoc}
@@ -51,7 +50,7 @@ class Place extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id' => \Yii::t('app', 'ID'),
-            'name' => \Yii::t('app', 'Name'),
+            'name' => \Yii::t('app', 'Place Name'),
             'address' => \Yii::t('app', 'Address'),
             'phone' => \Yii::t('app', 'Phone'),
             'map' => \Yii::t('app', 'Map'),
@@ -67,6 +66,20 @@ class Place extends \yii\db\ActiveRecord {
      */
     public function getParties() {
         return $this->hasMany(Party::class, ['place_id' => 'id']);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel(): string {
+        return $this->name;
     }
 
     /**

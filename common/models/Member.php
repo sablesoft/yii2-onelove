@@ -11,6 +11,8 @@ use common\models\query\MemberQuery;
  * @property string $photo
  * @property string $name
  * @property int $age
+ * @property int $trueAge
+ * @property string $ageLabel
  * @property string $dob
  * @property int $sex
  * @property string $phone
@@ -22,8 +24,10 @@ use common\models\query\MemberQuery;
  * @property User $user
  * @property Ask[] $asks
  * @property Party[] $parties
+ * @property string $username
+ * @property string $sexLabel
  */
-class Member extends \yii\db\ActiveRecord {
+class Member extends BaseModel {
 
     /**
      * {@inheritdoc}
@@ -38,7 +42,7 @@ class Member extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             // todo - validate photo path
-            [['user_id', 'age', 'sex'], 'integer'],
+            [['user_id', 'age', 'sex', 'trueAge'], 'integer'],
             [['age', 'sex'], 'required'],
             [['dob', 'created_at', 'updated_at'], 'safe'],
             [['resume'], 'string'],
@@ -61,15 +65,19 @@ class Member extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id' => \Yii::t('app', 'ID'),
-            'user_id' => \Yii::t('app', 'User ID'),
+            'user_id' => \Yii::t('app', 'User'),
+            'username' => \Yii::t('app', 'User'),
             'name' => \Yii::t('app', 'Name'),
             'age' => \Yii::t('app', 'Age'),
+            'ageLabel' => \Yii::t('app', 'Age'),
+            'trueAge' => \Yii::t('app', 'Age'),
             'dob' => \Yii::t('app', 'Dob'),
             'sex' => \Yii::t('app', 'Sex'),
+            'sexLabel' => \Yii::t('app', 'Sex'),
             'phone' => \Yii::t('app', 'Phone'),
             'photo' => \Yii::t('app', 'Photo'),
-            'email' => \Yii::t('app', 'Email'),
-            'resume' => \Yii::t('app', 'Resume'),
+            'email' => \Yii::t('yii', 'Email'),
+            'resume' => \Yii::t('app', 'Member Resume'),
             'created_at' => \Yii::t('app', 'Created At'),
             'updated_at' => \Yii::t('app', 'Updated At')
         ];
@@ -98,10 +106,105 @@ class Member extends \yii\db\ActiveRecord {
     }
 
     /**
+     * @return string
+     */
+    public function getAgeLabel() : string {
+        if( !$word = $this->_ageLabel() )
+            return '';
+        $message = "{0} $word";
+
+        return \Yii::t('app', $message, $this->age );
+    }
+
+    /**
+     * @return string
+     */
+    protected function _ageLabel() : string {
+        $age = $this->age;
+        if( !$age )
+            return '';
+
+        $num = $age > 100 ? substr( $age, -2 ) : $age;
+        if( $num >= 5 && $num <= 14 ) {
+            return 'ages';
+        } else {
+            $num = substr( $age, -1 );
+            if( $num == 0 || ( $num >= 5 && $num <= 9 ) ) return 'ages';
+            if( $num == 1 ) return 'year';
+            if( $num >= 2 && $num <= 4 ) return 'years';
+        }
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getSexLabel() : string {
+        return array_key_exists( (int) $this->sex, static::getSexDropDownList() )?
+            static::getSexDropDownList()[ (int) $this->sex ] : '';
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrueAge() {
+        if( !$this->dob )
+            return $this->age;
+        // todo
+        return $this->age;
+    }
+
+    /**
+     * @param int $age
+     */
+    public function setTrueAge( $age ) {
+        $this->age = (int) $age;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername() : string {
+        if( !$user = $this->user )
+            return '';
+
+        return (string) $user->username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel(): string {
+        $label = $this->name;
+        if( $username = $this->username )
+            $label .= " [ $username ]";
+        $label .= ' ( ' . $this->ageLabel . ' )';
+
+        return $label;
+    }
+
+    /**
      * {@inheritdoc}
      * @return MemberQuery the active query used by this AR class.
      */
     public static function find() {
         return new MemberQuery( get_called_class() );
+    }
+
+    /**
+     * @return array
+     */
+    public static function getSexDropDownList() : array {
+        return [
+            \Yii::t('app', 'Female' ),
+            \Yii::t('app', 'Male' )
+        ];
     }
 }

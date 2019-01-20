@@ -2,6 +2,8 @@
 namespace common\models;
 
 use common\models\query\PartyQuery;
+use yii\behaviors\AttributeBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "party".
@@ -18,16 +20,38 @@ use common\models\query\PartyQuery;
  *
  * @property Ask[] $asks
  * @property Place $place
+ * @property string $placeLabel
+ * @property array $placeUrl
  * @property Price $price
+ * @property string $priceLabel
+ * @property array $priceUrl
  * @property Member[] $members
+ * @property string $formattedTimestamp
  */
-class Party extends \yii\db\ActiveRecord {
+class Party extends BaseModel {
+
+    const DATETIME_FORMAT = 'd.m.y (H:i)';
 
     /**
      * {@inheritdoc}
      */
     public static function tableName() {
         return 'party';
+    }
+
+    public function behaviors() {
+        return [
+            [
+                'class'      => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['timestamp'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['timestamp'],
+                ],
+                'value' => function( $event ) {
+                    return date('Y-m-d', strtotime( $this->timestamp ) );
+                }
+            ]
+        ];
     }
 
     /**
@@ -61,9 +85,13 @@ class Party extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id' => \Yii::t('app', 'ID'),
-            'place_id' => \Yii::t('app', 'Place ID'),
-            'price_id'  => \Yii::t('app', 'Price ID'),
+            'name' => \Yii::t('app', 'Party Name'),
+            'place_id' => \Yii::t('app', 'Place'),
+            'placeLabel' => \Yii::t('app', 'Place'),
+            'price_id'  => \Yii::t('app', 'Price'),
+            'priceLabel'  => \Yii::t('app', 'Price'),
             'timestamp' => \Yii::t('app', 'Timestamp'),
+            'formattedTimestamp' => \Yii::t('app', 'Timestamp'),
             'max_members'    => \Yii::t('app', 'Max Members'),
             'description' => \Yii::t('app', 'Description'),
             'created_at' => \Yii::t('app', 'Created At'),
@@ -79,10 +107,44 @@ class Party extends \yii\db\ActiveRecord {
     }
 
     /**
+     * @return string
+     */
+    public function getPlaceLabel() : string {
+        if( !$place = $this->place )
+            return '';
+
+        return $place->label;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPlaceUrl() : array {
+        return ['/place/view', 'id' => $this->place_id ];
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getPrice() {
         return $this->hasOne(Price::class, ['id' => 'price_id']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPriceLabel() : string {
+        if( !$price = $this->price )
+            return '';
+
+        return $price->label;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPriceUrl() : array {
+        return ['/price/view', 'id' => $this->price_id ];
     }
 
     /**
@@ -98,6 +160,27 @@ class Party extends \yii\db\ActiveRecord {
     public function getMembers() {
         return $this->hasMany( Member::class, ['id' => 'member_id'] )
             ->viaTable( Ask::tableName(), ['party_id' => 'id'] );
+    }
+
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel(): string {
+        if( $this->name )
+            return $this->name;
+
+        return $this->placeLabel . ' - ' . $this->formattedTimestamp;
+    }
+
+    public function getFormattedTimestamp( $format = self::DATETIME_FORMAT ) : string {
+        return date( $format, strtotime( $this->timestamp ) );
     }
 
     /**
