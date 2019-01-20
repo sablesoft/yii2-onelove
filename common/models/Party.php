@@ -7,6 +7,7 @@ use common\models\query\PartyQuery;
  * This is the model class for table "party".
  *
  * @property int $id
+ * @property string $name
  * @property int $place_id
  * @property int $price_id
  * @property string $timestamp
@@ -37,6 +38,7 @@ class Party extends \yii\db\ActiveRecord {
             [['place_id', 'price_id', 'timestamp', 'max_members'], 'required'],
             [['place_id', 'price_id', 'max_members'], 'integer'],
             [['timestamp', 'created_at', 'updated_at'], 'safe'],
+            [['name'], 'string', 'max' => 30],
             [['description'], 'string'],
             [
                 ['place_id', 'timestamp'], 'unique',

@@ -13,6 +13,7 @@ class m190118_200537_create_party_table extends Migration {
     public function safeUp() {
         $this->createTable('party', [
             'id'            => $this->primaryKey(),
+            'name'          => $this->string(30)->null()->unique()->comment('Party unique name'),
             'place_id'      => $this->integer()->notNull()->comment('Party place ID'),
             'price_id'      => $this->integer()->notNull()->comment('Price list ID'),
             'timestamp'     => $this->timestamp()->notNull()->comment('Date and time of party'),
