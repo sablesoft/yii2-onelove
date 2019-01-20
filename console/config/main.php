@@ -1,10 +1,4 @@
 <?php
-$params = array_merge(
-    require __DIR__ . '/../../common/config/params.php',
-    require __DIR__ . '/../../common/config/params-local.php',
-    require __DIR__ . '/params.php',
-    require __DIR__ . '/params-local.php'
-);
 
 return [
     'id' => 'app-console',
@@ -13,23 +7,31 @@ return [
     'controllerNamespace' => 'console\controllers',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm'   => '@vendor/npm-asset'
     ],
     'controllerMap' => [
         'fixture' => [
             'class' => 'yii\console\controllers\FixtureController',
-            'namespace' => 'common\fixtures',
-          ],
+            'namespace' => 'common\fixtures'
+        ]
     ],
     'components' => [
         'log' => [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
-        ],
+                    'levels' => ['error', 'warning']
+                ]
+            ]
+        ]
     ],
-    'params' => $params,
+    'modules'   => [
+        'rbac' => 'dektrium\rbac\RbacConsoleModule'
+    ],
+    'params' => array_merge(
+        require __DIR__ . '/../../common/config/params.php',
+        require __DIR__ . '/../../common/config/params-local.php',
+        require __DIR__ . '/params.php',
+        require __DIR__ . '/params-local.php'
+    )
 ];
