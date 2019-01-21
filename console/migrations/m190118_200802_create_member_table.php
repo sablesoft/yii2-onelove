@@ -29,8 +29,10 @@ class m190118_200802_create_member_table extends Migration {
             'email'         => $this->string(20)->null()->unique()
                 ->comment('Member email'),
             'resume'        => $this->text()->null()->comment('Member self-description'),
-            'created_at'    => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
-            'updated_at'    => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP')
+            'is_blocked'    => $this->tinyInteger(1)->notNull()
+                ->defaultValue(0)->comment('Is member blocked for asks'),
+            'created_at'    => $this->integer()->notNull(),
+            'updated_at'    => $this->integer()->notNull()
         ]);
         // creates indexes for columns `place_id`, 'timestamp', 'requests', 'members'...
         $this->createIndex( 'idx-member-user_id', 'member',  'user_id' );

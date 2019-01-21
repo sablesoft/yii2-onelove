@@ -16,20 +16,24 @@ class m190118_201038_create_ask_table extends Migration {
             'id'        => $this->primaryKey(),
             'party_id'  => $this->integer()->notNull()->comment('Ask party ID'),
             'member_id' => $this->integer()->notNull()->comment('Ask member ID'),
+            'comment'   => $this->text()->null()->comment('Operator comments'),
             'processed' => $this->tinyInteger(1)
                 ->notNull()->defaultValue(0)->comment('Is ask processed flag'),
             'confirmed' => $this->tinyInteger(1)
                 ->notNull()->defaultValue(0)->comment('Is ask confirmed flag'),
             'visited'   => $this->tinyInteger(1)
                 ->notNull()->defaultValue(0)->comment('Is party visited by member flag'),
-            'paid'      => $this->integer()->null()->comment('How much member paid for party')
+            'paid'      => $this->integer()->null()->comment('How much member paid for party'),
+            'is_blocked'    => $this->tinyInteger(1)->notNull()
+                ->defaultValue(0)->comment('Is ask blocked for use'),
+            'closed'    => $this->tinyInteger(1)->notNull()
+                ->defaultValue(0)->comment('Is ask closed'),
+            'created_at'    => $this->integer()->notNull(),
+            'updated_at'    => $this->integer()->notNull()
+
         ]);
         $this->createIndex( 'idx-ask-member_id', $table,  'member_id' );
         $this->createIndex( 'idx-ask-party_id', $table,  'party_id' );
-        $this->createIndex( 'idx-ask-processed', $table,  'processed' );
-        $this->createIndex( 'idx-ask-confirmed', $table,  'confirmed' );
-        $this->createIndex( 'idx-ask-visited', $table,  'visited' );
-        $this->createIndex( 'idx-ask-paid', $table,  'paid' );
         // add foreign key for table `member`
         $this->addForeignKey(
             'fk-ask-member_id',
@@ -61,10 +65,6 @@ class m190118_201038_create_ask_table extends Migration {
         $this->dropIndex( 'idx-unique-ask', $table );
         $this->dropIndex( 'idx-ask-member_id', $table );
         $this->dropIndex( 'idx-ask-party_id', $table );
-        $this->dropIndex( 'idx-ask-processed', $table );
-        $this->dropIndex( 'idx-ask-confirmed', $table );
-        $this->dropIndex( 'idx-ask-visited', $table );
-        $this->dropIndex( 'idx-ask-paid', $table );
         // drop table:
         $this->dropTable( $table );
     }

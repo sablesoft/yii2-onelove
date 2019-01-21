@@ -23,10 +23,12 @@ class m190118_200403_create_place_table extends Migration {
                 ->comment('Place map javascript'),
             'photo'         => $this->string(40)->null()
                 ->comment('Place photo web-path'),
+            'is_blocked'    => $this->tinyInteger(1)->notNull()
+                ->defaultValue(0)->comment('Is party place blocked for use'),
             'is_default'    => $this->tinyInteger(1)->notNull()
                 ->defaultValue(0)->comment('Is default party place flag'),
-            'created_at'    => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
-            'updated_at'    => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP')
+            'created_at'    => $this->integer()->notNull(),
+            'updated_at'    => $this->integer()->notNull()
         ]);
     }
 
