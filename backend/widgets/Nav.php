@@ -20,33 +20,14 @@ class Nav extends \yii\bootstrap\Nav implements NavInterface {
         if (Yii::$app->user->isGuest) {
             $menuItems[] = [
                 'label' => Yii::t('yii', 'Login'),
-                'url' => ['/site/login']
+                'url' => ['/login']
             ];
         } else {
-            $menuItems = [
-                [
-                    'label' => Yii::t('app', 'Asks'),
-                    'url'   => ['/ask']
-                ],
-                [
-                    'label' => Yii::t('app', 'Parties'),
-                    'url'   => ['/party']
-                ],
-                [
-                    'label' => Yii::t('app', 'Prices'),
-                    'url'   => ['/price']
-                ],
-                [
-                    'label' => Yii::t('app', 'Places'),
-                    'url'   => ['/place']
-                ],
-                [
-                    'label' => Yii::t('app', 'Members'),
-                    'url'   => ['/member']
-                ]
-            ];
+            $rawItems = Yii::$app->params['nav'];
+            $menuItems = static::prepareItems( (array) $rawItems );
+            $menuItems = $menuItems['items'];
             $menuItems[] = '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
+                . Html::beginForm(['/logout'], 'post')
                 . Html::submitButton(
                     Yii::t('yii', 'Logout')
                     .' (' . Yii::$app->user->identity->username . ')',
@@ -57,5 +38,24 @@ class Nav extends \yii\bootstrap\Nav implements NavInterface {
         }
 
         return $menuItems;
+    }
+
+    protected static function prepareItems( $config, $oldKey = null ) {
+        $items = [];
+        foreach( (array) $config as $key => $subConfig ) {
+            if( $key === '_menu' ) {
+                $items = $subConfig;
+                foreach( $items as $field => $value )
+                    if( $field == 'label')
+                        $items[ $field ] = Yii::t('app', $value );
+                continue;
+            }
+            $newKey = $oldKey ? "$oldKey.$key" : $key;
+            $access = Yii::$app->user->can( $newKey );
+            if( $access )
+                $items['items'][] = static::prepareItems( $subConfig, $newKey );
+        }
+
+        return $items;
     }
 }

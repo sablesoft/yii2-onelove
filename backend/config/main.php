@@ -2,7 +2,7 @@
 
 return [
     'id' => 'back',
-    'name' => 'OneLove : Admin Panel',
+    'name' => 'OneLove : CRM',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],

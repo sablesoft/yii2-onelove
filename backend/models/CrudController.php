@@ -3,8 +3,6 @@ namespace backend\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use yii\web\Controller;
-use yii\filters\AccessControl;
 use common\interfaces\SearchInterface;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,7 +10,7 @@ use yii\filters\VerbFilter;
 /**
  * PlaceController implements the CRUD actions for Place model.
  */
-class CrudController extends Controller {
+class CrudController extends BackendController {
 
     protected $modelClass;
     protected $searchModelClass;
@@ -22,15 +20,6 @@ class CrudController extends Controller {
      */
     public function behaviors() {
         return [
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@']
-                    ]
-                ]
-            ],
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [

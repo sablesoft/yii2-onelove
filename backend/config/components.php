@@ -19,7 +19,8 @@ return [
     'urlManager' => [
         'rules' => [
             '/' => '/site/index',
-            '/login' => '/site/login'
+            '/login' => '/user/security/login',
+            '/logout' => '/user/security/logout'
         ]
     ]
 ];

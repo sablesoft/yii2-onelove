@@ -51,7 +51,7 @@ return [
         'linkAssets' => true
     ],
     'vueManager'   => [
-        'class'      => 'sablerom\vue\VueManager',
+        'class'      => 'sablesoft\vue\VueManager',
         'delimiters' => [ '[[', ']]' ]  // specify custom for smarty
     ],
     'view' => [
