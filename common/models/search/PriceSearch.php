@@ -17,7 +17,7 @@ class PriceSearch extends Price implements SearchInterface {
      */
     public function rules() {
         return [
-            [['id', 'base', 'repeat', 'company', 'is_default'], 'integer'],
+            [['id', 'base', 'repeat', 'company', 'is_default', 'is_blocked'], 'integer'],
             [['name'], 'safe']
         ];
     }
@@ -60,7 +60,10 @@ class PriceSearch extends Price implements SearchInterface {
             'base' => $this->base,
             'repeat' => $this->repeat,
             'company' => $this->company,
-            'is_default' => $this->is_default
+            'is_default' => $this->is_default,
+            'is_blocked' => $this->is_blocked,
+            'created_at'    => $this->created_at,
+            'updated_at'    => $this->updated_at
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

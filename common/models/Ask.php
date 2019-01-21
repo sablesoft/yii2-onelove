@@ -11,10 +11,12 @@ use common\models\query\AskQuery;
  * @property int $id
  * @property int $party_id
  * @property int $member_id
+ * @property string $comment
  * @property int $processed
  * @property int $confirmed
  * @property int $visited
  * @property int $paid
+ * @property int $closed
  *
  * @property Member $member
  * @property string $memberLabel
@@ -23,7 +25,7 @@ use common\models\query\AskQuery;
  * @property string $partyLabel
  * @property array $partyUrl
  */
-class Ask extends \yii\db\ActiveRecord {
+class Ask extends BaseModel {
 
     /**
      * {@inheritdoc}
@@ -38,8 +40,14 @@ class Ask extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['party_id', 'member_id'], 'required'],
-            [['party_id', 'member_id', 'processed', 'confirmed', 'visited', 'paid'], 'integer'],
+            [   [
+                'party_id', 'member_id', 'processed',
+                'confirmed', 'visited', 'paid',
+                'is_blocked', 'closed'
+                ], 'integer'
+            ],
             [['member_id', 'party_id'], 'unique', 'targetAttribute' => ['member_id', 'party_id']],
+            [['comment'], 'string'],
             [
                 ['member_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Member::class, 'targetAttribute' => ['member_id' => 'id']
@@ -60,10 +68,13 @@ class Ask extends \yii\db\ActiveRecord {
             'party_id' => Yii::t('app', 'Party'),
             'partyLabel' => Yii::t('app', 'Party'),
             'member_id' => Yii::t('app', 'Member'),
+            'comment' => Yii::t('app', 'Comment'),
             'memberLabel' => Yii::t('app', 'Member'),
             'processed' => Yii::t('app', 'Processed'),
             'confirmed' => Yii::t('app', 'Confirmed'),
             'visited' => Yii::t('app', 'Visited'),
+            'is_blocked' => Yii::t('app', 'Is Blocked'),
+            'closed' => Yii::t('app', 'Closed'),
             'paid' => Yii::t('app', 'Paid')
         ];
     }
@@ -112,6 +123,20 @@ class Ask extends \yii\db\ActiveRecord {
      */
     public function getPartyUrl() : array {
         return ['/party/view', 'id' => $this->party_id ];
+    }
+
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel(): string {
+        return $this->partyLabel . ' - ' . $this->memberLabel;
     }
 
     /**

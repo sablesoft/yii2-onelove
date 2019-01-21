@@ -17,7 +17,7 @@ class PlaceSearch extends Place implements SearchInterface {
      */
     public function rules() {
         return [
-            [['id', 'is_default'], 'integer'],
+            [['id', 'is_default', 'is_blocked'], 'integer'],
             [['name', 'photo', 'map', 'address', 'phone', 'created_at', 'updated_at'], 'safe']
         ];
     }
@@ -58,6 +58,7 @@ class PlaceSearch extends Place implements SearchInterface {
         $query->andFilterWhere([
             'id' => $this->id,
             'is_default' => $this->is_default,
+            'is_blocked' => $this->is_blocked,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

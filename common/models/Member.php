@@ -42,7 +42,7 @@ class Member extends BaseModel {
     public function rules() {
         return [
             // todo - validate photo path
-            [['user_id', 'age', 'sex', 'trueAge'], 'integer'],
+            [['user_id', 'age', 'sex', 'is_blocked', 'trueAge'], 'integer'],
             [['age', 'sex'], 'required'],
             [['dob', 'created_at', 'updated_at'], 'safe'],
             [['resume'], 'string'],
@@ -78,6 +78,7 @@ class Member extends BaseModel {
             'photo' => \Yii::t('app', 'Photo'),
             'email' => \Yii::t('yii', 'Email'),
             'resume' => \Yii::t('app', 'Member Resume'),
+            'is_blocked' => \Yii::t('app', 'Is Blocked'),
             'created_at' => \Yii::t('app', 'Created At'),
             'updated_at' => \Yii::t('app', 'Updated At')
         ];

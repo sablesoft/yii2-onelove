@@ -19,6 +19,8 @@ use common\models\query\PlaceQuery;
  */
 class Place extends BaseModel {
 
+    protected $checkDefault = true;
+
     /**
      * {@inheritdoc}
      */
@@ -33,7 +35,7 @@ class Place extends BaseModel {
         return [
             // todo validate photo path
             [['name', 'address'], 'required'],
-            [['is_default'], 'integer'],
+            [['is_default', 'is_blocked'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'photo'], 'string', 'max' => 40],
             [['address'], 'string', 'max' => 100],
@@ -56,6 +58,7 @@ class Place extends BaseModel {
             'map' => \Yii::t('app', 'Map'),
             'photo' => \Yii::t('app', 'Photo'),
             'is_default' => \Yii::t('app', 'Is Default'),
+            'is_blocked' => \Yii::t('app', 'Is Blocked'),
             'created_at' => \Yii::t('app', 'Created At'),
             'updated_at' => \Yii::t('app', 'Updated At')
         ];

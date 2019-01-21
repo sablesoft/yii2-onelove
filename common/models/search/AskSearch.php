@@ -17,7 +17,11 @@ class AskSearch extends Ask implements SearchInterface {
      */
     public function rules() {
         return [
-            [['id', 'party_id', 'member_id', 'processed', 'confirmed', 'visited', 'paid'], 'integer']
+            [
+                ['id', 'party_id', 'member_id', 'processed', 'comment',
+                 'confirmed', 'visited', 'paid', 'is_blocked', 'closed' ],
+                'integer'
+            ]
         ];
     }
 
@@ -61,9 +65,13 @@ class AskSearch extends Ask implements SearchInterface {
             'member_id' => $this->member_id,
             'processed' => $this->processed,
             'confirmed' => $this->confirmed,
+            'is_blocked' => $this->is_blocked,
+            'closed' => $this->closed,
             'visited' => $this->visited,
             'paid' => $this->paid
         ]);
+
+        $query->andFilterWhere(['like', 'comment', $this->comment]);
 
         return $dataProvider;
     }

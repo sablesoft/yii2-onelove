@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property int $price_id
  * @property string $timestamp
  * @property integer $max_members
+ * @property integer $closed
  * @property string $description
  * @property string $created_at
  * @property string $updated_at
@@ -32,15 +33,8 @@ class Party extends BaseModel {
 
     const WIDGET_DATETIME = 'y-m-d H:i';
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName() {
-        return 'party';
-    }
-
     public function behaviors() {
-        return [
+        return array_merge( parent::behaviors(), [
             [
                 'class'      => AttributeBehavior::class,
                 'attributes' => [
@@ -48,11 +42,27 @@ class Party extends BaseModel {
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['timestamp']
                 ],
                 'value' => function( $event ) {
-                    $timestamp = strtotime( $this->timestamp );
-                    return date('Y-m-d H:i', $timestamp );
+                    return $this->timestamp ?
+                        strtotime( $this->timestamp ) : time();
+                }
+            ],
+            [
+                'class'      => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_AFTER_FIND => ['timestamp'],
+                ],
+                'value' => function( $event ) {
+                    return date('Y-m-d H:i', $this->timestamp );
                 }
             ]
-        ];
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName() {
+        return 'party';
     }
 
     /**
@@ -61,7 +71,7 @@ class Party extends BaseModel {
     public function rules() {
         return [
             [['place_id', 'price_id', 'timestamp', 'max_members'], 'required'],
-            [['place_id', 'price_id', 'max_members'], 'integer'],
+            [['place_id', 'price_id', 'max_members', 'is_blocked', 'closed'], 'integer'],
             [['timestamp', 'created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 30],
             [['description'], 'string'],
@@ -95,6 +105,8 @@ class Party extends BaseModel {
             'formattedTimestamp' => \Yii::t('app', 'Timestamp'),
             'max_members'    => \Yii::t('app', 'Max Members'),
             'description' => \Yii::t('app', 'Description'),
+            'is_blocked' => \Yii::t('app', 'Is Blocked'),
+            'closed' => \Yii::t('app', 'Closed'),
             'created_at' => \Yii::t('app', 'Created At'),
             'updated_at' => \Yii::t('app', 'Updated At')
         ];

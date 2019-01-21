@@ -17,7 +17,7 @@ class MemberSearch extends Member implements SearchInterface {
      */
     public function rules() {
         return [
-            [['id', 'user_id', 'age', 'sex'], 'integer'],
+            [['id', 'user_id', 'age', 'sex', 'is_blocked'], 'integer'],
             [['name', 'photo', 'dob', 'phone', 'email', 'resume', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -61,6 +61,7 @@ class MemberSearch extends Member implements SearchInterface {
             'age' => $this->age,
             'dob' => $this->dob,
             'sex' => $this->sex,
+            'is_blocked' => $this->is_blocked,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

@@ -15,6 +15,8 @@ namespace common\models;
  */
 class Price extends BaseModel {
 
+    protected $checkDefault = true;
+
     /**
      * {@inheritdoc}
      */
@@ -28,9 +30,16 @@ class Price extends BaseModel {
     public function rules() {
         return [
             [['name', 'base', 'repeat', 'company'], 'required'],
-            [['base', 'repeat', 'company', 'is_default'], 'integer'],
+            [['base', 'repeat', 'company', 'is_default', 'is_blocked'], 'integer'],
             [['name'], 'string', 'max' => 30]
         ];
+    }
+
+    public function beforeSave( $insert ) {
+
+
+
+        return parent::beforeSave( $insert );
     }
 
     /**
@@ -43,7 +52,10 @@ class Price extends BaseModel {
             'base' => \Yii::t('app', 'Base'),
             'repeat' => \Yii::t('app', 'Repeat'),
             'company' => \Yii::t('app', 'Company'),
-            'is_default' => \Yii::t('app', 'Is Default')
+            'is_default' => \Yii::t('app', 'Is Default'),
+            'is_blocked' => \Yii::t('app', 'Is Blocked'),
+            'created_at' => \Yii::t('app', 'Created At'),
+            'updated_at' => \Yii::t('app', 'Updated At')
         ];
     }
 
