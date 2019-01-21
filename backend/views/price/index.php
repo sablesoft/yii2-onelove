@@ -3,10 +3,12 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\Helper;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\PriceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$area = 'price';
 $this->title = Yii::t('app', 'Prices');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,9 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a( Yii::t('app', 'Create Price'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <p><?= Helper::createButton( $area ); ?></p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -31,9 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'repeat',
             'company',
             'is_default:boolean',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
+            'is_blocked:boolean',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' => Helper::visibleButtons( $area )
+            ]
+        ]
     ]); ?>
     <?php Pjax::end(); ?>
 </div>

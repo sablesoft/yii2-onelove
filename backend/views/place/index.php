@@ -3,10 +3,12 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\Helper;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\PlaceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$area = 'place';
 $this->title = Yii::t('app', 'Places');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,9 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a( Yii::t('app', 'Create Place'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <p><?= Helper::createButton( $area ); ?></p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -34,11 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'address',
             'phone',
             'is_default:boolean',
+            'is_blocked:boolean',
             //'created_at',
             //'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' => Helper::visibleButtons( $area )
+            ]
+        ]
     ]); ?>
     <?php // todo - add paid column!!! ?>
     <?php // todo - add members column!!! ?>

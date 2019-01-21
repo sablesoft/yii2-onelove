@@ -5,10 +5,12 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use common\models\Place;
 use common\models\Price;
+use common\models\Helper;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\PartySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$area = 'party';
 $this->title = Yii::t('app', 'Parties');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -18,9 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a( Yii::t('app', 'Create Party'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <p><?= Helper::createButton( $area ); ?></p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -66,8 +66,13 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'date', // todo - prepare from timestamp
 //            'time', // todo - prepare from timestamp
             'max_members',
+            'is_blocked:boolean',
+            'closed:boolean',
 
-            ['class' => 'yii\grid\ActionColumn']
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' => Helper::visibleButtons( $area )
+            ]
         ]
     ]); ?>
     <?php // todo - add paid column!!! ?>

@@ -1,9 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use common\models\User;
 use common\models\Member;
 use yii\widgets\ActiveForm;
+use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Member */
@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div class="col-sm-4">
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'trueAge')->textInput(); // todo - age validation ?>
+            <?= $form->field($model, 'trueAge')->input('number'); // todo - age validation ?>
             <?= $form->field($model, 'dob')->widget(
                 'kartik\datetime\DateTimePicker',
                 [
@@ -37,15 +37,17 @@ use yii\widgets\ActiveForm;
         <div class="col-sm-4">
             <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) // todo - file uploader ?>
             <?= $form->field($model, 'sex')->dropDownList( Member::getSexDropDownList() ); ?>
-        </div>
-        <div class="col-sm-4">
-            <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) // todo - phone mask ?>
-            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) // todo - email validation ?>
             <?= $form->field($model, 'user_id')->dropDownList(
                 ...User::getDropDownList([
                 'prompt' => Yii::t('app', 'Select user account')
             ])
             ); ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) // todo - phone mask ?>
+            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) // todo - email validation ?>
+            <br>
+            <?= $form->field($model, 'is_blocked')->checkbox(); ?>
         </div>
     </div>
 

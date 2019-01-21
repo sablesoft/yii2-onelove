@@ -51,7 +51,7 @@ class Nav extends \yii\bootstrap\Nav implements NavInterface {
                 continue;
             }
             $newKey = $oldKey ? "$oldKey.$key" : $key;
-            $access = Yii::$app->user->can( $newKey );
+            $access = $oldKey ? Yii::$app->user->can( $newKey ) : true;
             if( $access )
                 $items['items'][] = static::prepareItems( $subConfig, $newKey );
         }

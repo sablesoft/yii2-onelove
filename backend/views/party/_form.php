@@ -49,13 +49,26 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'max_members')->input('number'); // todo - validate min max ?>
         </div>
     </div>
-
-    <?= $form->field($model, 'name')->textInput(); ?>
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton( Yii::t('yii', 'Save'), ['class' => 'btn btn-success']) ?>
+    <div class="row">
+        <div class="col-sm-6">
+            <?= $form->field($model, 'name')->textInput(); ?>
+        </div>
+        <div class="col-sm-2">
+            <br>
+            <?= $form->field($model, 'is_blocked')->checkbox(); ?>
+        </div>
+        <div class="col-sm-2">
+            <br>
+            <?= $form->field($model, 'closed')->checkbox(); ?>
+        </div>
+        <div class="col-sm-2">
+            <br>
+            <div class="form-group">
+                <?= Html::submitButton( Yii::t('yii', 'Save'), ['class' => 'btn btn-success']) ?>
+            </div>
+        </div>
     </div>
+    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <?php ActiveForm::end(); ?>
 

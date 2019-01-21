@@ -12,18 +12,36 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'base')->textInput() // todo - validate money ?>
-
-    <?= $form->field($model, 'repeat')->textInput() // todo - validate money ?>
-
-    <?= $form->field($model, 'company')->textInput() // todo - validate money ?>
-
-    <?= $form->field($model, 'is_default')->checkbox(); ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('yii', 'Save'), ['class' => 'btn btn-success']) ?>
+    <div class="row">
+        <div class="col-sm-6">
+            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-3">
+            <br>
+            <?= $form->field($model, 'is_default')
+                ->checkbox([ 'disabled' => (bool)$model->is_default ]); ?>
+        </div>
+        <div class="col-sm-3">
+            <br>
+            <div class="form-group">
+                <?= Html::submitButton(Yii::t('yii', 'Save'), ['class' => 'btn btn-success']) ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <?= $form->field($model, 'base')->textInput() // todo - validate money ?>
+        </div>
+        <div class="col-sm-3">
+            <?= $form->field($model, 'repeat')->textInput() // todo - validate money ?>
+        </div>
+        <div class="col-sm-3">
+            <?= $form->field($model, 'company')->textInput() // todo - validate money ?>
+        </div>
+        <div class="col-sm-3">
+            <br>
+            <?= $form->field($model, 'is_blocked')->checkbox(); ?>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

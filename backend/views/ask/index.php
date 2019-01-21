@@ -5,10 +5,12 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use common\models\Party;
 use common\models\Member;
+use common\models\Helper;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\AskSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$area = 'ask';
 $this->title = Yii::t('app', 'Asks');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -18,13 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(
-                Yii::t('app', 'Create Ask'),
-                ['create'],
-                ['class' => 'btn btn-success']
-        ); ?>
-    </p>
+    <p><?= Helper::createButton( $area ); ?></p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -48,12 +44,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Member::getDropDownList()[0]
             ],
-            'processed:boolean',
             'confirmed:boolean',
             'visited:boolean',
             'paid',
+            'processed:boolean',
+            'is_blocked:boolean',
+            'closed:boolean',
 
-            ['class' => 'yii\grid\ActionColumn']
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' => Helper::visibleButtons( $area )
+            ]
         ]
     ]); ?>
     <?php // todo - add is active flag column ?>

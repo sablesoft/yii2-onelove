@@ -25,7 +25,17 @@ use yii\widgets\ActiveForm;
         </div>
         <div class="col-sm-6">
             <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) // todo - uploader!! ?>
-            <?= $form->field($model, 'is_default')->checkbox(); ?>
+            <div class="row">
+                <div class="col-sm-6">
+                    <br>
+                    <?= $form->field($model, 'is_default')
+                        ->checkbox([ 'disabled' => (bool)$model->is_default ]); ?>
+                </div>
+                <div class="col-sm-6">
+                    <br>
+                    <?= $form->field($model, 'is_blocked')->checkbox(); ?>
+                </div>
+            </div>
         </div>
     </div>
 

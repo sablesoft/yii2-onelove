@@ -16,37 +16,52 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-sm-6">
-            <?php // todo - disabled for not now: ?>
-            <?= $form->field( $model, 'party_id' )
-                // todo - only active parties?
-                ->dropDownList( ...Party::getDropDownList([
-                    'prompt' => Yii::t('app', 'Select asked party')
-                ]) )->label( Yii::t('app', 'Party' ) ); ?>
+            <div class="row">
+                <div class="col-sm-12">
+                    <?php // todo - disabled for not new: ?>
+                    <?= $form->field( $model, 'party_id' )
+                        // todo - only active parties?
+                        ->dropDownList( ...Party::getDropDownList([
+                            'prompt' => Yii::t('app', 'Select asked party')
+                        ]) )->label( Yii::t('app', 'Party' ) ); ?>
+                </div>
+                <div class="col-sm-12">
+                    <?php // todo - disabled for not new: ?>
+                    <?= $form->field($model, 'member_id')
+                        ->dropDownList( ...Member::getDropDownList([
+                            'prompt' => Yii::t('app', 'Select ask member')
+                        ]) )->label( Yii::t('app', 'Member' ) ); ?>
+                </div>
+            </div>
         </div>
         <div class="col-sm-6">
-            <?php // todo - disabled for not now: ?>
-            <?= $form->field($model, 'member_id')
-                ->dropDownList( ...Member::getDropDownList([
-                    'prompt' => Yii::t('app', 'Select ask member')
-                ]) )->label( Yii::t('app', 'Member' ) ); ?>
+            <?= $form->field( $model, 'comment')->textarea(['rows' => '4']); ?>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-2 col-xs-4">
-            <br>
-            <?= $form->field( $model, 'processed')->checkbox(); ?>
-        </div>
-        <div class="col-sm-2  col-xs-4">
+        <div class="col-sm-3  col-xs-4">
             <br>
             <?= $form->field( $model, 'confirmed')->checkbox(); ?>
         </div>
-        <div class="col-sm-2  col-xs-4">
+        <div class="col-sm-3  col-xs-4">
             <br>
             <?= $form->field( $model, 'visited')->checkbox(); ?>
         </div>
+        <div class="col-sm-6">
+            <?= $form->field( $model, 'paid')->textInput(); ?>
+        </div>
         <div class="col-sm-3">
-            <?= $form->field( $model, 'paid')->textInput() ?>
+            <br>
+            <?= $form->field( $model, 'processed')->checkbox(); ?>
+        </div>
+        <div class="col-sm-3">
+            <br>
+            <?= $form->field( $model, 'is_blocked')->checkbox(); ?>
+        </div>
+        <div class="col-sm-3">
+            <br>
+            <?= $form->field( $model, 'closed')->checkbox(); ?>
         </div>
         <div class="col-sm-3">
             <br>
