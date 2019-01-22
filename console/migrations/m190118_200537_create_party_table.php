@@ -16,6 +16,8 @@ class m190118_200537_create_party_table extends Migration {
             'name'          => $this->string(30)->null()->unique()->comment('Party unique name'),
             'place_id'      => $this->integer()->notNull()->comment('Party place ID'),
             'price_id'      => $this->integer()->notNull()->comment('Price list ID'),
+            'operator_ids'  => $this->string()->notNull()->comment('Party operators ids'),
+            'phone'         => $this->string()->notNull()->comment('Party operator phone number'),
             'timestamp'     => $this->integer()->notNull()->comment('Date and time of party'),
             'max_members'   => $this->integer(3)->notNull()->comment('Max number of members for party'),
             'description'   => $this->text()->null()->comment('Party description'),

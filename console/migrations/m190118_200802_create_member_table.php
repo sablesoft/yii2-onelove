@@ -20,7 +20,7 @@ class m190118_200802_create_member_table extends Migration {
                 ->comment('Member photo or avatar web-path'),
             'age'           => $this->integer()->unsigned()->notNull()
                 ->comment('Member age'),
-            'dob'           => $this->timestamp()->null()
+            'dob'           => $this->integer()->unsigned()->null()
                 ->comment('Member day of birth'),
             'sex'           => $this->tinyInteger(1)->notNull()
                 ->comment('Member sex flag: Female\Male (0\1)'),

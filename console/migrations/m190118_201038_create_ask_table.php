@@ -28,6 +28,7 @@ class m190118_201038_create_ask_table extends Migration {
                 ->defaultValue(0)->comment('Is ask blocked for use'),
             'closed'    => $this->tinyInteger(1)->notNull()
                 ->defaultValue(0)->comment('Is ask closed'),
+            'updated_by'    => $this->integer()->notNull()->comment('Who make last ask updates'),
             'created_at'    => $this->integer()->notNull(),
             'updated_at'    => $this->integer()->notNull()
 
