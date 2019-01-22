@@ -19,7 +19,7 @@ use common\models\User;
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'trueAge')->input('number'); // todo - age validation ?>
             <?= $form->field($model, 'dob')->widget(
-                'kartik\datetime\DateTimePicker',
+                'kartik\date\DatePicker',
                 [
                     'options' => [
                             'placeholder' => Yii::t('app','Select your day of birth') .' ...'
@@ -27,7 +27,7 @@ use common\models\User;
                     'removeButton'  => false,
                     'pluginOptions' => [
                         'forceParse'    => true,
-                        'format' => 'yyyy-mm-dd H:i',
+                        'format' => 'yyyy-mm-dd',
                         'autoclose' => true,
                         'todayHighlight' => true
                     ]

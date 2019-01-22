@@ -1,7 +1,9 @@
 <?php
 namespace common\models;
 
+use yii\db\ActiveRecord;
 use common\models\query\MemberQuery;
+use yii\behaviors\AttributeBehavior;
 
 /**
  * This is the model class for table "member".
@@ -71,7 +73,7 @@ class Member extends BaseModel {
             'age' => \Yii::t('app', 'Age'),
             'ageLabel' => \Yii::t('app', 'Age'),
             'trueAge' => \Yii::t('app', 'Age'),
-            'dob' => \Yii::t('app', 'Dob'),
+            'dob' => \Yii::t('app', 'Day of Birth'),
             'sex' => \Yii::t('app', 'Sex'),
             'sexLabel' => \Yii::t('app', 'Sex'),
             'phone' => \Yii::t('app', 'Phone'),
@@ -82,6 +84,35 @@ class Member extends BaseModel {
             'created_at' => \Yii::t('app', 'Created At'),
             'updated_at' => \Yii::t('app', 'Updated At')
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors() {
+        return array_merge( parent::behaviors(), [
+            [
+                'class'      => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['dob'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['dob']
+                ],
+                'value' => function( $event ) {
+                    return $this->dob ?
+                        strtotime( $this->dob ) : null;
+                }
+            ],
+            [
+                'class'      => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_AFTER_FIND => ['dob'],
+                ],
+                'value' => function( $event ) {
+                    return $this->dob ?
+                        date('Y-m-d H:i', $this->dob ) : null;
+                }
+            ]
+        ]);
     }
 
     /**

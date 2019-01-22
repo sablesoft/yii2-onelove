@@ -11,6 +11,7 @@ use common\models\query\AskQuery;
  * @property int $id
  * @property int $party_id
  * @property int $member_id
+ * @property int $updated_by
  * @property string $comment
  * @property int $processed
  * @property int $confirmed
@@ -22,6 +23,7 @@ use common\models\query\AskQuery;
  * @property string $memberLabel
  * @property array $memberUrl
  * @property Party $party
+ * @property User|null $lastOperator
  * @property string $partyLabel
  * @property array $partyUrl
  */
@@ -41,7 +43,7 @@ class Ask extends BaseModel {
         return [
             [['party_id', 'member_id'], 'required'],
             [   [
-                'party_id', 'member_id', 'processed',
+                'party_id', 'member_id', 'updated_by', 'processed',
                 'confirmed', 'visited', 'paid',
                 'is_blocked', 'closed'
                 ], 'integer'
@@ -51,6 +53,10 @@ class Ask extends BaseModel {
             [
                 ['member_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Member::class, 'targetAttribute' => ['member_id' => 'id']
+            ],
+            [
+                ['updated_by'], 'exist', 'skipOnError' => true,
+                'targetClass' => User::class, 'targetAttribute' => ['updated_by' => 'id']
             ],
             [
                 ['party_id'], 'exist', 'skipOnError' => true,
@@ -75,7 +81,8 @@ class Ask extends BaseModel {
             'visited' => Yii::t('app', 'Visited'),
             'is_blocked' => Yii::t('app', 'Is Blocked'),
             'closed' => Yii::t('app', 'Closed'),
-            'paid' => Yii::t('app', 'Paid')
+            'paid' => Yii::t('app', 'Paid'),
+            'updated_by' => Yii::t('app', 'Updated By')
         ];
     }
 
@@ -123,6 +130,13 @@ class Ask extends BaseModel {
      */
     public function getPartyUrl() : array {
         return ['/party/view', 'id' => $this->party_id ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLastOperator() {
+        return $this->hasOne( User::class, ['id' => 'updated_by'] );
     }
 
     /**
