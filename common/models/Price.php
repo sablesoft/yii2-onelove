@@ -1,6 +1,7 @@
 <?php
 
 namespace common\models;
+use yii\base\InvalidConfigException;
 
 /**
  * This is the model class for table "price".
@@ -10,6 +11,9 @@ namespace common\models;
  * @property int $repeat
  * @property int $company
  * @property int $is_default
+ * @property string $baseLabel
+ * @property string $repeatLabel
+ * @property string $companyLabel
  *
  * @property Party[] $parties
  */
@@ -79,6 +83,48 @@ class Price extends BaseModel {
     public function getLabel() : string {
         return $this->name . ' ( ' . $this->base . ' / ' .
             $this->repeat . ' / ' . $this->company . ' )';
+    }
+
+    /**
+     * @return string
+     */
+    public function getBaseLabel() : string {
+        return $this->_priceLabel( 'base' );
+    }
+
+    /**
+     * @return string
+     */
+    public function getRepeatLabel() : string {
+        return $this->_priceLabel( 'repeat' );
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompanyLabel() : string {
+        return $this->_priceLabel( 'company' );
+    }
+
+    /**
+     * @param $field
+     * @return string
+     */
+    protected function _priceLabel( string $field ) :string {
+        try {
+            return \Yii::$app->formatter->asCurrency( $this->$field );
+        } catch( InvalidConfigException $e ) {
+            \Yii::error( $e->getMessage() );
+
+            return (string) $this->$field;
+        }
+    }
+
+    /**
+     * @return array|Price|null
+     */
+    public static function findDefault() {
+        return static::find()->where(['is_default' => 1])->one();
     }
 
     /**

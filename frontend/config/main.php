@@ -2,6 +2,7 @@
 
 return [
     'id' => 'front',
+    'name' => 'Клуб знакомств OneLove', // todo settings
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',

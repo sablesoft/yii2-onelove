@@ -1,3 +1,4 @@
+{* @var $party Party *}
 {use class='common\models\Helper'}
 <section class="registration">
     <div class="landing-wrapper">
@@ -36,7 +37,7 @@
                 <input type="submit" value="Записаться">
             </form>
             <div class="registration-info">
-                <p>Ближайший вечер:<span>{Helper::getParams('date')} {Helper::getParams('time')}</span></p>
+                <p>Ближайший вечер:<span>{$party->timeLabel}</span></p>
                 <p>Возрастные группы:<span>от 22 до 34</span><span class="age-old">от 35 и старше</span></p>
             </div>
         </article>

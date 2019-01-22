@@ -1,11 +1,6 @@
 <?php
 return [
     'user.passwordResetTokenExpire' => 3600,
-    'adminEmail' => 'sable.lair@gmail.com',
-
-    'supportEmail' => 'iraleb151@mail.ru',
-    'supportPhone' => '+375 (29) 60-92-441',
-    'owner'         => 'ИП Лебедкина Ирина Владимировна УНП №191781611',
     // socials :
     'social'    => [
         'whatsapp' => [
@@ -24,15 +19,12 @@ return [
             'icon'  => 'fa-viber'
         ]
     ],
-    //
+        //
     'keys'      => [
         [
             "text" => "Вы готовы к общению и открыты для новых знакомств и отношений?<br>Тогда приходите к нам. И за один вечер Вы сможете познакомиться с 10-15  интересными людьми противоположного пола и встретить свою половинку."
         ]
     ],
-    // date:
-    'date'  => '26 января',
-    'time'  => '19:30',
 
 // about:
     'about' => [
@@ -82,14 +74,6 @@ return [
         ]
     ],
 
-    // gallery - todo - make common active record:
-    'gallery' => [
-        [
-            'image' => 'landing/img/photo/photo1.jpg',
-            'alt'   => 'Photo'
-        ]
-    ],
-
     // faq:
     'faq'   => [
         [
@@ -122,24 +106,9 @@ return [
         ]
     ],
 
-    // place - todo - make common active record:
-    'place' => [
-        'name'      => 'Puzzle Cafe',
-        'address'   => 'г. Минск, ул. Фрунзе, 2а - парк Горького'
-    ],
-
-    // price:
-    'price' => [
-        'base'      => 30,
-        'repeat'    => 20,
-        'company'   => 25
-    ],
-
     'sections' => [
         "gallery"   => false,
         "comments"  => false
     ],
-
-    'map' => '<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Af6c6671859bd54ba78fdd807ac92fab797dd8b01138d824be939286928ec053a&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>'
 
 ];

@@ -1,3 +1,4 @@
+{* @var $party Party *}
 {use class='common\models\Helper'}
 <div id="landing">
     {registerCss}
@@ -7,7 +8,7 @@
     {/registerCss}
     <main>
 
-        {$sections = Helper::getParams('sections')}
+    {$sections = Helper::getSettings('section', true )}
 
         {include '@frontend/views/site/landing/registration.tpl'}
         {include '@frontend/views/site/landing/about.tpl'}
@@ -26,5 +27,4 @@
     </main>
     {include '@frontend/views/site/landing/place.tpl'}
 </div>
-
-{Helper::getParams('map')}
+{$party->map}

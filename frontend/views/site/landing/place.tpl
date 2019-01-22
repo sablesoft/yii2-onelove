@@ -1,22 +1,22 @@
 {use class='common\models\Helper'}
-{$place = Helper::getParams('place')}
-{$price = Helper::getParams('price')}
-{$date = Helper::getParams('date')}
-{$time = Helper::getParams('time')}
+{$place = $party->place}
+{$price = $party->getPrice( true )}
 <footer>
     <div class="landing-wrapper">
 
         <article class="contact">
             <div class="wrapper">
                 <h2>Место проведения и стоимость</h2>
-                <div class="image"><img src="landing/img/article-address.png" alt="Cafe"></div>
+                <div class="image"><img src="landing/img/article-address.png" alt="{$place->name}"></div>
                 <div class="address">
-                    <p class="address-title"><b>{$place['name']}</b></p>
-                    <address>({$place['address']})</address>
-                    <strong>26 января 19:30</strong>
-                    <p><strong>Стоимость участия - <span>{$price['base']} руб.</span></strong></p>
-                    <p><strong>Вы пришли не один, то для Вас и ваших друзей стоимость - <span>{$price['company']} руб.</span></strong></p>
-                    <p><strong>А если Вы решили прийти к нам еще раз - </strong><span><b>{$price['repeat']} руб.</b></span></p>
+                    <p class="address-title"><b>{$place->name}</b></p>
+                    <address>({$place->address})</address>
+                    {if $party->timeLabel}
+                    <strong>{$party->timeLabel}</strong>
+                    {/if}
+                    <p><strong>Стоимость участия - <span>{$price->baseLabel}</span></strong></p>
+                    <p><strong>Вы пришли не один, то для Вас и ваших друзей стоимость - <span>{$price->companyLabel}</span></strong></p>
+                    <p><strong>А если Вы решили прийти к нам еще раз - </strong><span><b>{$price->repeatLabel}</b></span></p>
                 </div>
             </div>
         </article>
@@ -45,7 +45,9 @@
                 <input type="submit" value="Записаться">
             </form>
             <div class="registration-info">
-                <p>Ближайший вечер:<span>{$date} {$time}</span></p>
+                {if $party->timeLabel}
+                <p>Ближайший вечер:<span>{$party->timeLabel}</span></p>
+                {/if}
             </div>
         </article>
         <p class="quote"><b>«Кто ищет, тот всегда найдет!»</b></p>
@@ -59,7 +61,8 @@
     <article class="registration-description-bottom">
         <i class="fas fa-times close"></i>
         <h2>Клуб знакомств <span>OneLove</span></h2>
-        <form id="registration-form-bottom" class="registration-form" name="registrationPopup" action="mail.php" method="post">
+        <form id="registration-form-bottom" class="registration-form"
+              name="registrationPopup" action="mail.php" method="post">
             <input type="text" name="name" placeholder="*Имя" required>
             <div class="registration-radio">
                 <span>Пол: </span>
@@ -80,8 +83,10 @@
             <input type="submit" value="Записаться">
         </form>
         <div class="registration-info">
-            <p>Ближайший вечер:<span>{$date} {$time}</span></p>
-            <p>Придет:<span>20-30 гостей</span></p>
+            {if $party->timeLabel}
+            <p>Ближайший вечер:<span>{$party->timeLabel}</span></p>
+            {/if}
+            <p>Придет:<span>{$party->membersLabel}</span></p>
         </div>
     </article>
 

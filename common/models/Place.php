@@ -86,6 +86,13 @@ class Place extends BaseModel {
     }
 
     /**
+     * @return PlaceQuery
+     */
+    public static function findDefault() {
+        return static::find()->where(['is_default' => 1])->one();
+    }
+
+    /**
      * {@inheritdoc}
      * @return PlaceQuery the active query used by this AR class.
      */

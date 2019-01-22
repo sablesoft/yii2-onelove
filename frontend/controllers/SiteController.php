@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\Controller;
+use common\models\Party;
 use frontend\assets\LandingAsset;
 
 /**
@@ -21,7 +22,7 @@ class SiteController extends Controller {
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
-            ],
+            ]
         ];
     }
 
@@ -31,17 +32,17 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-        Yii::$app->vueManager->register([
-            'id' => 'landing',
-            'jsName'  => 'vueLanding',
-            'data' => [
-                'h1' => 'Vue Test'
-            ],
+//        Yii::$app->vueManager->register([
+//            'id' => 'landing',
+//            'jsName'  => 'vueLanding',
+//            'data' => [
+//                'h1' => 'Vue Test'
+//            ],
 //        'created' =>
 //            new JsExpression( "function() { console.log('Vue created!')}" ),
 //        'computed' => '@yourAlias/path/to/computed.js',
-    ]   );
-        $this->view->title = Yii::t('app', 'Landing');
+//    ]   );
+        $this->view->title = Yii::$app->name; // todo landing.title setting
         $this->view->registerLinkTag([
             'rel' => 'stylesheet',
             'crossorigin'   => 'anonymous',
@@ -49,7 +50,11 @@ class SiteController extends Controller {
             'href' => 'https://use.fontawesome.com/releases/v5.6.1/css/all.css']);
         LandingAsset::register( $this->view );
         $this->layout = 'landing/main.tpl';
-
-        return $this->render('index.tpl');
+        /** @var Party $party */
+        $party = Party::findNearest();
+        $party = $party ?: new Party();
+        return $this->render('index.tpl', [
+            'party' => $party
+        ]);
     }
 }

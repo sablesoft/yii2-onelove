@@ -8,26 +8,12 @@ use common\models\Party;
  *
  * @see Party
  */
-class PartyQuery extends \yii\db\ActiveQuery {
-
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
+class PartyQuery extends BaseQuery {
 
     /**
-     * {@inheritdoc}
-     * @return Party[]|array
+     * @return BaseQuery
      */
-    public function all( $db = null ) {
-        return parent::all( $db );
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return Party|array|null
-     */
-    public function one( $db = null ) {
-        return parent::one( $db );
+    public function active() {
+        return parent::active()->andWhere([ 'closed' => 0 ]);
     }
 }

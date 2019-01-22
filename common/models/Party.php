@@ -158,6 +158,9 @@ class Party extends BaseModel {
      */
     public function getPlaceLabel() : string {
         if( !$place = $this->place )
+            $place = Place::findDefault();
+
+        if( !$place )
             return '';
 
         return $place->label;
@@ -171,10 +174,28 @@ class Party extends BaseModel {
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return string
      */
-    public function getPrice() {
-        return $this->hasOne(Price::class, ['id' => 'price_id']);
+    public function getMap() : string {
+        if( !$place = $this->place )
+            $place = Place::findDefault();
+
+        if( !$place )
+            return '';
+
+        return $place->map;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery|ActiveRecord
+     */
+    public function getPrice( $checkExist = false ) {
+        $query = $this->hasOne(Price::class, ['id' => 'price_id']);
+        if( !$checkExist ) return $query;
+        if( $price = $query->one() )
+            return $price;
+
+        return Price::findDefault();
     }
 
     /**
@@ -182,6 +203,9 @@ class Party extends BaseModel {
      */
     public function getPriceLabel() : string {
         if( !$price = $this->price )
+            $price = Price::findDefault();
+
+        if( !$price )
             return '';
 
         return $price->label;
@@ -226,8 +250,65 @@ class Party extends BaseModel {
         return $this->placeLabel . ' - ' . $this->formattedTimestamp;
     }
 
-    public function getFormattedTimestamp( $format = self::WIDGET_DATETIME ) : string {
-        return date( $format, strtotime( $this->timestamp ) );
+    /**
+     * @param string $format
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getTimeLabel() : string {
+        if( !$this->timestamp )
+            return '';
+
+        return \Yii::$app->formatter->asDatetime(
+            $this->timestamp, 'php:d mm H:i'
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getMembersLabel() : string {
+        $diff = self::COUNT_DIFF;
+        $max = $this->max_members ?: self::COUNT_DEFAULT;
+        $count = ( $max - $diff ) . ' - ' . ( $max + $diff );
+
+        return \Yii::t('app', '{0} guests', $count);
+    }
+
+    /**
+     * @return UserQuery
+     */
+    public function getOperators() : UserQuery {
+        $query = User::find()->where(['id' => $this->operator_ids ]);
+        $query->multiple = true;
+
+        return $query;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperatorsLabel() : string {
+        if( !$operators = $this->operators )
+            return \Yii::t('app', 'No present' );
+
+        if( !is_array( $operators ) )
+            $operators = [ $operators ];
+
+        $label = '';
+        /** @var User $operator */
+        foreach( $operators as $operator )
+            $label .= $operator->username . ' (' . $operator->email . '), ';
+
+        return trim( $label, ',\ ' );
+    }
+
+    /**
+     * @return array|PartyQuery|null
+     */
+    public static function findNearest() {
+        return static::find()->where(['>', 'timestamp', time()])
+            ->active()->orderBy('timestamp')->one();
     }
 
     /**

@@ -1,4 +1,6 @@
 {use class='common\models\Helper'}
+{use class='common\models\Party'}
+{$party = Party::findNearest()}
 <img class="parallax" src="landing/img/section2.png" alt="Parallax">
 <header>
     <div class="landing-wrapper">
@@ -23,11 +25,11 @@
             <button type="button" class="invite-button">Получить приглашение</button>
             <button type="button" class="button-mob-contact"><i class="fas fa-phone-volume"></i></button>
             <div class="header-info">
-                <span>{Helper::getParams('supportPhone')}</span>
-                {$social = Helper::getParams('social')}
-                {foreach from=$social key=key item=item}
-                <a href="{$item['href']}"
-                   class="{$key}-link"><i class="fab {$item['icon']}"></i>{$item['label']}</a>
+                <span>{$party->phone}</span>
+                {$messengers = Helper::getSettings('messenger', true, true )}
+                {foreach from=$messengers item=item}
+                <a href="{$item->value['href']}"
+                   class="{$item->value['class']}-link"><i class="fab {$item->value['icon']}"></i>{$item->value['label']}</a>
                 {/foreach}
                 <div class="button-group">
                     <button id="button-back-call">Обратный звонок</button>

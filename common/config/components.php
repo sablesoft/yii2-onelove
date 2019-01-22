@@ -36,12 +36,21 @@ return [
         ]
     ],
     'formatter' => [
+        'locale' => 'ru_RU',
         'dateFormat' => 'php:d.m.y',
         'timeFormat' => 'php:H:i',
         'datetimeFormat' => 'php:d mm, y - H:i',
         'decimalSeparator' => ',',
         'thousandSeparator' => ' ',
         'currencyCode' => 'BYN',
+        'numberFormatterOptions' => [
+            NumberFormatter::MIN_FRACTION_DIGITS => 0,
+            NumberFormatter::MAX_FRACTION_DIGITS => 0,
+            NumberFormatter::FRACTION_DIGITS => 0
+        ],
+        'numberFormatterSymbols' => [
+            NumberFormatter::CURRENCY_SYMBOL => 'руб.'
+        ]
     ],
     'urlManager' => [
         'enablePrettyUrl' => true,
