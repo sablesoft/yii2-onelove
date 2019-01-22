@@ -54,8 +54,7 @@ abstract class BaseModel extends ActiveRecord {
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at']
                 ],
                 'value' => function( $event ) {
-                    return $this->updated_at ?
-                        strtotime( $this->updated_at ) : time();
+                    return time();
                 }
             ],
             [
