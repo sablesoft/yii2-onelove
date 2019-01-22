@@ -117,4 +117,54 @@ class Helper {
         return ( isset( $params[ $key ] ) )?
             $params[ $key ] : $default;
     }
+
+    /**
+     * @param string $key
+     * @param bool $checkNamespace
+     * @return mixed
+     */
+    public static function getSettings( string $key, bool $checkNamespace = false, $asModels = false ) {
+        $query = Setting::find();
+        if( $checkNamespace ) {
+            $settings = $query->where(['like', 'key', $key . '.' ])->all();
+        } else {
+            $settings = [ $query->where(['key' => $key ])->one() ];
+        }
+        $array = [];
+        foreach( $settings as $setting ) {
+            $path = explode( '.', $setting->key );
+            $array = static::_setValue( $path, $array, $setting, $asModels );
+        }
+
+        return reset( $array );
+    }
+
+    /**
+     * @param array $path
+     * @param array $array
+     * @param Setting $setting
+     * @param bool $asModels
+     * @return array
+     */
+    protected static function _setValue( array $path, array $array, Setting $setting, bool $asModels ) {
+        $key = array_shift( $path );
+        if( empty( $path ) ) {
+            try {
+                // todo - move in model
+                $setting->value = json_decode( $setting->value, true );
+            } catch( \Exception $e ) {}
+            $value = ( $asModels ? $setting : $setting->value );
+        } else
+            $value = ( isset( $array[ $key ] ) ? $array[ $key ] : [] );
+
+        $array[ $key ] = $value;
+
+        if( empty( $path ) )
+            return $array;
+
+        $subArray = $array[ $key ];
+        $array[ $key ] = static::_setValue( $path, $subArray, $setting, $asModels );
+
+        return $array;
+    }
 }

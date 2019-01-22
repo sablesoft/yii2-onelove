@@ -7,18 +7,6 @@ return [
                 'label'     => 'Admin',
                 'linkOptions' => []
             ],
-            'index' => [
-                '_menu' => [
-                    'label' => 'Panel',
-                    'url'   => '/admin'
-                ]
-            ],
-            'control' => [
-                '_menu' => [
-                    'label' => 'Control',
-                    'url'   => '/user/admin'
-                ]
-            ],
             'ask'  => [
                 '_menu' => [
                     'label'     => 'Asks',
@@ -48,7 +36,25 @@ return [
                     'label'     => 'Members',
                     'url'       => '/member'
                 ]
-            ]
+            ],
+            'index' => [
+                '_menu' => [
+                    'label' => 'Panel',
+                    'url'   => '/admin'
+                ]
+            ],
+            'setting' => [
+                '_menu' => [
+                    'label' => 'Settings',
+                    'url'   => '/setting'
+                ]
+            ],
+            'control' => [
+                '_menu' => [
+                    'label' => 'Control',
+                    'url'   => '/user/admin'
+                ]
+            ],
         ],
         'manager'   => [
             '_menu' => [
