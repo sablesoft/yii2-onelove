@@ -1,9 +1,11 @@
 <?php
 
 use yii\helpers\Html;
+use common\models\User;
 use common\models\Place;
 use common\models\Price;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Party */
@@ -15,12 +17,15 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <?= $form->field( $model, 'place_id')
                 ->dropDownList( ...Place::getDropDownList([ 'selected' => true ]) )
                 ->label( Yii::t('app', 'Place') ); ?>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
+            <?= $form->field($model, 'name')->textInput(); ?>
+        </div>
+        <div class="col-sm-4">
             <?= $form->field($model, 'timestamp')->widget(
                 'kartik\datetime\DateTimePicker',
                 [
@@ -40,18 +45,27 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <?= $form->field($model, 'price_id')
                 ->dropDownList( ...Price::getDropDownList([ 'selected' => true ]) )
                 ->label( Yii::t('app', 'Price') ); ?>
         </div>
-        <div class="col-sm-6">
-            <?= $form->field($model, 'max_members')->input('number'); // todo - validate min max ?>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'phone')->dropDownList( ...User::findPhonesList() ); ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'max_members')->input('number'); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <?= $form->field($model, 'name')->textInput(); ?>
+            <?= $form->field( $model, 'operator_ids')->widget(Select2::class, [
+                'data' => ( User::findRoleList('operator' ) )[0],
+                'options' => [
+                    'id' => 'operator_ids',
+                    'multiple' => true
+                ]
+            ]) ?>
         </div>
         <div class="col-sm-2">
             <br>

@@ -2,6 +2,7 @@
 namespace common\models;
 
 use common\models\query\PartyQuery;
+use common\models\query\UserQuery;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
 
@@ -12,10 +13,12 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property int $place_id
  * @property int $price_id
+ * @property string $operator_ids
  * @property string $timestamp
  * @property integer $max_members
  * @property integer $closed
  * @property string $description
+ * @property string $phone
  * @property string $created_at
  * @property string $updated_at
  *
@@ -25,13 +28,21 @@ use yii\db\ActiveRecord;
  * @property array $placeUrl
  * @property Price $price
  * @property string $priceLabel
+ * @property string $timeLabel
+ * @property string $membersLabel
+ * @property string $operatorsLabel
+ * @property string $map
  * @property array $priceUrl
  * @property Member[] $members
+ * @property User[] $operators
  * @property string $formattedTimestamp
  */
 class Party extends BaseModel {
 
-    const WIDGET_DATETIME = 'y-m-d H:i';
+    const COUNT_DIFF = 5; // todo move to settings
+    const COUNT_DEFAULT = 15; // todo move to settings
+
+    const WIDGET_DATETIME = 'd F H:i';
 
     public function behaviors() {
         return array_merge( parent::behaviors(), [
@@ -54,6 +65,27 @@ class Party extends BaseModel {
                 'value' => function( $event ) {
                     return date('Y-m-d H:i', $this->timestamp );
                 }
+            ],
+            [
+                'class'      => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['operator_ids'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['operator_ids']
+                ],
+                'value' => function( $event ) {
+                    return !empty( $this->operator_ids ) && is_array( $this->operator_ids ) ?
+                        implode( ",", $this->operator_ids ) : '';
+                }
+            ],
+            [
+                'class'      => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_AFTER_FIND => ['operator_ids'],
+                ],
+                'value' => function( $event ) {
+                    return !empty( $this->operator_ids ) && is_string( $this->operator_ids ) ?
+                        explode( ",", $this->operator_ids ) : [];
+                }
             ]
         ]);
     }
@@ -72,8 +104,8 @@ class Party extends BaseModel {
         return [
             [['place_id', 'price_id', 'timestamp', 'max_members'], 'required'],
             [['place_id', 'price_id', 'max_members', 'is_blocked', 'closed'], 'integer'],
-            [['timestamp', 'created_at', 'updated_at'], 'safe'],
-            [['name'], 'string', 'max' => 30],
+            [['timestamp', 'operator_ids', 'created_at', 'updated_at'], 'safe'],
+            [['name', 'phone'], 'string', 'max' => 30],
             [['description'], 'string'],
             [
                 ['place_id', 'timestamp'], 'unique',
@@ -100,11 +132,13 @@ class Party extends BaseModel {
             'place_id' => \Yii::t('app', 'Place'),
             'placeLabel' => \Yii::t('app', 'Place'),
             'price_id'  => \Yii::t('app', 'Price'),
+            'operator_ids'  => \Yii::t('app', 'Operators'),
             'priceLabel'  => \Yii::t('app', 'Price'),
             'timestamp' => \Yii::t('app', 'Timestamp'),
             'formattedTimestamp' => \Yii::t('app', 'Timestamp'),
             'max_members'    => \Yii::t('app', 'Max Members'),
             'description' => \Yii::t('app', 'Description'),
+            'phone'     => \Yii::t('app', 'Operator Phone'),
             'is_blocked' => \Yii::t('app', 'Is Blocked'),
             'closed' => \Yii::t('app', 'Closed'),
             'created_at' => \Yii::t('app', 'Created At'),

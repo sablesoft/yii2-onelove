@@ -28,6 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => Helper::canLink( 'price.view', $model->priceLabel, $model->priceUrl )
             ],
+            'phone',
+            [
+                'attribute' => 'operator_ids',
+                'format' => 'text',
+                'value' => $model->operatorsLabel
+            ],
             'max_members',
             'description:ntext',
             'is_blocked:boolean',
@@ -35,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at:datetime',
             'updated_at:datetime'
         ]
-    ]) ?>
+    ]); ?>
 
 <?php // todo - add prices view!!! ?>
 

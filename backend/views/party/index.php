@@ -63,8 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Price::getDropDownList()[0]
             ],
-//            'date', // todo - prepare from timestamp
-//            'time', // todo - prepare from timestamp
+            'phone',
             'max_members',
             'is_blocked:boolean',
             'closed:boolean',

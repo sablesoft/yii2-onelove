@@ -1,113 +1,37 @@
 <?php
 namespace common\models;
 
-use Yii;
-use yii\base\NotSupportedException;
+use yii\helpers\ArrayHelper;
 
 /**
  * User model
  *
- * @property integer $id
- * @property string $username
- * @property string $password_hash
- * @property string $email
- * @property string $auth_key
- * @property integer $created_at
- * @property integer $updated_at
  */
-class User extends BaseModel {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+class User extends \dektrium\user\models\User {
 
+    const DEFAULT_ROLE = 'operator';
 
     /**
-     * {@inheritdoc}
+     * @return array
      */
-    public static function tableName()
-    {
-        return '{{%user}}';
+    public function scenarios() {
+        $scenarios = parent::scenarios();
+        // add field to scenarios
+        $scenarios['create'][]   = 'phone';
+        $scenarios['update'][]   = 'phone';
+        $scenarios['register'][] = 'phone';
+        return $scenarios;
     }
 
     /**
-     * {@inheritdoc}
+     * @return array
      */
-    public function rules()
-    {
-        return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-        ];
-    }
+    public function rules() {
+        $rules = parent::rules();
+        // add some rules
+        $rules['phoneLength']   = ['phone', 'string', 'max' => 30];
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function findIdentity($id)
-    {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @throws NotSupportedException
-     */
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
-    }
-
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    /**
-     * Finds user by password reset token
-     *
-     * @param string $token password reset token
-     * @return static|null
-     */
-    public static function findByPasswordResetToken($token)
-    {
-        if (!static::isPasswordResetTokenValid($token)) {
-            return null;
-        }
-
-        return static::findOne([
-            'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
-        ]);
-    }
-
-    /**
-     * Finds out if password reset token is valid
-     *
-     * @param string $token password reset token
-     * @return bool
-     */
-    public static function isPasswordResetTokenValid($token)
-    {
-        if (empty($token)) {
-            return false;
-        }
-
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
-        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
-        return $timestamp + $expire >= time();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getId()
-    {
-        return $this->getPrimaryKey();
+        return $rules;
     }
 
     /**
@@ -116,5 +40,84 @@ class User extends BaseModel {
     public function getLabel(): string {
         return $this->username . ' ( ' .
             $this->email . ' )';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels() {
+        return array_merge(
+            parent::attributeLabels(),
+            [
+                'phone' => \Yii::t('app', 'Phone')
+            ]
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public static function getDropDownList( $config = [], $models = null ) : array {
+        // prepare items:
+        if( is_null( $models ) ) {
+            $query = static::find();
+            $where = !empty( $config['where'] )? $config['where'] : false;
+            if( is_array( $where ) )
+                $query = $query->where( $where );
+            $models = $query->all();
+        }
+        $from = !empty( $config['from'] )? $config['from'] : 'id';
+        $to = !empty( $config['to'] )? $config['to'] : 'label';
+        $items = ArrayHelper::map( $models, $from, $to );
+        // prepare params:
+        $params = [];
+        if( !empty( $config['selected'] ) ) {
+            $selected = static::find()->where(['is_default' => 1])->one();
+            if( $selected->id )
+                $params = [
+                    'options' => [
+                        $selected->id => [ 'Selected' => true ]
+                    ]
+                ];
+        }
+        if( isset( $config['prompt'] ) )
+            $params['prompt'] = $config['prompt'];
+
+        return [ $items, $params ];
+    }
+
+    /**
+     * @param string $role
+     * @return array
+     */
+    public static function findPhonesList( string $role = self::DEFAULT_ROLE ) : array {
+        $list = static::findRoleList( $role, 'phone' );
+        $items = [];
+        foreach( $list[0] as $phone => $name )
+            if( $phone )
+                $items[ $phone ] = $phone . " ( $name )";
+        $list[0] = $items;
+
+        return $list;
+    }
+
+    /**
+     * @return array
+     */
+    public static function findRoleList(
+        string $role = self::DEFAULT_ROLE,
+        string $from = 'id',
+        string $to = 'username' ) : array {
+        $users = static::find()->byRole( $role )->all();
+
+        return static::getDropDownList( ['from' => $from, 'to' => $to  ], $users );
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return \common\models\query\UserQuery the active query used by this AR class.
+     */
+    public static function find() {
+        return new \common\models\query\UserQuery( get_called_class() );
     }
 }

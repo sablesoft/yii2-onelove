@@ -55,6 +55,11 @@ return [
         'delimiters' => [ '[[', ']]' ]  // specify custom for smarty
     ],
     'view' => [
+        'theme' => [
+            'pathMap' => [
+                '@dektrium/user/views' => '@common/views/user'
+            ]
+        ],
         'renderers' => [
             'tpl' => [
                 'class' => 'yii\smarty\ViewRenderer',
