@@ -39,6 +39,7 @@ return [
         'locale' => 'ru_RU',
         'dateFormat' => 'php:d.m.y',
         'timeFormat' => 'php:H:i',
+        'defaultTimeZone' => 'Europe/Minsk',
         'datetimeFormat' => 'php:d mm, y - H:i',
         'decimalSeparator' => ',',
         'thousandSeparator' => ' ',

@@ -2,6 +2,7 @@
 return [
     'name'       => 'OneLove',
     'language'   => 'ru-RU',
+    'timeZone'   => 'Europe/Minsk',
     'layout' => 'main.tpl',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
