@@ -35,6 +35,7 @@ class m190118_201038_create_ask_table extends Migration {
         ]);
         $this->createIndex( 'idx-ask-member_id', $table,  'member_id' );
         $this->createIndex( 'idx-ask-party_id', $table,  'party_id' );
+        $this->createIndex( 'idx-ask-updated_by', $table,  'updated_by' );
         // add foreign key for table `member`
         $this->addForeignKey(
             'fk-ask-member_id',
@@ -46,6 +47,12 @@ class m190118_201038_create_ask_table extends Migration {
             'fk-ask-party_id',
             $table, 'party_id',
             'party', 'id'
+        );
+        // add foreign key for table `party`
+        $this->addForeignKey(
+            'fk-ask-updated_by',
+            $table, 'updated_by',
+            'user', 'id'
         );
         // create unique member party key:
         $this->createIndex(
@@ -62,10 +69,12 @@ class m190118_201038_create_ask_table extends Migration {
         // drops foreign key for tables `member` and `party`
         $this->dropForeignKey( 'fk-ask-member_id', $table );
         $this->dropForeignKey( 'fk-ask-party_id', $table );
+        $this->dropForeignKey( 'fk-ask-updated_by', $table );
         // drops indexes for columns
         $this->dropIndex( 'idx-unique-ask', $table );
         $this->dropIndex( 'idx-ask-member_id', $table );
         $this->dropIndex( 'idx-ask-party_id', $table );
+        $this->dropIndex( 'idx-ask-updated_by', $table );
         // drop table:
         $this->dropTable( $table );
     }
