@@ -4,6 +4,8 @@ namespace common\models;
 
 use Yii;
 use common\models\query\AskQuery;
+use yii\behaviors\AttributeBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "ask".
@@ -25,6 +27,7 @@ use common\models\query\AskQuery;
  * @property Party $party
  * @property User|null $lastOperator
  * @property string $partyLabel
+ * @property string $operatorLabel
  * @property array $partyUrl
  */
 class Ask extends BaseModel {
@@ -65,6 +68,21 @@ class Ask extends BaseModel {
         ];
     }
 
+    public function behaviors() {
+        return array_merge( parent::behaviors(), [
+            [
+                'class'      => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['updated_by'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_by']
+                ],
+                'value' => function( $event ) {
+                    return Yii::$app->user->getId();
+                }
+            ]
+        ]);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -76,13 +94,14 @@ class Ask extends BaseModel {
             'member_id' => Yii::t('app', 'Member'),
             'comment' => Yii::t('app', 'Comment'),
             'memberLabel' => Yii::t('app', 'Member'),
+            'operatorLabel' => Yii::t('app', 'Operator'),
             'processed' => Yii::t('app', 'Processed'),
             'confirmed' => Yii::t('app', 'Confirmed'),
             'visited' => Yii::t('app', 'Visited'),
             'is_blocked' => Yii::t('app', 'Is Blocked'),
             'closed' => Yii::t('app', 'Closed'),
             'paid' => Yii::t('app', 'Paid'),
-            'updated_by' => Yii::t('app', 'Updated By')
+            'updated_by' => Yii::t('app', 'Operator')
         ];
     }
 
@@ -137,6 +156,15 @@ class Ask extends BaseModel {
      */
     public function getLastOperator() {
         return $this->hasOne( User::class, ['id' => 'updated_by'] );
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperatorLabel() :string {
+        if( !$operator = $this->lastOperator ) return '';
+
+        return $operator->username;
     }
 
     /**

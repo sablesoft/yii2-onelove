@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'processed:boolean',
             'is_blocked:boolean',
             'closed:boolean',
+            'operatorLabel'
         ]
     ]) ?>
 <?php // todo - add is repeat flag ?>

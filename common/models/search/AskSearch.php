@@ -18,7 +18,7 @@ class AskSearch extends Ask implements SearchInterface {
     public function rules() {
         return [
             [
-                ['id', 'party_id', 'member_id', 'processed', 'comment',
+                ['id', 'party_id', 'member_id', 'processed', 'comment', 'updated_by',
                  'confirmed', 'visited', 'paid', 'is_blocked', 'closed' ],
                 'integer'
             ]
@@ -63,6 +63,7 @@ class AskSearch extends Ask implements SearchInterface {
             'id' => $this->id,
             'party_id' => $this->party_id,
             'member_id' => $this->member_id,
+            'updated_by' => $this->updated_by,
             'processed' => $this->processed,
             'confirmed' => $this->confirmed,
             'is_blocked' => $this->is_blocked,

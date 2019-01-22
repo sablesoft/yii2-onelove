@@ -83,6 +83,7 @@ return [
     'Select ask member' => 'Выберите участника заявки',
     'Sex' => 'Пол',
     'Timestamp' => 'Дата / Время',
+    'Updated By'    => '',
     'Update Member: {0}' => 'Обновить участника: {0}',
     'Update Party: {0}' => 'Обновить встречу: {0}',
     'Update Place: {0}' => 'Обновить место: {0}',

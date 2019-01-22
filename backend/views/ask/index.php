@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Party::getDropDownList()[0]
             ],
             [
-                'attribute' => 'member_id', // todo
+                'attribute' => 'member_id',
                 'value' => function( $model ) {
                     /** @var \common\models\Ask $model */
                     return $model->memberLabel;
@@ -50,6 +50,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'processed:boolean',
             'is_blocked:boolean',
             'closed:boolean',
+            [
+                'attribute' => 'updated_by',
+                'value' => function( $model ) {
+                    /** @var \common\models\Ask $model */
+                    return $model->operatorLabel;
+                },
+                'filter' => \common\models\User::findRoleList()[0] // todo
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
