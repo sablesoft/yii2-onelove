@@ -26,6 +26,8 @@ use yii\db\ActiveRecord;
  * @property Place $place
  * @property string $placeLabel
  * @property array $placeUrl
+ * @property int $membersDelta
+ * @property int $membersCount
  * @property Price $price
  * @property string $priceLabel
  * @property string $timeLabel
@@ -35,12 +37,11 @@ use yii\db\ActiveRecord;
  * @property array $priceUrl
  * @property Member[] $members
  * @property User[] $operators
- * @property string $formattedTimestamp
  */
 class Party extends BaseModel {
 
-    const COUNT_DIFF = 5; // todo move to settings
-    const COUNT_DEFAULT = 15; // todo move to settings
+    const MEMBERS_DELTA = 5;
+    const MEMBERS_COUNT = 15;
 
     const WIDGET_DATETIME = 'd F H:i';
 
@@ -135,7 +136,6 @@ class Party extends BaseModel {
             'operator_ids'  => \Yii::t('app', 'Operators'),
             'priceLabel'  => \Yii::t('app', 'Price'),
             'timestamp' => \Yii::t('app', 'Timestamp'),
-            'formattedTimestamp' => \Yii::t('app', 'Timestamp'),
             'max_members'    => \Yii::t('app', 'Max Members'),
             'description' => \Yii::t('app', 'Description'),
             'phone'     => \Yii::t('app', 'Operator Phone'),
@@ -242,12 +242,13 @@ class Party extends BaseModel {
 
     /**
      * @return string
+     * @throws \yii\base\InvalidConfigException
      */
     public function getLabel(): string {
         if( $this->name )
             return $this->name;
 
-        return $this->placeLabel . ' - ' . $this->formattedTimestamp;
+        return $this->placeLabel . ' - ' . \Yii::$app->formatter->asDatetime( $this->timestamp );
     }
 
     /**
@@ -268,11 +269,23 @@ class Party extends BaseModel {
      * @return string
      */
     public function getMembersLabel() : string {
-        $diff = self::COUNT_DIFF;
-        $max = $this->max_members ?: self::COUNT_DEFAULT;
-        $count = ( $max - $diff ) . ' - ' . ( $max + $diff );
+        $delta = $this->membersDelta;
+        $middle = $this->membersCount;
+        $min = $middle - $delta;
+        $max = $middle + $delta;
+        $count = $min . ' - ' . $max;
 
         return \Yii::t('app', '{0} guests', $count);
+    }
+
+    public function getMembersDelta() {
+        return (int) Helper::getSettings('members.delta' ) ?:
+            self::MEMBERS_DELTA;
+    }
+
+    public function getMembersCount() {
+        return (int) $this->max_members ?: ( Helper::getSettings('members.count' ) ?:
+            self::MEMBERS_COUNT );
     }
 
     /**

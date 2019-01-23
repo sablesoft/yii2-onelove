@@ -54,7 +54,9 @@ use kartik\select2\Select2;
             <?= $form->field($model, 'phone')->dropDownList( ...User::findPhonesList() ); ?>
         </div>
         <div class="col-sm-4">
-            <?= $form->field($model, 'max_members')->input('number'); ?>
+            <?= $form->field($model, 'max_members')->input(
+                'number', ['value' => $model->membersCount ]
+            ); ?>
         </div>
     </div>
     <div class="row">
