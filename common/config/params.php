@@ -1,6 +1,7 @@
 <?php
 return [
     'user.passwordResetTokenExpire' => 3600,
+    'countryCode' => '375',
     // socials :
     'social'    => [
         'whatsapp' => [

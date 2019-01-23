@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use common\behavior\PhoneBehavior;
 use common\models\query\PartyQuery;
 use common\models\query\UserQuery;
 use yii\behaviors\AttributeBehavior;
@@ -37,6 +38,10 @@ use yii\db\ActiveRecord;
  * @property array $priceUrl
  * @property Member[] $members
  * @property User[] $operators
+ * @property string $countryCode
+ * @property string $shortPhone
+ * @property string $maskedPhone
+ * @property array $maskedPhoneConfig
  */
 class Party extends BaseModel {
 
@@ -47,6 +52,7 @@ class Party extends BaseModel {
 
     public function behaviors() {
         return array_merge( parent::behaviors(), [
+            PhoneBehavior::class,
             [
                 'class'      => AttributeBehavior::class,
                 'attributes' => [
@@ -139,6 +145,7 @@ class Party extends BaseModel {
             'max_members'    => \Yii::t('app', 'Max Members'),
             'description' => \Yii::t('app', 'Description'),
             'phone'     => \Yii::t('app', 'Operator Phone'),
+            'maskedPhone'  => \Yii::t('app', 'Operator Phone'),
             'is_blocked' => \Yii::t('app', 'Is Blocked'),
             'closed' => \Yii::t('app', 'Closed'),
             'created_at' => \Yii::t('app', 'Created At'),

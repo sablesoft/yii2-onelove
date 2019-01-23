@@ -1,15 +1,29 @@
 <?php
 namespace common\models;
 
+use common\behavior\PhoneBehavior;
 use yii\helpers\ArrayHelper;
 
 /**
  * User model
- *
+ * @property string $countryCode
+ * @property string $shortPhone
+ * @property string $maskedPhone
+ * @property array $maskedPhoneConfig
+ * @method string getMaskedPhone( string $phone )
  */
 class User extends \dektrium\user\models\User {
 
     const DEFAULT_ROLE = 'operator';
+
+    /**
+     * @return array
+     */
+    public function behaviors() {
+        return array_merge( parent::behaviors(), [
+            PhoneBehavior::class
+        ]);
+    }
 
     /**
      * @return array
@@ -91,11 +105,12 @@ class User extends \dektrium\user\models\User {
      * @return array
      */
     public static function findPhonesList( string $role = self::DEFAULT_ROLE ) : array {
+        $user = new User();
         $list = static::findRoleList( $role, 'phone' );
         $items = [];
         foreach( $list[0] as $phone => $name )
             if( $phone )
-                $items[ $phone ] = $phone . " ( $name )";
+                $items[ $phone ] = $user->getMaskedPhone( $phone ) . " ( $name )";
         $list[0] = $items;
 
         return $list;

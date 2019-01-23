@@ -32,7 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'name',
             'address',
-            'phone',
+            [
+                'attribute' => 'phone',
+                'value' => function( $model ) {
+                    /** @var \common\models\Place $model */
+                    return $model->maskedPhone;
+                }
+            ],
             'is_default:boolean',
             'is_blocked:boolean',
             //'created_at',

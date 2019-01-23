@@ -2,6 +2,7 @@
 namespace common\models;
 
 use yii\db\ActiveRecord;
+use common\behavior\PhoneBehavior;
 use common\models\query\MemberQuery;
 use yii\behaviors\AttributeBehavior;
 
@@ -28,6 +29,10 @@ use yii\behaviors\AttributeBehavior;
  * @property Party[] $parties
  * @property string $username
  * @property string $sexLabel
+ * @property string $countryCode
+ * @property string $shortPhone
+ * @property string $maskedPhone
+ * @property array $maskedPhoneConfig
  */
 class Member extends BaseModel {
 
@@ -77,6 +82,7 @@ class Member extends BaseModel {
             'sex' => \Yii::t('app', 'Sex'),
             'sexLabel' => \Yii::t('app', 'Sex'),
             'phone' => \Yii::t('app', 'Phone'),
+            'maskedPhone' => \Yii::t('app', 'Phone'),
             'photo' => \Yii::t('app', 'Photo'),
             'email' => \Yii::t('yii', 'Email'),
             'resume' => \Yii::t('app', 'Member Resume'),
@@ -91,11 +97,12 @@ class Member extends BaseModel {
      */
     public function behaviors() {
         return array_merge( parent::behaviors(), [
+            PhoneBehavior::class,
             [
                 'class'      => AttributeBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['dob'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['dob']
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['dob'],
                 ],
                 'value' => function( $event ) {
                     return $this->dob ?

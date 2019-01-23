@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'photo', // todo - image html!!
             'name',
             'address',
-            'phone',
+            'maskedPhone',
             'map',
             'is_default:boolean',
             'is_blocked:boolean',

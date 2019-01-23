@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use common\behavior\PhoneBehavior;
 use common\models\query\PlaceQuery;
 
 /**
@@ -14,6 +15,10 @@ use common\models\query\PlaceQuery;
  * @property int $is_default
  * @property string $created_at
  * @property string $updated_at
+ * @property string $countryCode
+ * @property string $shortPhone
+ * @property string $maskedPhone
+ * @property array $maskedPhoneConfig
  *
  * @property Party[] $parties
  */
@@ -28,6 +33,12 @@ class Place extends BaseModel {
         return 'place';
     }
 
+    public function behaviors() {
+        return array_merge( parent::behaviors(), [
+            PhoneBehavior::class
+        ]);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -37,6 +48,7 @@ class Place extends BaseModel {
             [['name', 'address'], 'required'],
             [['is_default', 'is_blocked'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
+            // todo - validate phone operator code
             [['name', 'photo'], 'string', 'max' => 40],
             [['address'], 'string', 'max' => 100],
             [['map'], 'string'],
@@ -55,6 +67,7 @@ class Place extends BaseModel {
             'name' => \Yii::t('app', 'Place Name'),
             'address' => \Yii::t('app', 'Address'),
             'phone' => \Yii::t('app', 'Phone'),
+            'maskedPhone' => \Yii::t('app', 'Phone'),
             'map' => \Yii::t('app', 'Map'),
             'photo' => \Yii::t('app', 'Photo'),
             'is_default' => \Yii::t('app', 'Is Default'),

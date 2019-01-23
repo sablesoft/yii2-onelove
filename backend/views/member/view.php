@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'sexLabel',
             'ageLabel',
             'dob:date',
-            'phone',
+            'maskedPhone',
             'email:email',
             'resume:ntext',
             'username',

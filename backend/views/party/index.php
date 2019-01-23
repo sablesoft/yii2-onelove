@@ -63,7 +63,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Price::getDropDownList()[0]
             ],
-            'phone',
+            [
+                'attribute' => 'phone',
+                'value' => function( $model ) {
+                    /** @var \common\models\Party $model */
+                    return $model->maskedPhone;
+                }
+            ],
             'max_members',
             'is_blocked:boolean',
             'closed:boolean',

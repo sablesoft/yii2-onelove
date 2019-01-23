@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Place */
 /* @var $form yii\widgets\ActiveForm */
+$mapUrl = 'https://yandex.ru/map-constructor/'; // todo - move to settings
 ?>
 
 <div class="place-form">
@@ -18,7 +19,10 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-sm-6">
-                    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'phone')->widget(
+                            'yii\widgets\MaskedInput',
+                            $model->maskedPhoneConfig
+                    ); ?>
                 </div>
             </div>
             <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>

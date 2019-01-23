@@ -44,7 +44,7 @@ use common\models\User;
             ); ?>
         </div>
         <div class="col-sm-4">
-            <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) // todo - phone mask ?>
+            <?= $form->field($model, 'phone')->widget( 'yii\widgets\MaskedInput', $model->maskedPhoneConfig ); ?>
             <?= $form->field($model, 'email')->textInput(['maxlength' => true]) // todo - email validation ?>
             <br>
             <?= $form->field($model, 'is_blocked')->checkbox(); ?>

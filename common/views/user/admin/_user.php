@@ -11,11 +11,11 @@
 
 /**
  * @var yii\widgets\ActiveForm $form
- * @var dektrium\user\models\User $user
+ * @var common\models\User $user
  */
 ?>
 
-<?= $form->field($user, 'phone')->textInput(['maxlength' => 30]); ?>
+<?= $form->field($user, 'phone')->widget( 'yii\widgets\MaskedInput', $user->maskedPhoneConfig ); ?>
 <?= $form->field($user, 'email')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'username')->textInput(['maxlength' => 255]) ?>
 <?= $form->field($user, 'password')->passwordInput() ?>

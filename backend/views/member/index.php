@@ -48,8 +48,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->ageLabel;
                 }
             ],
-            'dob', // todo date
-            'phone',
+            [
+                'attribute' => 'dob',
+                'format' => 'date',
+                // todo - filter
+//                'filter' => \kartik\date\DatePicker::widget([
+//                    'name' => 'dob'
+//                ])
+            ],
+            [
+                'attribute' => 'phone',
+                'value' => function( $model ) {
+                    /** @var \common\models\Member $model */
+                    return $model->maskedPhone;
+                }
+            ],
             'email:email',
             'is_blocked:boolean',
 
