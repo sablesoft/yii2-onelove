@@ -46,6 +46,10 @@ $mapUrl = 'https://yandex.ru/map-constructor/'; // todo - move to settings
     <?= $form->field($model, 'map')->textarea(['rows' => 3]); ?>
 
     <div class="form-group">
+        <?= Html::a(
+                Yii::t('app', 'Map Constructor'),
+                $mapUrl, ['class' => 'btn btn-info', 'target' => '_blank']
+        ); ?>
         <?= Html::submitButton(Yii::t('yii', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
