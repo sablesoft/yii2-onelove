@@ -132,7 +132,7 @@ class Helper {
         }
         $array = [];
         foreach( $settings as $setting ) {
-            $path = explode( '.', $setting->key );
+            $path = $checkNamespace ? explode( '.', $setting->key ) : [ $setting->key ];
             $array = ( count( $path ) == 1 ) ?
                 [ $setting->key => ( $asModels ? $setting : $setting->value ) ] :
                 static::_setValue( $path, $array, $setting, $asModels );

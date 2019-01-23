@@ -14,7 +14,7 @@ class m190122_000808_create_setting_table extends Migration
     {
         $this->createTable('setting', [
             'id'    => $this->primaryKey(),
-            'label'  => $this->string(30)->unique()->notNull()
+            'label'  => $this->string(40)->unique()->notNull()
                 ->comment('Setting label'),
             'key'   => $this->string(30)->unique()->notNull()
                 ->comment('Setting programmer code unique key'),

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+rm backend/runtime/logs/*
+rm frontend/runtime/logs/*
