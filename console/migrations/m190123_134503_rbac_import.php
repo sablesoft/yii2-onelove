@@ -4,7 +4,7 @@ use yii\db\Migration;
 /**
  * Class m190110_134503_rbac_import
  */
-class m190110_134503_rbac_import extends Migration {
+class m190123_134503_rbac_import extends Migration {
     /**
      * {@inheritdoc}
      */
