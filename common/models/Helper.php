@@ -133,7 +133,9 @@ class Helper {
         $array = [];
         foreach( $settings as $setting ) {
             $path = explode( '.', $setting->key );
-            $array = static::_setValue( $path, $array, $setting, $asModels );
+            $array = ( count( $path ) == 1 ) ?
+                [ $setting->key => ( $asModels ? $setting : $setting->value ) ] :
+                static::_setValue( $path, $array, $setting, $asModels );
         }
 
         return reset( $array );
