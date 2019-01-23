@@ -14,8 +14,6 @@ use yii\helpers\ArrayHelper;
  */
 class User extends \dektrium\user\models\User {
 
-    const DEFAULT_ROLE = 'operator';
-
     /**
      * @return array
      */
@@ -101,10 +99,10 @@ class User extends \dektrium\user\models\User {
     }
 
     /**
-     * @param string $role
+     * @param string|null $role
      * @return array
      */
-    public static function findPhonesList( string $role = self::DEFAULT_ROLE ) : array {
+    public static function findPhonesList( $role = null ) : array {
         $user = new User();
         $list = static::findRoleList( $role, 'phone' );
         $items = [];
@@ -120,7 +118,7 @@ class User extends \dektrium\user\models\User {
      * @return array
      */
     public static function findRoleList(
-        string $role = self::DEFAULT_ROLE,
+        $role = null,
         string $from = 'id',
         string $to = 'username' ) : array {
         $users = static::find()->byRole( $role )->all();

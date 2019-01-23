@@ -62,7 +62,7 @@ use kartik\select2\Select2;
     <div class="row">
         <div class="col-sm-6">
             <?= $form->field( $model, 'operator_ids')->widget(Select2::class, [
-                'data' => ( User::findRoleList('operator' ) )[0],
+                'data' => ( User::findRoleList() )[0],
                 'options' => [
                     'id' => 'operator_ids',
                     'multiple' => true
