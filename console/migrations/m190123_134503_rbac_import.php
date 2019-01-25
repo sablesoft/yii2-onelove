@@ -5,10 +5,16 @@ use yii\db\Migration;
  * Class m190110_134503_rbac_import
  */
 class m190123_134503_rbac_import extends Migration {
+
+    protected $skip;
+//    protected $skip = true;
     /**
      * {@inheritdoc}
      */
     public function safeUp() {
+
+        if( $this->skip ) return true;
+
         $path = Yii::getAlias('@console/sql/rbac.sql');
         if( file_exists( $path ) ) {
 //            echo file_get_contents( $path );

@@ -69,6 +69,6 @@ class m190124_184619_create_ticket_table extends Migration {
         $this->dropIndex( "idx-$table-member_id", $table );
         $this->dropIndex( "idx-$table-party_id", $table );
         $this->dropIndex( "idx-$table-updated_by", $table );
-        $this->dropTable('group');
+        $this->dropTable( $table );
     }
 }

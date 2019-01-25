@@ -21,7 +21,8 @@ class m190118_201038_create_ask_table extends Migration {
                 ->comment('Client age'),
             'sex'   => $this->tinyInteger(1)->notNull()
                 ->comment('Client sex flag: Female\Male (0\1)'),
-            'created_at'    => $this->integer()->notNull()
+            'created_at'    => $this->integer()->notNull(),
+            'updated_at'    => $this->integer()->notNull()
         ]);
 
         $this->createIndex( "idx-$table-phone", $table,  'phone' );
