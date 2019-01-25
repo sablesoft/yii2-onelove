@@ -3,12 +3,16 @@
 namespace common\models\search;
 
 use yii\base\Model;
+use yii\db\ActiveQuery;
 use common\models\Member;
 use yii\data\ActiveDataProvider;
 use common\interfaces\SearchInterface;
+use common\behavior\DateFilterBehavior;
 
 /**
  * MemberSearch represents the model behind the search form of `common\models\Member`.
+ *
+ * @method ActiveQuery applyDateFilter( string $attribute, ActiveQuery $query );
  */
 class MemberSearch extends Member implements SearchInterface {
 
@@ -18,7 +22,7 @@ class MemberSearch extends Member implements SearchInterface {
     public function rules() {
         return [
             [['id', 'user_id', 'age', 'sex', 'is_blocked'], 'integer'],
-            [['name', 'photo', 'dob', 'phone', 'email', 'resume', 'created_at', 'updated_at'], 'safe'],
+            [['name', 'photo', 'dob', 'phone', 'email', 'resume', 'created_at', 'updated_at'], 'safe']
         ];
     }
 
@@ -28,6 +32,15 @@ class MemberSearch extends Member implements SearchInterface {
     public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors() {
+        return array_merge( parent::behaviors(), [
+            DateFilterBehavior::class
+        ]);
     }
 
     /**
@@ -59,12 +72,14 @@ class MemberSearch extends Member implements SearchInterface {
             'id' => $this->id,
             'user_id' => $this->user_id,
             'age' => $this->age,
-            'dob' => $this->dob,
             'sex' => $this->sex,
-            'is_blocked' => $this->is_blocked,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'is_blocked' => $this->is_blocked
         ]);
+
+        // date filter:
+        $query = $this->applyDateFilter( 'dob', $query );
+        $query = $this->applyDateFilter( 'created_at', $query );
+        $query = $this->applyDateFilter( 'updated_at', $query );
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'photo', $this->photo])

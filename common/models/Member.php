@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use common\behavior\AgeBehavior;
 use yii\db\ActiveRecord;
 use common\behavior\PhoneBehavior;
 use common\models\query\MemberQuery;
@@ -15,6 +16,7 @@ use yii\behaviors\AttributeBehavior;
  * @property string $name
  * @property int $age
  * @property int $trueAge
+ * @property int $minAge
  * @property string $ageLabel
  * @property string $dob
  * @property int $sex
@@ -36,6 +38,8 @@ use yii\behaviors\AttributeBehavior;
  */
 class Member extends BaseModel {
 
+    const YEAR_IN_SECONDS = 31536000;
+
     /**
      * {@inheritdoc}
      */
@@ -51,7 +55,9 @@ class Member extends BaseModel {
             // todo - validate photo path
             [['user_id', 'age', 'sex', 'is_blocked', 'trueAge'], 'integer'],
             [['age', 'sex'], 'required'],
-            [['dob', 'created_at', 'updated_at'], 'safe'],
+            [['age'], 'validateAge'],
+            [['created_at', 'updated_at'], 'safe'],
+            [['dob'], 'validateDob'],
             [['resume'], 'string'],
             [['name'], 'string', 'max' => 10],
             [['photo'], 'string', 'max' => 40],
@@ -97,6 +103,7 @@ class Member extends BaseModel {
      */
     public function behaviors() {
         return array_merge( parent::behaviors(), [
+            AgeBehavior::class,
             PhoneBehavior::class,
             [
                 'class'      => AttributeBehavior::class,
@@ -120,6 +127,16 @@ class Member extends BaseModel {
                 }
             ]
         ]);
+    }
+
+    /**
+     * @param string $attribute
+     * @param $params
+     */
+    public function validateDob( string $attribute, $params ) {
+        $ages = $this->trueAge;
+        if( $ages < $this->minAge )
+            $this->addError( $attribute, \Yii::t('app', 'Invalid day of birth') );
     }
 
     /**
@@ -147,37 +164,6 @@ class Member extends BaseModel {
     /**
      * @return string
      */
-    public function getAgeLabel() : string {
-        if( !$word = $this->_ageLabel() )
-            return '';
-        $message = "{0} $word";
-
-        return \Yii::t('app', $message, $this->age );
-    }
-
-    /**
-     * @return string
-     */
-    protected function _ageLabel() : string {
-        $age = $this->age;
-        if( !$age )
-            return '';
-
-        $num = $age > 100 ? substr( $age, -2 ) : $age;
-        if( $num >= 5 && $num <= 14 ) {
-            return 'ages';
-        } else {
-            $num = substr( $age, -1 );
-            if( $num == 0 || ( $num >= 5 && $num <= 9 ) ) return 'ages';
-            if( $num == 1 ) return 'year';
-            if( $num >= 2 && $num <= 4 ) return 'years';
-        }
-        return '';
-    }
-
-    /**
-     * @return string
-     */
     public function getSexLabel() : string {
         return array_key_exists( (int) $this->sex, static::getSexDropDownList() )?
             static::getSexDropDownList()[ (int) $this->sex ] : '';
@@ -189,8 +175,8 @@ class Member extends BaseModel {
     public function getTrueAge() {
         if( !$this->dob )
             return $this->age;
-        // todo
-        return $this->age;
+
+        return (int) ( time() - strtotime( $this->dob ) ) / self::YEAR_IN_SECONDS;
     }
 
     /**

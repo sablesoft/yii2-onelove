@@ -2,13 +2,17 @@
 
 namespace common\models\search;
 
+use common\behavior\DateFilterBehavior;
 use yii\base\Model;
 use common\models\Ask;
 use yii\data\ActiveDataProvider;
 use common\interfaces\SearchInterface;
+use yii\db\ActiveQuery;
 
 /**
  * AskSearch represents the model behind the search form of `Ask`.
+ *
+ * @method ActiveQuery applyDateFilter( string $attribute, ActiveQuery $query );
  */
 class AskSearch extends Ask implements SearchInterface {
 
@@ -18,7 +22,7 @@ class AskSearch extends Ask implements SearchInterface {
     public function rules() {
         return [
             [['age', 'sex' ], 'integer'],
-            [['name', 'phone', 'created_at'], 'safe']
+            [['name', 'phone', 'created_at', 'updated_at'], 'safe']
         ];
     }
 
@@ -28,6 +32,15 @@ class AskSearch extends Ask implements SearchInterface {
     public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors() {
+        return array_merge( parent::behaviors(), [
+            DateFilterBehavior::class
+        ]);
     }
 
     /**
@@ -61,9 +74,12 @@ class AskSearch extends Ask implements SearchInterface {
             'sex' => $this->sex
         ]);
 
+        // date filter:
+        $query = $this->applyDateFilter( 'created_at', $query );
+        $query = $this->applyDateFilter( 'updated_at', $query );
+
         $query->andFilterWhere(['like', 'name', $this->name ])
-            ->andFilterWhere(['like', 'phone', $this->phone ])
-            ->andFilterWhere(['like', 'created_at', $this->created_at]);
+            ->andFilterWhere(['like', 'phone', $this->phone ]);
 
         return $dataProvider;
     }

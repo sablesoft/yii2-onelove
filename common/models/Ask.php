@@ -3,9 +3,9 @@
 namespace common\models;
 
 use Yii;
-use yii\db\ActiveRecord;
+use common\behavior\AgeBehavior;
 use common\models\query\AskQuery;
-use yii\behaviors\AttributeBehavior;
+use common\behavior\PhoneBehavior;
 
 /**
  * This is the model class for table "ask".
@@ -18,12 +18,14 @@ use yii\behaviors\AttributeBehavior;
  * @property int $sex
  * @property int $created_at
  *
+ * @property int $minAge
+ * @property string $ageLabel
  * @property string $countryCode
  * @property string $shortPhone
  * @property string $maskedPhone
  * @property array $maskedPhoneConfig
  */
-class Ask extends ActiveRecord {
+class Ask extends BaseModel {
 
     /**
      * {@inheritdoc}
@@ -39,7 +41,8 @@ class Ask extends ActiveRecord {
         return [
             [['name', 'phone'], 'required'],
             [['age', 'sex'], 'integer'],
-            [['name', 'phone'], 'string'],
+            [['age'], 'validateAge'],
+            [['created_at', 'updated_at'], 'safe'],
             [['phone'], 'unique']
         ];
     }
@@ -48,28 +51,10 @@ class Ask extends ActiveRecord {
      * @return array
      */
     public function behaviors() {
-        return [
-            [
-                'class'      => AttributeBehavior::class,
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['created_at']
-                ],
-                'value' => function( $event ) {
-                    return $this->created_at ?
-                        strtotime( $this->created_at ) : time();
-                }
-            ],
-            [
-                'class'      => AttributeBehavior::class,
-                'attributes' => [
-                    ActiveRecord::EVENT_AFTER_FIND => ['created_at'],
-                ],
-                'value' => function( $event ) {
-                    return date('Y-m-d H:i', $this->created_at );
-                }
-            ]
-        ];
+        return array_merge( parent::behaviors(), [
+            AgeBehavior::class,
+            PhoneBehavior::class
+        ]);
     }
 
     /**
@@ -80,9 +65,21 @@ class Ask extends ActiveRecord {
             'name' => Yii::t('app', 'Name'),
             'phone' => Yii::t('app', 'Phone'),
             'age' => Yii::t('app', 'Age'),
+            'ageLabel' => Yii::t('app', 'Age'),
+            'maskedPhone' => \Yii::t('app', 'Phone'),
             'sex' => Yii::t('app', 'Sex'),
-            'created_at' => Yii::t('app', 'Created At')
+            'sexLabel' => \Yii::t('app', 'Sex'),
+            'created_at' => \Yii::t('app', 'Created At'),
+            'updated_at' => \Yii::t('app', 'Updated At')
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getSexLabel() : string {
+        return array_key_exists( (int) $this->sex, Member::getSexDropDownList() )?
+            Member::getSexDropDownList()[ (int) $this->sex ] : '';
     }
 
     /**
@@ -92,11 +89,15 @@ class Ask extends ActiveRecord {
         return $this->phone;
     }
 
+    public static function primaryKey() {
+        return ['phone'];
+    }
+
     /**
      * @return string
      */
     public function getLabel(): string {
-        return $this->name . ' - ' . $this->phone;
+        return $this->name . ': ' . $this->maskedPhone;
     }
 
     /**
