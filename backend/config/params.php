@@ -9,8 +9,8 @@ return [
             ],
             'ask'  => [
                 '_menu' => [
-                    'label'     => 'Asks',
-                    'url'       => '/ask'
+                    'label'     => 'Tickets',
+                    'url'       => '/ticket'
                 ]
             ],
             'party'  => [

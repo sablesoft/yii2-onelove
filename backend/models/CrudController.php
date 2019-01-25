@@ -3,9 +3,9 @@ namespace backend\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\filters\VerbFilter;
 use common\interfaces\SearchInterface;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * PlaceController implements the CRUD actions for Place model.
@@ -30,7 +30,7 @@ class CrudController extends BackendController {
     }
 
     /**
-     * Lists all Place models.
+     * Lists all models.
      * @return mixed
      */
     public function actionIndex() {

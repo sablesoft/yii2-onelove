@@ -3,22 +3,21 @@
 namespace common\models\search;
 
 use yii\base\Model;
-use common\models\Ask;
 use yii\data\ActiveDataProvider;
-use common\interfaces\SearchInterface;
+use common\models\Ticket;
 
 /**
- * AskSearch represents the model behind the search form of `Ask`.
+ * TicketSearch represents the model behind the search form of `common\models\Ticket`.
  */
-class AskSearch extends Ask implements SearchInterface {
+class TicketSearch extends Ticket {
 
     /**
      * {@inheritdoc}
      */
     public function rules() {
         return [
-            [['age', 'sex' ], 'integer'],
-            [['name', 'phone', 'created_at'], 'safe']
+            [['id', 'party_id', 'member_id', 'visited', 'paid', 'is_blocked', 'closed', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['comment'], 'safe'],
         ];
     }
 
@@ -37,17 +36,16 @@ class AskSearch extends Ask implements SearchInterface {
      *
      * @return ActiveDataProvider
      */
-    public function search( array $params ) : ActiveDataProvider {
-
-        $query = Ask::find();
+    public function search( $params ) {
+        $query = Ticket::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query
+            'query' => $query,
         ]);
 
-        $this->load( $params );
+        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -57,13 +55,19 @@ class AskSearch extends Ask implements SearchInterface {
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'age' => $this->age,
-            'sex' => $this->sex
+            'id' => $this->id,
+            'party_id' => $this->party_id,
+            'member_id' => $this->member_id,
+            'visited' => $this->visited,
+            'paid' => $this->paid,
+            'is_blocked' => $this->is_blocked,
+            'closed' => $this->closed,
+            'updated_by' => $this->updated_by,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name ])
-            ->andFilterWhere(['like', 'phone', $this->phone ])
-            ->andFilterWhere(['like', 'created_at', $this->created_at]);
+        $query->andFilterWhere(['like', 'comment', $this->comment]);
 
         return $dataProvider;
     }

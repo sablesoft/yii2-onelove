@@ -2,13 +2,14 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\Party;
 use common\models\Member;
 use common\models\Helper;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\TicketSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$area = 'ask';
-$this->title = Yii::t('app', 'Asks');
+$area = 'ticket';
+$this->title = Yii::t('app', 'Tickets');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ticket-index">
@@ -25,23 +26,35 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'name',
             [
-                'attribute' => 'phone',
+                'attribute' => 'party_id', // todo
                 'value' => function( $model ) {
-                    /** @var \common\models\Ask $model */
-                    return $model->maskedPhone;
-                }
-            ],
-            'age',
-            [
-                'attribute' => 'sex',
-                'value'     => function( $model ) {
-                    /** @var \common\models\Member $model */
-                    return $model->sexLabel;
+                    /** @var \common\models\Ticket $model */
+                    return $model->partyLabel;
                 },
-                'filter' => Member::getSexDropDownList()
+                'filter' => Party::getDropDownList()[0]
             ],
+            [
+                'attribute' => 'member_id',
+                'value' => function( $model ) {
+                    /** @var \common\models\Ticket $model */
+                    return $model->memberLabel;
+                },
+                'filter' => Member::getDropDownList()[0]
+            ],
+            'visited:boolean',
+            'paid:currency',
+            'is_blocked:boolean',
+            'closed:boolean',
+            [
+                'attribute' => 'updated_by',
+                'value' => function( $model ) {
+                    /** @var \common\models\Ticket $model */
+                    return $model->operatorLabel;
+                },
+                'filter' => \common\models\User::findRoleList()[0]
+            ],
+
 
             [
                 'class' => 'yii\grid\ActionColumn',
