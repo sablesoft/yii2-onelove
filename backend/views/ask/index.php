@@ -33,7 +33,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->maskedPhone;
                 }
             ],
-            'age',
+            [
+                'attribute' => 'age',
+                'value'     => function( $model ) {
+                    /** @var \common\models\Ask $model */
+                    return $model->ageLabel;
+                }
+            ],
             [
                 'attribute' => 'sex',
                 'value'     => function( $model ) {
@@ -42,7 +48,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Member::getSexDropDownList()
             ],
-
+            [
+                'attribute' => 'created_at',
+                'format' => 'datetime',
+                'filter'  => \kartik\date\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'created_at',
+                    'options' => [
+                        'autocomplete' => 'off',
+                        'placeholder' => Yii::t('app','Date filter') .'...'
+                    ],
+                    'pluginOptions' => [
+                        'forceParse' => true,
+                        'format' => 'yyyy-mm-dd',
+                        'autoclose' => true,
+                        'todayHighlight' => true
+                    ]
+                ])
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'visibleButtons' => Helper::visibleButtons( $area )

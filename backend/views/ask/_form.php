@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use common\models\Party;
 use common\models\Member;
 use yii\widgets\ActiveForm;
 
@@ -16,62 +15,18 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-sm-6">
-            <div class="row">
-                <div class="col-sm-12">
-                    <?php // todo - disabled for not new: ?>
-                    <?= $form->field( $model, 'party_id' )
-                        // todo - only active parties?
-                        ->dropDownList( ...Party::getDropDownList([
-                            'prompt' => Yii::t('app', 'Select asked party')
-                        ]) )->label( Yii::t('app', 'Party' ) ); ?>
-                </div>
-                <div class="col-sm-12">
-                    <?php // todo - disabled for not new: ?>
-                    <?= $form->field($model, 'member_id')
-                        ->dropDownList( ...Member::getDropDownList([
-                            'prompt' => Yii::t('app', 'Select ask member')
-                        ]) )->label( Yii::t('app', 'Member' ) ); ?>
-                </div>
-            </div>
+            <?= $form->field( $model, 'name')->textInput(); ?>
+            <?= $form->field($model, 'phone')
+                ->widget( 'yii\widgets\MaskedInput', $model->maskedPhoneConfig ); ?>
         </div>
         <div class="col-sm-6">
-            <?= $form->field( $model, 'comment')->textarea(['rows' => '4']); ?>
+            <?= $form->field($model, 'sex')->dropDownList( Member::getSexDropDownList() ); ?>
+            <?= $form->field( $model, 'age')->input('number'); ?>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-3  col-xs-4">
-            <br>
-            <?= $form->field( $model, 'confirmed')->checkbox(); ?>
-        </div>
-        <div class="col-sm-3  col-xs-4">
-            <br>
-            <?= $form->field( $model, 'visited')->checkbox(); ?>
-        </div>
-        <div class="col-sm-6">
-            <?= $form->field( $model, 'paid')->textInput(); ?>
-        </div>
-        <div class="col-sm-3">
-            <br>
-            <?= $form->field( $model, 'processed')->checkbox(); ?>
-        </div>
-        <div class="col-sm-3">
-            <br>
-            <?= $form->field( $model, 'is_blocked')->checkbox(); ?>
-        </div>
-        <div class="col-sm-3">
-            <br>
-            <?= $form->field( $model, 'closed')->checkbox(); ?>
-        </div>
-        <div class="col-sm-3">
-            <br>
-            <div class="form-group">
-                <?= Html::submitButton(
-                        Yii::t('yii', 'Save'),
-                        ['class' => 'btn btn-success']
-                ); ?>
-            </div>
-        </div>
+        <?= Html::submitButton(
+                Yii::t('yii', 'Save'),
+                ['class' => 'btn btn-success']
+        ); ?>
     </div>
 
     <?php ActiveForm::end(); ?>
