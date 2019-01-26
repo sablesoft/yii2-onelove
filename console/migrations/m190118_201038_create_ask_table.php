@@ -17,9 +17,9 @@ class m190118_201038_create_ask_table extends Migration {
                 ->comment('Client real or nickname'),
             'phone' => $this->string(20)->null()->unique()
                 ->comment('Client international format phone number'),
-            'age'   => $this->integer()->unsigned()->notNull()
+            'age'   => $this->integer()->unsigned()->null()
                 ->comment('Client age'),
-            'sex'   => $this->tinyInteger(1)->notNull()
+            'sex'   => $this->tinyInteger(1)->null()
                 ->comment('Client sex flag: Female\Male (0\1)'),
             'created_at'    => $this->integer()->notNull(),
             'updated_at'    => $this->integer()->notNull()
