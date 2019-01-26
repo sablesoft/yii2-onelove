@@ -199,8 +199,11 @@ jQuery('.ask-form').on('beforeSubmit', function() {
 			type   : 'post',
 			data   : form.serialize(),
 			success: function( res ) {
-				console.info( res );
-				jQuery('#askSuccess').modal('show');
+				if( res.success ) {
+					jQuery('#askSuccess').modal('show');
+				} else { // todo - show error
+					jQuery('#askFail').modal('show');
+				}
 			},
 			error  : function ( res ) {
                 jQuery('#askFail').modal('show');

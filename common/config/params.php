@@ -1,8 +1,9 @@
 <?php
 return [
     'user.passwordResetTokenExpire' => 3600,
+    // country code default param: todo
     'countryCode' => '375',
-    // socials :
+    // social default params : todo
     'social'    => [
         'whatsapp' => [
             'href'  => '#',
@@ -19,6 +20,20 @@ return [
             'label' => 'Viber',
             'icon'  => 'fa-viber'
         ]
+    ],
+    // sections default params : todo
+    'sections' => [
+        "gallery"   => false,
+        "comments"  => false
+    ],
+    // age default params:
+    'age' => [
+        'min' => 16,
+        'max' => 70
+    ],
+    // mail default params:todo
+    'mail' => [
+        'sendFrom' => 'info@onelove.by'
     ],
         //
     'keys'      => [
@@ -75,6 +90,8 @@ return [
         ]
     ],
 
+    'map' => "<script type=\"text/javascript\" charset=\"utf-8\" async src=\"https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A08d03c379731f595ccb3eb1dc45b274d63692a266928ad8824e5bcfa481243e7&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true\"></script>",
+
     // faq:
     'faq'   => [
         [
@@ -105,11 +122,6 @@ return [
             'question'  => 'Кто обычно приходит на вечера клуба знакомств?',
             'answer'    => '<p>Мы проводим встречи людей с разными интересами всех возможных профессий. На вечеринке можно познакомиться с бизнесменами, художниками, писателями, журналистами, менеджерами и представителями многих других профессий. У нас вы легко сможете найти себе человека, который будет подходить вам по характеру, ведь мы приглашаем людей с разных жизненных взглядов и позиций.</p><p>Возрастные группы проведения встреч:</p><ul><li>1-группа: от 22 до 34.</li><li>2-группа: от 34 и старше.</li></ul><p>Все участники соответствуют указанным возрастным критериям.</p><p>Приятная атмосфера на мероприятии, всегда поможет настроиться на интересное времяпрепровождение. Открытое и легкое общение поможет найти общие интересы с любым гостем на вечере.</p>'
         ]
-    ],
-
-    'sections' => [
-        "gallery"   => false,
-        "comments"  => false
-    ],
+    ]
 
 ];

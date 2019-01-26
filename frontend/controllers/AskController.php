@@ -1,10 +1,13 @@
 <?php
 namespace frontend\controllers;
 
+use yii\web\Response;
 use common\models\Ask;
 use yii\web\Controller;
-use yii\web\Response;
+use common\models\Party;
+use yii\mail\BaseMailer;
 use yii\widgets\ActiveForm;
+use yii\base\InvalidConfigException;
 
 /**
  * Class AskController
@@ -39,20 +42,59 @@ class AskController extends Controller {
      */
     public function actionCreate() : array {
         $model = new Ask();
-
-        $request = \Yii::$app->getRequest();
-        if( $request->isPost && $model->load( $request->post() ) ) {
-            $response = [
-                'success' => $model->save(),
-                'errors' => $model->getErrors()
-            ];
-        } else {
+        $response = [ 'success' => true ];
+        try {
+            $request = \Yii::$app->getRequest();
+            if( $request->isPost && $model->load( $request->post() ) ) {
+                if( $model->save() ) {
+                    $this->sendReport( $model );
+                } else
+                    $response = [
+                        'success' => false,
+                        'errors' => $model->getErrors()
+                    ];
+            } else {
+                $response = [
+                    'success' => false,
+                    'errors' => [ \Yii::t('app','Ask data not loaded!') ]
+                ];
+            }
+        } catch( \Exception $e ) {
             $response = [
                 'success' => false,
-                'errors' => ['Model not loaded!']
+                'errors' => [ $e->getMessage() ]
             ];
         }
 
         return $response;
+    }
+
+    /**
+     * @param Ask $model
+     * @throws InvalidConfigException
+     */
+    protected function sendReport( Ask $model ) {
+        if( !$party = Party::findNearest() ) {
+            \Yii::error( \Yii::t('app', 'Nearest party for ask not founded!') );
+            // todo - send mail to admin!
+
+            return;
+        }
+
+        if( !$operators = $party->operators )
+            return;
+
+        $messages = [];
+        /** @var BaseMailer $mailer */
+        $mailer = \Yii::$app->mailer;
+        $mailer->setView( $this->view );
+        foreach( $operators as $operator ) {
+            $messages[] = $mailer->compose(
+                'ask', [ 'model' => $model ]
+            )->setSubject( \Yii::t('app', 'New party ask!'))
+                ->setTo( $operator->email );
+        }
+
+        \Yii::$app->mailer->sendMultiple( $messages );
     }
 }

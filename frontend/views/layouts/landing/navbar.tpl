@@ -25,7 +25,7 @@
             <button type="button" class="invite-button">Получить приглашение</button>
             <button type="button" class="button-mob-contact"><i class="fas fa-phone-volume"></i></button>
             <div class="header-info">
-                <span>{$party->phone}</span>
+                <span>{$party->maskedPhone}</span>
                 {$messengers = Helper::getSettings('messenger', true, true )}
                 {foreach from=$messengers item=item}
                 <a href="{$item->value['href']}"
