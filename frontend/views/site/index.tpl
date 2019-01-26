@@ -1,4 +1,7 @@
+{* @var $ask Ask *}
 {* @var $party Party *}
+{* @var array $failModal *}
+{* @var array $successModal *}
 {use class='common\models\Helper'}
 <div id="landing">
     {registerCss}
@@ -28,3 +31,32 @@
     {include '@frontend/views/site/landing/place.tpl'}
 </div>
 {$party->map}
+{use class='yii\helpers\Html'}
+{$header = $successModal['header']}
+{Modal options=['id'=> $successModal['id'] ] header="<h3 class='text-center'>$header</h3>"}
+    <div class="row">
+        <p class="text-center">{$successModal['message']}</p>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-5 col-sm-7">
+            {Html::button(
+                Yii::t('app','Success'),
+                ['data-dismiss' => 'modal', 'class' => 'btn btn-success btn-lg']
+            )}
+        </div>
+    </div>
+{/Modal}
+{$header = $failModal['header']}
+{Modal options=['id'=>$failModal['id']] header="<h2 class='text-center'>$header</h2>"}
+    <div class="row">
+        <p class="text-center">{$failModal['message']}</p>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-5 col-sm-7">
+            {Html::button(
+                Yii::t('app','Fail'),
+                ['data-dismiss' => 'modal', 'class' => 'btn btn-danger btn-lg']
+            )}
+        </div>
+    </div>
+{/Modal}

@@ -130,11 +130,9 @@
         	xhr.send(formData);
         });
     }
-    let form1 = document.forms.namedItem('registrationTop');
     let form2 = document.forms.namedItem('registrationBottom');
     let form3 = document.forms.namedItem('registrationPopup');
     let form4 = document.forms.namedItem('registrationBackCall');
-    addMail(form1);
     addMail(form2);
     addMail(form3);
     addMail(form4);
@@ -190,4 +188,24 @@ $(document).ready(function(){
             top = $(id).offset().top;
         $('body,html').animate({scrollTop: top}, 1500);
     });
+});
+
+// submit ask forms
+jQuery('.ask-form').on('beforeSubmit', function() {
+    let form = jQuery( this );
+    if( !form.find( '.has-error' ).length )
+		jQuery.ajax({
+			url    : form.attr('action'),
+			type   : 'post',
+			data   : form.serialize(),
+			success: function( res ) {
+				console.info( res );
+				jQuery('#askSuccess').modal('show');
+			},
+			error  : function ( res ) {
+                jQuery('#askFail').modal('show');
+				console.error( res );
+			}
+		});
+    return false;
 });

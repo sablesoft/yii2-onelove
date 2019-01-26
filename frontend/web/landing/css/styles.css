@@ -359,7 +359,7 @@ header.active #logo a.logo-final {
     padding: 5px 25px;
     border-radius: 13px;
     font-style: italic;
-    color: #fff;
+    color: #fff !important;
     background-color: rgb(169, 9, 9);
 }
 .registration-description li {
@@ -2046,4 +2046,22 @@ section>div.landing-wrapper>h2 {
     font-size: 30px;
     line-height: 40px;
     margin-top: 25px;
+}
+
+#ask-sex,
+.field-ask-sex>label,
+.field-ask-age>label,
+.field-ask-age>input {
+    display: inline;
+    width: 48%;
+    margin-right: 5px;
+}
+
+#registration-form>.row {
+    font-size: 16px;
+}
+
+.modal-body p {
+    font-size: 18px;
+    margin-bottom: 30px;
 }
