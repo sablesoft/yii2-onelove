@@ -24,8 +24,7 @@ $view->params['breadcrumbs'][] = $view->title;
             'maskedPhone',
             'sexLabel',
             'ageLabel',
-            'created_at:datetime',
-            'updated_at:datetime'
+            'created_at:datetime'
         ]
     ]); ?>
 </div>

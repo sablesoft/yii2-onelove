@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => Helper::canLink( 'price.view', $model->priceLabel, $model->priceUrl )
             ],
-            'maskedPhone',
+            'phoneLabel',
             [
                 'attribute' => 'operator_ids',
                 'format' => 'text',

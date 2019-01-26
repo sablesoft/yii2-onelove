@@ -10,6 +10,16 @@ return [
             'httpOnly' => true
         ]
     ],
+    'mailer' => [
+        'class' => 'yii\swiftmailer\Mailer',
+        'messageConfig' => [
+            'charset' => 'UTF-8',
+            'from' => [ 'noreply@onelove.by' => 'OneLove CRM']
+        ],
+        'viewPath' => '@common/mail',
+        'htmlLayout' => 'layouts/backend.tpl',
+        'enableSwiftMailerLogging' => true
+    ],
     'session' => [
         'name' => 'ONELOVE_SESSION',
         'cookieParams'  => [

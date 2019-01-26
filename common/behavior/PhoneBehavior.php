@@ -2,6 +2,7 @@
 namespace common\behavior;
 
 use yii\base\Behavior;
+use common\models\User;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -12,6 +13,7 @@ use yii\helpers\ArrayHelper;
  * @property string $countryCode
  * @property string $shortPhone
  * @property string $maskedPhone
+ * @property string $phoneLabel
  * @property array $maskedPhoneConfig
  */
 class PhoneBehavior extends Behavior {
@@ -102,6 +104,26 @@ class PhoneBehavior extends Behavior {
             self::SHORT_MASK,
             $phone
         );
+    }
+
+    /**
+     * @param null|string $phone
+     * @return string
+     */
+    public function getPhoneLabel( $phone = null ) : string {
+        if( empty( $phone ) && !$this->_check() )
+            return '';
+
+        $attribute = self::ATTRIBUTE;
+        $phone = $phone ?: $this->owner->$attribute;
+        if( empty( $phone ) )
+            return '';
+
+        $user = User::findOne([ $attribute => $phone ]);
+        $username = $user ? $user->username : false;
+        $phone = $this->getMaskedPhone( $phone );
+
+        return $username ? $username . " [ $phone ]" : $phone;
     }
 
     /**

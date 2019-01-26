@@ -41,6 +41,7 @@ use yii\db\ActiveRecord;
  * @property string $countryCode
  * @property string $shortPhone
  * @property string $maskedPhone
+ * @property string $phoneLabel
  * @property array $maskedPhoneConfig
  */
 class Party extends BaseModel {
@@ -146,6 +147,7 @@ class Party extends BaseModel {
             'description' => \Yii::t('app', 'Description'),
             'phone'     => \Yii::t('app', 'Operator Phone'),
             'maskedPhone'  => \Yii::t('app', 'Operator Phone'),
+            'phoneLabel'  => \Yii::t('app', 'Operator Phone'),
             'is_blocked' => \Yii::t('app', 'Is Blocked'),
             'closed' => \Yii::t('app', 'Closed'),
             'created_at' => \Yii::t('app', 'Created At'),
@@ -267,9 +269,14 @@ class Party extends BaseModel {
         if( !$this->timestamp )
             return '';
 
-        return \Yii::$app->formatter->asDatetime(
+        $label = \Yii::$app->formatter->asDatetime(
             $this->timestamp, 'php:d mm H:i'
         );
+
+        if( $label[0] == '0' )
+            $label = substr( $label, 1);
+
+        return $label;
     }
 
     /**
