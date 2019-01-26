@@ -4,8 +4,9 @@ namespace common\models;
 
 use Yii;
 use common\behavior\AgeBehavior;
-use common\models\query\AskQuery;
+use common\behavior\NameBehavior;
 use common\behavior\PhoneBehavior;
+use common\models\query\AskQuery;
 
 /**
  * This is the model class for table "ask".
@@ -19,6 +20,7 @@ use common\behavior\PhoneBehavior;
  * @property int $created_at
  *
  * @property int $minAge
+ * @property int $maxAge
  * @property string $ageLabel
  * @property string $countryCode
  * @property string $shortPhone
@@ -40,8 +42,11 @@ class Ask extends BaseModel {
     public function rules() {
         return [
             [['name', 'phone'], 'required'],
-            [['age', 'sex'], 'integer'],
-            [['age'], 'validateAge'],
+            [['sex'], 'integer', 'min' => 0, 'max' => 1],
+            [['name'], 'trim'],
+            [['name'], 'validateName'],
+            [['phone'], 'validatePhone'],
+            [['age'], 'integer', 'min' => $this->minAge, 'max' => $this->maxAge ],
             [['created_at', 'updated_at'], 'safe'],
             [['phone'], 'unique']
         ];
@@ -53,6 +58,7 @@ class Ask extends BaseModel {
     public function behaviors() {
         return array_merge( parent::behaviors(), [
             AgeBehavior::class,
+            NameBehavior::class,
             PhoneBehavior::class
         ]);
     }

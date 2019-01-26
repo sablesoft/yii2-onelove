@@ -79,6 +79,7 @@ return [
     'Repeat' => 'Повторная',
     'Member Resume' => 'О себе',
     'Russian' => 'Русский',
+    'Send Ask' => 'Записаться',
     'Setting'   => 'Настройка',
     'Settings' => 'Настройки',
     'Select asked party' => 'Выберите запрашиваемую встречу',

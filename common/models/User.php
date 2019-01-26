@@ -41,7 +41,7 @@ class User extends \dektrium\user\models\User {
     public function rules() {
         $rules = parent::rules();
         // add some rules
-        $rules['phoneLength']   = ['phone', 'string', 'max' => 30];
+        $rules['phoneLength']   = ['phone', 'validatePhone'];
 
         return $rules;
     }

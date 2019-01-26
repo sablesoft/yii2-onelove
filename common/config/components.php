@@ -76,7 +76,8 @@ return [
                 //'cachePath' => '@runtime/Smarty/cache',
                 'widgets' => [
                     'blocks' => [
-                        'ActiveForm' => '\yii\widgets\ActiveForm'
+                        'Modal'         => '\yii\bootstrap\Modal',
+                        'ActiveForm'    => '\yii\widgets\ActiveForm'
                     ]
                 ]
             ]

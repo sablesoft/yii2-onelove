@@ -1,8 +1,9 @@
 <?php
 namespace common\models;
 
-use common\behavior\AgeBehavior;
 use yii\db\ActiveRecord;
+use common\behavior\AgeBehavior;
+use common\behavior\NameBehavior;
 use common\behavior\PhoneBehavior;
 use common\models\query\MemberQuery;
 use yii\behaviors\AttributeBehavior;
@@ -17,6 +18,7 @@ use yii\behaviors\AttributeBehavior;
  * @property int $age
  * @property int $trueAge
  * @property int $minAge
+ * @property int $maxAge
  * @property string $ageLabel
  * @property string $dob
  * @property int $sex
@@ -55,13 +57,16 @@ class Member extends BaseModel {
             // todo - validate photo path
             [['user_id', 'age', 'sex', 'is_blocked', 'trueAge'], 'integer'],
             [['age', 'sex'], 'required'],
-            [['age'], 'validateAge'],
+            [['age'], 'integer', 'min' => $this->minAge, 'max' => $this->maxAge ],
             [['created_at', 'updated_at'], 'safe'],
             [['dob'], 'validateDob'],
             [['resume'], 'string'],
+            [['name'], 'trim'],
             [['name'], 'string', 'max' => 10],
+            [['name'], 'validateName'],
+            [['phone'], 'validatePhone'],
             [['photo'], 'string', 'max' => 40],
-            [['phone', 'email'], 'string', 'max' => 20],
+            [['email'], 'string', 'max' => 20],
             [['user_id'], 'unique'],
             [['phone'], 'unique'],
             [['email'], 'unique'],
@@ -104,6 +109,7 @@ class Member extends BaseModel {
     public function behaviors() {
         return array_merge( parent::behaviors(), [
             AgeBehavior::class,
+            NameBehavior::class,
             PhoneBehavior::class,
             [
                 'class'      => AttributeBehavior::class,

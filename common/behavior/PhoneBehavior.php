@@ -16,6 +16,10 @@ use yii\helpers\ArrayHelper;
  */
 class PhoneBehavior extends Behavior {
 
+    /** @var ActiveRecord */
+    public $owner;
+
+    const PHONE_LENGTH = 12;
     const ATTRIBUTE = 'phone';
     const COUNTRY_CODE = '375';
     const COUNTRY_CODE_PARAM = 'countryCode';
@@ -32,6 +36,16 @@ class PhoneBehavior extends Behavior {
             ActiveRecord::EVENT_BEFORE_INSERT => 'cleanPhone',
             ActiveRecord::EVENT_BEFORE_UPDATE => 'cleanPhone'
         ];
+    }
+
+    /**
+     * @param string $attribute
+     * @param $params
+     */
+    public function validatePhone( string $attribute, $params ) {
+        $phone = $this->owner->$attribute;
+        if( strlen( $phone ) !== self::PHONE_LENGTH )
+            $this->owner->addError( $attribute, \Yii::t('app', 'Phone should contain {0} numbers', self::PHONE_LENGTH ) );
     }
 
     /**

@@ -21,16 +21,6 @@ class AgeBehavior extends Behavior {
     /** @var Model $owner */
     public $owner;
 
-    /**
-     * @param string $attribute
-     * @param $params
-     */
-    public function validateAge( string $attribute, $params ) {
-        if( ( $this->owner->$attribute < $this->minAge ) ||
-            ( $this->owner->$attribute > $this->maxAge ) )
-            $this->owner->addError( $attribute, \Yii::t('app', 'Sorry, this age is not valid.') );
-    }
-
     public function getMinAge() {
         return Helper::getSettings('min_age') ?: self::MIN_AGE;
     }
