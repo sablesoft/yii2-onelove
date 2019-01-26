@@ -21,12 +21,25 @@ class AgeBehavior extends Behavior {
     /** @var Model $owner */
     public $owner;
 
-    public function getMinAge() {
-        return Helper::getSettings('min_age') ?: self::MIN_AGE;
+    /** @var array */
+    protected $params;
+
+    /**
+     * @return int
+     */
+    public function getMinAge() : int {
+        $params = $this->getParams();
+        $minAge = is_int( $params['min'] )? $params['min'] : self::MIN_AGE;
+        return Helper::getSettings('min_age') ?: $minAge;
     }
 
-    public function getMaxAge() {
-        return Helper::getSettings('max_age') ?: self::MAX_AGE;
+    /**
+     * @return int
+     */
+    public function getMaxAge() : int {
+        $params = $this->getParams();
+        $maxAge = is_int( $params['min'] )? $params['max'] : self::MAX_AGE;
+        return Helper::getSettings('max_age') ?: $maxAge;
     }
 
 
@@ -59,5 +72,13 @@ class AgeBehavior extends Behavior {
             if( $num >= 2 && $num <= 4 ) return 'years';
         }
         return '';
+    }
+
+    /**
+     * @return array|null
+     */
+    protected function getParams() { // todo - settings
+        return $this->params ?:
+            $this->params = Helper::getParams('age');
     }
 }

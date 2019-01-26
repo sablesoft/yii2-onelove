@@ -52,7 +52,7 @@ class Place extends BaseModel {
             [['name', 'photo'], 'string', 'max' => 40],
             [['address'], 'string', 'max' => 100],
             [['map'], 'string'],
-            [['phone'], 'string', 'max' => 20],
+            [['phone'], 'validatePhone'],
             [['name'], 'unique'],
             [['address'], 'unique']
         ];

@@ -324,7 +324,7 @@ class Party extends BaseModel {
     }
 
     /**
-     * @return array|PartyQuery|null
+     * @return array|PartyQuery|Party|null
      */
     public static function findNearest() {
         return static::find()->where(['>', 'timestamp', time()])

@@ -88,10 +88,13 @@ class PhoneBehavior extends Behavior {
      * @return string
      */
     public function getMaskedPhone( $phone = null ) : string {
-        if( is_null( $phone ) && !$this->_check() )
+        if( empty( $phone ) && !$this->_check() )
             return '';
 
         $phone = $phone ? $this->getShortPhone( $phone ) : $this->shortPhone;
+        if( empty( $phone ) )
+            return '';
+
         $code = $this->countryCode;
 
         return "+$code " . preg_replace(
@@ -135,7 +138,11 @@ class PhoneBehavior extends Behavior {
      * @return string
      */
     protected function _clean( $phone ) : string {
-        return (string) preg_replace( '/[^0-9]/', '', (string) $phone );
+        $phone = (string) preg_replace( '/[^0-9]/', '', (string) $phone );
+        if( strlen( $phone ) == strlen( $this->countryCode ) )
+            $phone = '';
+
+        return $phone;
     }
 
     /**
