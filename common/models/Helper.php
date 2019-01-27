@@ -135,7 +135,7 @@ class Helper {
         foreach( $settings as $setting ) {
             $path = $checkNamespace ? explode( '.', $setting->key ) : [ $setting->key ];
             $array = ( count( $path ) == 1 ) ?
-                [ $setting->key => ( $asModels ? $setting : $setting->value ) ] :
+                [ $setting->key => ( $asModels ? $setting : $setting->decodedValue ) ] :
                 static::_setValue( $path, $array, $setting, $asModels );
         }
 
@@ -158,11 +158,7 @@ class Helper {
     protected static function _setValue( array $path, array $array, Setting $setting, bool $asModels ) {
         $key = array_shift( $path );
         if( empty( $path ) ) {
-            try {
-                // todo - move in model
-                $setting->value = json_decode( $setting->value, true );
-            } catch( \Exception $e ) {}
-            $value = ( $asModels ? $setting : $setting->value );
+            $value = ( $asModels ? $setting : $setting->decodedValue );
         } else
             $value = ( isset( $array[ $key ] ) ? $array[ $key ] : [] );
 

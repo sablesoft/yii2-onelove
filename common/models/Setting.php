@@ -11,6 +11,7 @@ use Yii;
  * @property string $label Setting label
  * @property string $key Setting programmer code unique key
  * @property string $value Setting value
+ * @property string $decodedValue Setting value
  * @property string $description Setting description
  * @property bool $isCheckDefault
  */
@@ -59,6 +60,18 @@ class Setting extends \yii\db\ActiveRecord {
             'value' => Yii::t('app', 'Value'),
             'description' => Yii::t('app', 'Description'),
         ];
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getDecodedValue() {
+        try {
+            // todo - move in model
+            return json_decode( $this->value, true );
+        } catch( \Exception $e ) {}
+
+        return $this->value;
     }
 
     /**
