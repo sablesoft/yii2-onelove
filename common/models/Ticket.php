@@ -24,8 +24,14 @@ use yii\behaviors\AttributeBehavior;
  * @property Member $member
  * @property Party $party
  * @property string $memberLabel
+ * @property string $memberSex
+ * @property string $memberSexLabel
+ * @property string $memberAgeLabel
+ * @property array $memberUrl
  * @property string $partyLabel
+ * @property array $partyUrl
  * @property string $operatorLabel
+ * @property string $operatorUrl
  * @property User $updatedBy
  */
 class Ticket extends BaseModel {
@@ -35,6 +41,14 @@ class Ticket extends BaseModel {
      */
     public static function tableName() {
         return 'ticket';
+    }
+
+    public function attributes() {
+        return [
+            'id', 'member_id', 'party_id', 'updated_by',
+            'visited', 'paid', 'is_blocked', 'closed',
+            'comment', 'created_at', 'updated_at'
+        ];
     }
 
     public function behaviors() {
@@ -95,6 +109,10 @@ class Ticket extends BaseModel {
             'paid' => Yii::t('app', 'Paid'),
             'partyLabel' => Yii::t('app', 'Party'),
             'memberLabel' => Yii::t('app', 'Member'),
+            'memberSex' => Yii::t('app', 'Sex'),
+            'memberSexLabel' => Yii::t('app', 'Sex'),
+            'memberAge' => Yii::t('app', 'Age'),
+            'memberAgeLabel' => Yii::t('app', 'Age'),
             'operatorLabel' => Yii::t('app', 'Operator'),
             'is_blocked' => Yii::t('app', 'Is Blocked'),
             'closed' => Yii::t('app', 'Closed'),
@@ -128,12 +146,62 @@ class Ticket extends BaseModel {
     }
 
     /**
+     * @return int|null
+     */
+    public function getMemberSex() {
+        $member = $this->member;
+
+        return $member ? $member->sex : null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMemberSexLabel() : string {
+        $member = $this->member;
+
+        return $member ? $member->sexLabel : '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getMemberAgeLabel() : string {
+        $member = $this->member;
+
+        return $member ? $member->ageLabel : '';
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMemberAge() {
+        $member = $this->member;
+
+        return $member ? $member->age : null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMemberUrl() : array {
+        return ['/member/view', 'id' => $this->member_id ];
+    }
+
+    /**
      * @return string
      */
     public function getPartyLabel() : string {
         $party = $this->party;
 
         return $party ? $party->label : '';
+    }
+
+    /**
+     * @return array
+     */
+    public function getPartyUrl() : array {
+        return ['/party/view', 'id' => $this->party_id ];
     }
 
     /**
@@ -150,6 +218,13 @@ class Ticket extends BaseModel {
         if( !$operator = $this->updatedBy ) return '';
 
         return $operator->username;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOperatorUrl() : array {
+        return [ '/user/profile/show', 'id' => $this->updated_by ];
     }
 
     /**
