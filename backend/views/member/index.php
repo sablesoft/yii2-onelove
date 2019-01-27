@@ -21,49 +21,54 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p><?= Helper::createButton( $area ); ?></p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?php try {
+        echo GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            [
-                // todo - photo column!!!
-                'attribute' => 'photo',
-                'filter' => false
-            ],
-            'name',
-            [
-                'attribute' => 'sex',
-                'value'     => function( $model ) {
-                    /** @var \common\models\Member $model */
-                    return $model->sexLabel;
-                },
-                'filter' => Member::getSexDropDownList()
-            ],
-            [
-                'attribute' => 'age',
-                'value'     => function( $model ) {
-                    /** @var \common\models\Member $model */
-                    return $model->ageLabel;
-                }
-            ],
-            [
-                'attribute' => 'phone',
-                'value' => function( $model ) {
-                    /** @var \common\models\Member $model */
-                    return $model->maskedPhone;
-                }
-            ],
-            'email:email',
-            'is_blocked:boolean',
+                [
+                    // todo - photo column!!!
+                    'attribute' => 'photo',
+                    'filter' => false
+                ],
+                'name',
+                [
+                    'attribute' => 'sex',
+                    'value' => function ($model) {
+                        /** @var \common\models\Member $model */
+                        return $model->sexLabel;
+                    },
+                    'filter' => Member::getSexDropDownList()
+                ],
+                [
+                    'attribute' => 'age',
+                    'value' => function ($model) {
+                        /** @var \common\models\Member $model */
+                        return $model->ageLabel;
+                    }
+                ],
+                [
+                    'attribute' => 'phone',
+                    'value' => function ($model) {
+                        /** @var \common\models\Member $model */
+                        return $model->maskedPhone;
+                    }
+                ],
+                'email:email',
+                'is_blocked:boolean',
 
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'visibleButtons' => Helper::visibleButtons( $area )
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'visibleButtons' => Helper::visibleButtons($area)
+                ]
             ]
-        ]
-    ]); ?>
+        ]);
+    } catch( Exception $e ) {
+        \Yii::$app->session->addFlash('error', $e->getMessage() );
+        $this->context->redirect(['member/index']);
+    } ?>
     <?php // todo - add paid sum column!!! ?>
     <?php // todo - add parties sum column!!! ?>
     <?php Pjax::end(); ?>

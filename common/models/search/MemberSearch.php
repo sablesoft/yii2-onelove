@@ -13,6 +13,7 @@ use common\behavior\DateFilterBehavior;
  * MemberSearch represents the model behind the search form of `common\models\Member`.
  *
  * @method ActiveQuery applyDateFilter( string $attribute, ActiveQuery $query );
+ * @method array getAgeCondition( $field = null, $age = null );
  */
 class MemberSearch extends Member implements SearchInterface {
 
@@ -21,7 +22,8 @@ class MemberSearch extends Member implements SearchInterface {
      */
     public function rules() {
         return [
-            [['id', 'user_id', 'age', 'sex', 'is_blocked'], 'integer'],
+            ['age', 'string'],
+            [['id', 'user_id', 'sex', 'is_blocked'], 'integer'],
             [['name', 'photo', 'dob', 'phone', 'email', 'resume', 'created_at', 'updated_at'], 'safe']
         ];
     }
@@ -70,9 +72,8 @@ class MemberSearch extends Member implements SearchInterface {
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'age' => $this->age,
             'sex' => $this->sex,
+            'user_id' => $this->user_id,
             'is_blocked' => $this->is_blocked
         ]);
 
@@ -85,7 +86,8 @@ class MemberSearch extends Member implements SearchInterface {
             ->andFilterWhere(['like', 'photo', $this->photo])
             ->andFilterWhere(['like', 'phone', $this->phone])
             ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'resume', $this->resume]);
+            ->andFilterWhere(['like', 'resume', $this->resume])
+            ->andFilterWhere( $this->getAgeCondition() );
 
         return $dataProvider;
     }

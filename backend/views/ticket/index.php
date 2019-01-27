@@ -20,47 +20,69 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p><?= Helper::createButton( $area ); ?></p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?php try {
+        echo GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            [
-                'attribute' => 'party_id', // todo
-                'value' => function( $model ) {
-                    /** @var \common\models\Ticket $model */
-                    return $model->partyLabel;
-                },
-                'filter' => Party::getDropDownList()[0]
-            ],
-            [
-                'attribute' => 'member_id',
-                'value' => function( $model ) {
-                    /** @var \common\models\Ticket $model */
-                    return $model->memberLabel;
-                },
-                'filter' => Member::getDropDownList()[0]
-            ],
-            'visited:boolean',
-            'paid:currency',
-            'is_blocked:boolean',
-            'closed:boolean',
-            [
-                'attribute' => 'updated_by',
-                'value' => function( $model ) {
-                    /** @var \common\models\Ticket $model */
-                    return $model->operatorLabel;
-                },
-                'filter' => \common\models\User::findRoleList()[0]
-            ],
+                [
+                    'attribute' => 'party_id',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        /** @var \common\models\Ticket $model */
+                        return Helper::canLink('party.view', $model->partyLabel, $model->partyUrl);
+                    },
+                    'filter' => Party::getDropDownList()[0]
+                ],
+                [
+                    'attribute' => 'member_id',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        /** @var \common\models\Ticket $model */
+                        return Helper::canLink('member.view', $model->memberLabel, $model->memberUrl);
+                    },
+                    'filter' => Member::getDropDownList()[0]
+                ],
+                [
+                    'attribute' => 'memberSex',
+                    'value' => function ($model) {
+                        /** @var \common\models\Ticket $model */
+                        return $model->memberSexLabel;
+                    },
+                    'filter' => Member::getSexDropDownList()
+                ],
+                [
+                    'attribute' => 'memberAge',
+                    'value' => function ($model) {
+                        /** @var \common\models\Ticket $model */
+                        return $model->memberAgeLabel;
+                    }
+                ],
+                'visited:boolean',
+                'paid:currency',
+                'is_blocked:boolean',
+                'closed:boolean',
+                [
+                    'attribute' => 'updated_by',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        /** @var \common\models\Ticket $model */
+                        return Helper::canLink('user.view', $model->operatorLabel, $model->operatorUrl);
+                    },
+                    'filter' => \common\models\User::findRoleList()[0]
+                ],
 
-
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'visibleButtons' => Helper::visibleButtons( $area )
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'visibleButtons' => Helper::visibleButtons($area)
+                ]
             ]
-        ]
-    ]); ?>
+        ]);
+    } catch( Exception $e ) {
+        \Yii::$app->session->addFlash('error', $e->getMessage() );
+        $this->context->redirect('index');
+    } ?>
     <?php Pjax::end(); ?>
 </div>

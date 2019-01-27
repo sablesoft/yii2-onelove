@@ -12,34 +12,38 @@ use common\models\Helper;
  * @property int $minAge
  * @property int $maxAge
  * @property string $ageLabel
+ * @property array $ageCondition
  */
 class AgeBehavior extends Behavior {
 
     const MIN_AGE = 16;
     const MAX_AGE = 70;
+    const ATTRIBUTE = 'age';
 
     /** @var Model $owner */
     public $owner;
+    public $field = self::ATTRIBUTE;
+    public $attribute = self::ATTRIBUTE;
 
     /** @var array */
-    protected $params;
+    protected $settings;
+
+    protected $operators = [ '>', '<' ];
 
     /**
      * @return int
      */
     public function getMinAge() : int {
-        $params = $this->getParams();
-        $minAge = is_int( $params['min'] )? $params['min'] : self::MIN_AGE;
-        return Helper::getSettings('age.min') ?: $minAge;
+        $settings = $this->getSettings();
+        return is_int( $settings['min'] )? $settings['min'] : self::MIN_AGE;
     }
 
     /**
      * @return int
      */
     public function getMaxAge() : int {
-        $params = $this->getParams();
-        $maxAge = is_int( $params['min'] )? $params['max'] : self::MAX_AGE;
-        return Helper::getSettings('age.max') ?: $maxAge;
+        $settings = $this->getSettings();
+        return is_int( $settings['min'] )? $settings['max'] : self::MAX_AGE;
     }
 
 
@@ -49,9 +53,39 @@ class AgeBehavior extends Behavior {
     public function getAgeLabel() : string {
         if( !$word = $this->_ageLabel() )
             return '';
-        $message = "{0} $word";
 
-        return \Yii::t('app', $message, $this->owner->age );
+        $message = "{0} $word";
+        $attribute = $this->attribute;
+
+        return \Yii::t('app', $message, $this->owner->$attribute );
+    }
+
+    /**
+     * @return array
+     */
+    public function getAgeCondition( $field = null, $age = null ) {
+
+        $attribute = $this->attribute;
+
+        if( is_null( $field ) )
+            $field = $this->field;
+        if( is_null( $age ) )
+            $age = $this->owner->$attribute;
+
+        $condition = [ $field => $age ];
+        if( empty( $age ) )
+            return $condition;
+
+        $age = (string) $age;
+        $firstChar = $age[0];
+        if( is_numeric( $firstChar ) )
+            return $condition;
+
+        $age = (int) trim( substr( $age, 1 ) );
+        if( !is_int( $age ) || !in_array( $firstChar, $this->operators ) )
+            return [ $field => null ];
+
+        return [ $firstChar, $field, $age ];
     }
 
     /**
@@ -77,8 +111,8 @@ class AgeBehavior extends Behavior {
     /**
      * @return array|null
      */
-    protected function getParams() { // todo - settings
-        return $this->params ?:
-            $this->params = Helper::getParams('age');
+    protected function getSettings() {
+        return $this->settings ?:
+            $this->settings = Helper::getSettings('age', true );
     }
 }
