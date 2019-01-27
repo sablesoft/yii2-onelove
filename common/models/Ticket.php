@@ -43,6 +43,9 @@ class Ticket extends BaseModel {
         return 'ticket';
     }
 
+    /**
+     * @return array
+     */
     public function attributes() {
         return [
             'id', 'member_id', 'party_id', 'updated_by',
@@ -51,6 +54,9 @@ class Ticket extends BaseModel {
         ];
     }
 
+    /**
+     * @return array
+     */
     public function behaviors() {
         return array_merge( parent::behaviors(), [
             [

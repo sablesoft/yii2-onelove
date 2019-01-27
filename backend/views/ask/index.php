@@ -104,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'accept' => function($url, $model, $key) {
                         $url = Yii::$app->getUrlManager()->createUrl([ 'ask/accept','id'=>$model->id ]);
                         return Html::a( '<span class="glyphicon glyphicon-plus"></span>', $url,
-                            ['title' => Yii::t('app', 'Accept'), 'data-pjax' => '0']);
+                            ['title' => Yii::t('app', 'Accept Ask'), 'data-pjax' => '0']);
                     }
                 ]
             ]
