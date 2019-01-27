@@ -29,8 +29,8 @@ class TicketSearch extends Ticket {
         return array_merge([
            [
                'class'      => 'common\behavior\AgeBehavior',
-               'attribute'  => 'memberAge',
-               'field'      => 'member.age'
+               'field'      => 'member.age',
+               'attribute'  => 'memberAge'
            ]
         ], parent::behaviors());
     }
@@ -68,12 +68,14 @@ class TicketSearch extends Ticket {
      * @return ActiveDataProvider
      */
     public function search( $params ) {
-        $query = Ticket::find()->joinWith('member');
-
-        // add conditions that should always apply here
+        $query = Ticket::find()
+            ->joinWith('party')
+            ->joinWith('member')
+            ->joinWith('updatedBy');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => $this->getDataSort()
         ]);
 
         $this->load( $params );
@@ -103,5 +105,41 @@ class TicketSearch extends Ticket {
                 ->andFilterWhere( $this->getAgeCondition() );
 
         return $dataProvider;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDataSort() : array {
+        return [
+            'attributes' => [
+                'paid', 'closed', 'visited', 'is_blocked', 'updated_at', 'created_at',
+                'memberSex' => [
+                    'asc' => [ 'member.sex' => SORT_ASC ],
+                    'desc' => [ 'member.sex' => SORT_DESC ],
+                    'default' => SORT_DESC
+                ],
+                'memberAge' => [
+                    'asc' => [ 'member.age' => SORT_ASC ],
+                    'desc' => [ 'member.age' => SORT_DESC ],
+                    'default' => SORT_DESC
+                ],
+                'updated_by' => [
+                    'asc' => [ 'user.username' => SORT_ASC ],
+                    'desc' => [ 'user.username' => SORT_DESC ],
+                    'default' => SORT_DESC
+                ],
+                'member_id' => [
+                    'asc' => [ 'member.name' => SORT_ASC ],
+                    'desc' => [ 'member.name' => SORT_DESC ],
+                    'default' => SORT_DESC
+                ],
+                'party_id' => [
+                    'asc' => [ 'party.name' => SORT_ASC ],
+                    'desc' => [ 'party.name' => SORT_DESC ],
+                    'default' => SORT_DESC
+                ]
+            ]
+        ];
     }
 }
