@@ -19,6 +19,13 @@
 return [
     'Admin' => 'Администратор',
     'Asks' => 'Заявки',
+    'Accept All' => 'Подтвердить все',
+    'Accept Ask' => 'Подтвердить заявку',
+    'Reject All' => 'Отклонить все',
+    'Are you sure you want to reject all asks?'
+        => 'Вы уверены, что хотите отклонить все заявки?',
+    'Are you sure you want to accept all asks?'
+        => 'Вы уверены, что хотите подтвердить все заявки?',
     'Ask sent' => 'Заявка отправлена',
     'Control' => 'Контроль',
     'Confirmed' => 'Записан',

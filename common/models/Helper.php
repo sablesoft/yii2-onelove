@@ -40,13 +40,44 @@ class Helper {
      * @return string
      */
     public static function createButton( string $area ) : string {
-        $entity = ucfirst( $area );
-        return Yii::$app->user->can( "$area.create" ) ?
-            Html::a(
-                Yii::t('app', "Create $entity" ),
-                ['create'],
-                ['class' => 'btn btn-success']
-            ) : '';
+        return static::button( $area, 'create' );
+    }
+
+    /**
+     * @param string $area
+     * @param string $action
+     * @param string|null $label
+     * @return string
+     */
+    public static function button( string $area, string $action, array $config = [] ) {
+        if( !Yii::$app->user->can( "$area.$action" ) )
+            return '';
+
+        try {
+            if( !empty( $config['callback'] ) )
+                if( !$result = call_user_func( $config['callback'] ) )
+                    return '';
+        } catch( \Exception $e ) {
+            return '';
+        }
+
+        $route = ( !empty( $config['route'] ) )?
+            $config['route'] : [ $action ];
+
+        if( empty( $config['label'] ) ) {
+            $action = ucfirst( $action );
+            $area = ucfirst( $area );
+            $config['label'] = "$action $area";
+        }
+
+        if( empty( $config['class'] ) )
+            $config['class'] = 'btn btn-success';
+
+        $options = [ 'class' => $config['class'] ];
+        if( !empty( $config['data'] ) )
+            $options['data'] = $config['data'];
+
+        return Html::a( Yii::t('app', $config['label'] ), $route, $options );
     }
 
     /**
@@ -87,22 +118,23 @@ class Helper {
      * @param string $area
      * @return array
      */
-    public static function visibleButtons( string $area ) :array {
-        return [
-            'view' => function( $model, $key, $index ) use ( $area ) {
+    public static function visibleButtons( string $area, array $actions = [] ) :array {
+
+        $config = [];
+        $actions = array_merge(['view', 'update'], $actions );
+        foreach( $actions as $action )
+            $config[ $action ] = function( $model, $key, $index ) use ( $area, $action ) {
                 /** @var \common\models\BaseModel $model */
-                return Yii::$app->user->can("$area.view" );
-            },
-            'update' => function( $model, $key, $index ) use ( $area ) {
-                /** @var \common\models\BaseModel $model */
-                return Yii::$app->user->can("$area.update" );
-            },
-            'delete' => function( $model, $key, $index ) use ( $area ) {
-                /** @var \common\models\BaseModel $model */
-                if( $model->isCheckDefault && !empty( $model->is_default ) ) return false;
-                return Yii::$app->user->can("$area.delete" );
-            }
-        ];
+                return Yii::$app->user->can("$area.$action" );
+            };
+
+        $config['delete'] = function( $model, $key, $index ) use ( $area ) {
+            /** @var \common\models\BaseModel $model */
+            if( $model->isCheckDefault && !empty( $model->is_default ) ) return false;
+            return Yii::$app->user->can("$area.delete" );
+        };
+
+        return $config;
     }
 
     /**

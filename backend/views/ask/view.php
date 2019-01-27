@@ -18,7 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ask-view">
     <h1><?= Html::encode( $this->title ); ?></h1>
-    <p><?= Helper::viewButtons( $area, $model ); ?></p>
+    <p>
+        <?= Helper::viewButtons( $area, $model ); ?>
+        <?= Helper::button( $area, 'accept', [
+            'route' => ['accept', 'id' => $model->id ]
+        ]); ?>
+    </p>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

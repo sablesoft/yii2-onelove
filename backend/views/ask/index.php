@@ -17,7 +17,37 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p><?= Helper::createButton( $area ); ?></p>
+    <p>
+        <?= Helper::createButton( $area ); ?>
+        <?= Helper::button(
+                $area, 'reject-all',
+                [
+                    'label'     => 'Reject All',
+                    'class'     => 'btn btn-danger',
+                    'callback'  => ['common\models\Ask', 'noEmpty' ],
+                    'data' => [
+                        'confirm' => Yii::t('app',
+                            'Are you sure you want to reject all asks?'
+                        ),
+                        'method' => 'post'
+                    ]
+                ]
+        ); ?>
+        <?= Helper::button(
+                $area, 'accept-all',
+                [
+                    'label' => 'Accept All',
+                    'class' => 'btn btn-warning',
+                    'callback'  => ['common\models\Ask', 'noEmpty' ],
+                    'data' => [
+                        'confirm' => Yii::t('app',
+                            'Are you sure you want to accept all asks?'
+                        ),
+                        'method' => 'post'
+                    ]
+                ]
+        ); ?>
+    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -68,7 +98,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'visibleButtons' => Helper::visibleButtons( $area )
+                'template' => '{accept} {view} {update} {delete}',
+                'visibleButtons' => Helper::visibleButtons( $area, ['accept'] ),
+                'buttons' => [
+                    'accept' => function($url, $model, $key) {
+                        $url = Yii::$app->getUrlManager()->createUrl([ 'ask/accept','id'=>$model->id ]);
+                        return Html::a( '<span class="glyphicon glyphicon-plus"></span>', $url,
+                            ['title' => Yii::t('app', 'Accept'), 'data-pjax' => '0']);
+                    }
+                ]
             ]
         ]
     ]); ?>

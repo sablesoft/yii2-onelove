@@ -103,8 +103,39 @@ class Ask extends BaseModel {
     /**
      * @return string
      */
-    public function getLabel(): string {
+    public function getLabel() : string {
         return $this->name . ': ' . $this->maskedPhone;
+    }
+
+    /**
+     * @return bool
+     */
+    public function accept() : bool {
+        // todo
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function reject() : bool {
+        // todo
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function noEmpty() : bool {
+        return !!static::find()->one();
+    }
+
+    /**
+     * @return bool
+     */
+    public static function acceptAll() : bool {
+        // todo
+        return true;
     }
 
     /**
