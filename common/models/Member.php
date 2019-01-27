@@ -43,6 +43,18 @@ class Member extends BaseModel {
     const YEAR_IN_SECONDS = 31536000;
 
     /**
+     * @return array
+     */
+    public function attributes() {
+        return [
+            'id', 'user_id', 'is_blocked',
+            'name', 'phone', 'sex', 'age',
+            'dob', 'photo', 'email', 'resume',
+            'created_at', 'updated_at'
+        ];
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName() {

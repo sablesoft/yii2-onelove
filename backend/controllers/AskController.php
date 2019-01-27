@@ -2,8 +2,8 @@
 
 namespace backend\controllers;
 
-use backend\models\CrudController;
 use common\models\Ask;
+use backend\models\CrudController;
 
 /**
  * AskController implements the CRUD actions for Ask model.
@@ -20,7 +20,7 @@ class AskController extends CrudController {
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionReject( $id ) {
-        $this->findModel( $id )->reject();
+        $this->findModel( $id )->delete();
 
         return $this->redirect(['index']);
     }
@@ -34,8 +34,17 @@ class AskController extends CrudController {
         return $this->redirect(['index']);
     }
 
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function actionAccept( $id ) {
-        $this->findModel( $id )->accept();
+        if( $this->findModel( $id )->accept() )
+            \Yii::$app->session->addFlash(
+                'success',
+                \Yii::t('app', 'Ask accepted successful!')
+            );
 
         return $this->redirect(['index']);
     }
@@ -44,9 +53,21 @@ class AskController extends CrudController {
      * @return \yii\web\Response
      */
     public function actionAcceptAll() {
-        Ask::acceptAll();
+        if( Ask::acceptAll() )
+            \Yii::$app->session->addFlash(
+                'success',
+                \Yii::t('app', 'All asks accepted successful!')
+            );
 
         return $this->redirect(['index']);
     }
 
+    /**
+     * @param int $id
+     * @return \yii\db\ActiveRecord|Ask
+     * @throws \yii\web\NotFoundHttpException
+     */
+    protected function findModel( $id ) {
+        return parent::findModel( $id );
+    }
 }

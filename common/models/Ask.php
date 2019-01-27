@@ -37,6 +37,16 @@ class Ask extends BaseModel {
     }
 
     /**
+     * @return array
+     */
+    public function attributes() {
+        return [
+            'name', 'phone', 'sex', 'age',
+            'created_at', 'updated_at'
+        ];
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules() {
@@ -110,16 +120,56 @@ class Ask extends BaseModel {
     /**
      * @return bool
      */
-    public function accept() : bool {
-        // todo
-        return true;
-    }
+    public function accept( $partyId = null ) : bool {
+        // search and check party:
+        if( !$party = ( $partyId ? Party::findActiveOne(['id' => $partyId ]) : Party::findNearest() ) ) {
+            $error = Yii::t('app', 'Active party for ticket not found!');
+            Yii::error( $error );
+            Yii::$app->session->addFlash('error', $error );
 
-    /**
-     * @return bool
-     */
-    public function reject() : bool {
-        // todo
+            return false;
+        }
+        // prepare member data:
+        $member = Member::findOne([ 'phone' => $this->phone ]) ?: new Member();
+        $member->setAttributes( $this->getAttributes(['name', 'phone', 'age', 'sex']) );
+        try {
+            // create or update member:
+            $member->save();
+            // check member save correct:
+            if (!$member->id)
+                throw new \Exception(Yii::t('app', 'Member not saved!'));
+            // prepare ticket data:
+            $data = [
+                'member_id' => $member->id,
+                'party_id' => $party->id,
+                'closed' => 0
+            ];
+            // check ticket exist:
+            if( $oldTicket = Ticket::findOne( $data ) )
+                throw new \Exception(
+                    Yii::t(
+                        'app',
+                        'Ticket for this party and for this member already exist!'
+                    )
+                );
+            $ticket = new Ticket( $data );
+            $ticket->save();
+            // check member save correct:
+            if( !$ticket->id ) {
+                foreach( $ticket->getErrors() as $error )
+                    Yii::$app->session->addFlash('error', reset( $error ) );
+
+                throw new \Exception(Yii::t('app', 'Ticket not saved!'));
+            }
+
+            $this->delete();
+        } catch ( \Throwable $e ) {
+            Yii::error( $e->getMessage() );
+            Yii::$app->session->addFlash('error', $e->getMessage() );
+
+            return false;
+        }
+
         return true;
     }
 
@@ -133,9 +183,15 @@ class Ask extends BaseModel {
     /**
      * @return bool
      */
-    public static function acceptAll() : bool {
-        // todo
-        return true;
+    public static function acceptAll( $partyId = null ) : bool {
+        $success = true;
+        $asks = Ask::find()->all();
+        /** @var Ask $ask */
+        foreach( (array) $asks as $ask )
+            if( !$ask->accept( $partyId ) )
+                $success = false;
+
+        return $success;
     }
 
     /**

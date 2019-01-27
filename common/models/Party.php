@@ -10,7 +10,6 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "party".
  *
- * @property int $id
  * @property string $name
  * @property int $place_id
  * @property int $price_id
@@ -336,6 +335,15 @@ class Party extends BaseModel {
     public static function findNearest() {
         return static::find()->where(['>', 'timestamp', time()])
             ->active()->orderBy('timestamp')->one();
+    }
+
+    /**
+     * @param array $condition
+     * @return BaseModel|null
+     */
+    public static function findActiveOne( array $condition ) {
+        $condition['closed'] = 0;
+        return parent::findOne( $condition );
     }
 
     /**

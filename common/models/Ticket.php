@@ -42,8 +42,9 @@ class Ticket extends BaseModel {
             [
                 'class'      => AttributeBehavior::class,
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['updated_by'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_by']
+                    ActiveRecord::EVENT_BEFORE_VALIDATE => ['updated_by'],
+                    ActiveRecord::EVENT_BEFORE_INSERT   => ['updated_by'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE   => ['updated_by']
                 ],
                 'value' => function( $event ) {
                     return Yii::$app->user->getId();
@@ -57,7 +58,7 @@ class Ticket extends BaseModel {
      */
     public function rules() {
         return [
-            [['party_id', 'member_id', 'updated_by', 'created_at', 'updated_at'], 'required'],
+            [['party_id', 'member_id', 'updated_by'], 'required'],
             [
                 ['party_id', 'member_id', 'visited',
                     'paid', 'is_blocked', 'closed',

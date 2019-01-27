@@ -49,24 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'attribute' => 'dob',
-                'format' => 'date',
-                'filter'  => \kartik\date\DatePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'dob',
-                    'options' => [
-                        'autocomplete' => 'off',
-                        'placeholder' => Yii::t('app','Date filter') .'...'
-                    ],
-                    'pluginOptions' => [
-                        'forceParse' => true,
-                        'format' => 'yyyy-mm-dd',
-                        'autoclose' => true,
-                        'todayHighlight' => true
-                    ]
-                ])
-            ],
-            [
                 'attribute' => 'phone',
                 'value' => function( $model ) {
                     /** @var \common\models\Member $model */

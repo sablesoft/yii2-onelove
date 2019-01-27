@@ -21,6 +21,8 @@ return [
     'Asks' => 'Заявки',
     'Accept All' => 'Подтвердить все',
     'Accept Ask' => 'Подтвердить заявку',
+    'Ask accepted successful!' => 'Заявка успешно подтверждена!',
+    'All asks accepted successful!' => 'Все заявки успешно подтверждены!',
     'Reject All' => 'Отклонить все',
     'Are you sure you want to reject all asks?'
         => 'Вы уверены, что хотите отклонить все заявки?',
