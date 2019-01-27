@@ -68,6 +68,7 @@ return [
     'The image "{file}" is too small. The height cannot be smaller than {limit, number} {limit, plural, one{pixel} other{pixels}}.' => '',
     'The image "{file}" is too small. The width cannot be smaller than {limit, number} {limit, plural, one{pixel} other{pixels}}.' => '',
     'The requested view "{name}" was not found.' => '',
+    'The requested page does not exist.' => 'Запрашиваемая страница не существует.',
     'The verification code is incorrect.' => '',
     'Total <b>{count, number}</b> {count, plural, one{item} other{items}}.' => '',
     'Unable to verify your data submission.' => '',

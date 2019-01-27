@@ -53,7 +53,7 @@ class CrudController extends BackendController {
      */
     public function actionView( $id ) {
         if( !$model = $this->findModel( $id ) )
-            return $this->redirect($this->id . '/index' );
+            return $this->redirect( 'index' );
 
         return $this->render('view', [
             'model' => $this->findModel( $id )
@@ -86,7 +86,7 @@ class CrudController extends BackendController {
      */
     public function actionUpdate( $id ) {
         if( !$model = $this->findModel( $id ) )
-            return $this->redirect( $this->id . '/index' );
+            return $this->redirect( 'index' );
 
         if( $model->load( Yii::$app->request->post() ) && $model->save() )
             return $this->redirect([ 'view', 'id' => $model->id ]);
@@ -104,7 +104,7 @@ class CrudController extends BackendController {
      */
     public function actionDelete( $id ) {
         if( !$model = $this->findModel( $id ) )
-            return $this->redirect( $this->id . '/index' );
+            return $this->redirect( 'index' );
 
         try {
             $model->delete();

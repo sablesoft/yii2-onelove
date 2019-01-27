@@ -29,7 +29,7 @@ class AskController extends CrudController {
      */
     public function actionAccept( $id ) {
         if( !$model = $this->findModel( $id ) )
-            return $this->redirect( $this->id. '/index' );
+            return $this->redirect( 'index' );
 
         if( $model->accept() )
             \Yii::$app->session->addFlash(
