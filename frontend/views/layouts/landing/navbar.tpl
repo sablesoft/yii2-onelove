@@ -26,10 +26,12 @@
             <button type="button" class="button-mob-contact"><i class="fas fa-phone-volume"></i></button>
             <div class="header-info">
                 <span>{$party->maskedPhone}</span>
-                {$messengers = Helper::getSettings('messenger', true, true )}
-                {foreach from=$messengers item=item}
-                <a href="{$item->value['href']}"
-                   class="{$item->value['class']}-link"><i class="fab {$item->value['icon']}"></i>{$item->value['label']}</a>
+                {$messengers = Helper::getSettings('messenger', true )}
+                {foreach from=$messengers item=messenger}
+                <a href="{$messenger['href']}"
+                   class="{$messenger['class']}-link">
+                    <i class="fab {$messenger['icon']}"></i>{$messenger['label']}
+                </a>
                 {/foreach}
                 <div class="button-group">
                     <button id="button-back-call">Обратный звонок</button>

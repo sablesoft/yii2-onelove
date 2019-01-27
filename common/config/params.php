@@ -1,48 +1,73 @@
 <?php
 return [
     'user.passwordResetTokenExpire' => 3600,
-    // country code default param: todo
-    'countryCode' => '375',
-    // social default params : todo
-    'social'    => [
-        'whatsapp' => [
-            'href'  => '#',
-            'label' => 'WhatsApp',
-            'icon'  => 'fa-whatsapp'
+    'settings' => [
+        // age default params:
+        'age' => [
+            'min' => 16,
+            'max' => 70
         ],
-        'telegram' => [
-            'href'  => '#',
-            'label' => 'Telegram',
-            'icon'  => 'fa-telegram-plane'
+        'owner' => 'ИП Лебедкина Ирина Владимировна УНП №191781611',
+        // mail default params:todo
+        'mail' => [
+            'sendFrom' => 'noreply@onelove.by'
         ],
-        'viber' => [
-            'href'  => '#',
-            'label' => 'Viber',
-            'icon'  => 'fa-viber'
-        ]
-    ],
-    // sections default params : todo
-    'sections' => [
-        "gallery"   => false,
-        "comments"  => false
-    ],
-    // age default params:
-    'age' => [
-        'min' => 16,
-        'max' => 70
-    ],
-    // mail default params:todo
-    'mail' => [
-        'sendFrom' => 'info@onelove.by'
-    ],
-        //
-    'keys'      => [
-        [
-            "text" => "Вы готовы к общению и открыты для новых знакомств и отношений?<br>Тогда приходите к нам. И за один вечер Вы сможете познакомиться с 10-15  интересными людьми противоположного пола и встретить свою половинку."
+        'members' => [
+            'delta' => 5,
+            'count' => 15
+        ],
+        'modal' => [
+            'success' => [
+                'header'    => 'Ask sent',
+                'message'   => 'Our operator will contact you shortly.'
+            ],
+            'fail'  => [
+                'header'    => 'Oops!',
+                'message'   => 'Something went wrong. Please try later.'
+            ]
+        ],
+        // country code default param: todo
+        'countryCode' => '375',
+        // social default params : todo
+        'messenger'    => [
+            'whatsapp' => [
+                'href'  => '#',
+                'class' => 'whatsapp',
+                'label' => 'WhatsApp',
+                'icon'  => 'fa-whatsapp'
+            ],
+            'telegram' => [
+                'href'  => '#',
+                'class' => 'telegram',
+                'label' => 'Telegram',
+                'icon'  => 'fa-telegram-plane'
+            ],
+            'viber' => [
+                'href'  => '#',
+                'class' => 'viber',
+                'label' => 'Viber',
+                'icon'  => 'fa-viber'
+            ]
+        ],
+        // default map:
+        'map' => "<script type=\"text/javascript\" charset=\"utf-8\" async src=\"https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A08d03c379731f595ccb3eb1dc45b274d63692a266928ad8824e5bcfa481243e7&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true\"></script>",
+        // sections default params : todo
+        'section' => [
+            "gallery"   => false,
+            "comments"  => false
+        ],
+        'groups' => [
+            'от 22 до 34',
+            'от 35 и старше'
+        ],
+        'keys'      => [
+            [
+                "text" => "Вы готовы к общению и открыты для новых знакомств и отношений?<br>Тогда приходите к нам. И за один вечер Вы сможете познакомиться с 10-15  интересными людьми противоположного пола и встретить свою половинку."
+            ]
         ]
     ],
 
-// about:
+    // about:
     'about' => [
         [
             'image'     => 'landing/img/loveis5.png',
@@ -73,7 +98,6 @@ return [
             'text'      => 'Просто позвоните тому, с кем у Вас совпали симпатии и назначьте следующую встречу уже вдвоем'
         ]
     ],
-
     // reason:
     'reason' => [
         [
@@ -89,9 +113,6 @@ return [
             'text' => 'OneLove – лучший способ знакомства для тех, кто хочет влюбиться!'
         ]
     ],
-
-    'map' => "<script type=\"text/javascript\" charset=\"utf-8\" async src=\"https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A08d03c379731f595ccb3eb1dc45b274d63692a266928ad8824e5bcfa481243e7&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true\"></script>",
-
     // faq:
     'faq'   => [
         [
@@ -123,5 +144,4 @@ return [
             'answer'    => '<p>Мы проводим встречи людей с разными интересами всех возможных профессий. На вечеринке можно познакомиться с бизнесменами, художниками, писателями, журналистами, менеджерами и представителями многих других профессий. У нас вы легко сможете найти себе человека, который будет подходить вам по характеру, ведь мы приглашаем людей с разных жизненных взглядов и позиций.</p><p>Возрастные группы проведения встреч:</p><ul><li>1-группа: от 22 до 34.</li><li>2-группа: от 34 и старше.</li></ul><p>Все участники соответствуют указанным возрастным критериям.</p><p>Приятная атмосфера на мероприятии, всегда поможет настроиться на интересное времяпрепровождение. Открытое и легкое общение поможет найти общие интересы с любым гостем на вечере.</p>'
         ]
     ]
-
 ];

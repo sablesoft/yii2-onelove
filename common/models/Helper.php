@@ -3,8 +3,9 @@
 namespace common\models;
 
 use Yii;
-use yii\db\ActiveRecord;
 use yii\helpers\Html;
+use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class Helper
@@ -138,7 +139,13 @@ class Helper {
                 static::_setValue( $path, $array, $setting, $asModels );
         }
 
-        return reset( $array );
+        $setting = reset( $array );
+        if( empty( $setting ) && isset( Yii::$app->params['settings'] ) ) {
+            $setting = ArrayHelper::getValue( Yii::$app->params['settings'], $key );
+            $setting = $asModels ? new Setting(['value' => $setting ]) : $setting;
+        }
+
+        return $setting;
     }
 
     /**

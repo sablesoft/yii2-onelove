@@ -30,7 +30,7 @@ class AgeBehavior extends Behavior {
     public function getMinAge() : int {
         $params = $this->getParams();
         $minAge = is_int( $params['min'] )? $params['min'] : self::MIN_AGE;
-        return Helper::getSettings('min_age') ?: $minAge;
+        return Helper::getSettings('age.min') ?: $minAge;
     }
 
     /**
@@ -39,7 +39,7 @@ class AgeBehavior extends Behavior {
     public function getMaxAge() : int {
         $params = $this->getParams();
         $maxAge = is_int( $params['min'] )? $params['max'] : self::MAX_AGE;
-        return Helper::getSettings('max_age') ?: $maxAge;
+        return Helper::getSettings('age.max') ?: $maxAge;
     }
 
 
