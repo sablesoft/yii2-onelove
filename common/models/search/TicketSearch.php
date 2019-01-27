@@ -18,21 +18,31 @@ class TicketSearch extends Ticket {
     /** @var string $memberAge */
     public $memberAge;
 
+    /**
+     * @return array
+     */
     public function attributes() {
         return array_merge([
             'memberSex', 'memberAge'
         ], parent::attributes());
     }
 
-    public function behaviors()
-    {
+    /**
+     * @return array
+     */
+    public function behaviors() {
+        // unset updatedBy behavior:
+        $parent = parent::behaviors();
+        unset( $parent['updatedBy'] );
+
         return array_merge([
+            // attach age behavior:
            [
                'class'      => 'common\behavior\AgeBehavior',
                'field'      => 'member.age',
                'attribute'  => 'memberAge'
            ]
-        ], parent::behaviors());
+        ], $parent );
     }
 
     /**

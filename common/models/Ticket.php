@@ -59,7 +59,7 @@ class Ticket extends BaseModel {
      */
     public function behaviors() {
         return array_merge( parent::behaviors(), [
-            [
+            'updatedBy' =>  [
                 'class'      => AttributeBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_VALIDATE => ['updated_by'],
