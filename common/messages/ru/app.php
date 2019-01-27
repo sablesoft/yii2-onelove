@@ -29,6 +29,7 @@ return [
     'Are you sure you want to accept all asks?'
         => 'Вы уверены, что хотите подтвердить все заявки?',
     'Ask sent' => 'Заявка отправлена',
+    'View Ask' => 'Показать заявку',
     'Control' => 'Контроль',
     'Confirmed' => 'Записан',
     'Create Ask' => 'Создать заявку',

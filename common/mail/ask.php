@@ -8,13 +8,22 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Ask */
 $view = Yii::$app->view;
 $view->title = $model->label;
-\yii\web\YiiAsset::register( $view );
-echo Html::a(
+\yii\web\YiiAsset::register( $view ); ?>
+<p>
+<?php echo Html::a(
         Yii::t('app', 'Open all asks'),
         Url::to( 'http://admin.onelove.by/ask', true ),
         ['class'=>'btn btn-primary']
 );
 ?>
+<span> | </span>
+<?php echo Html::a(
+    Yii::t('app', 'View Ask'),
+    Url::to( 'http://admin.onelove.by/ask/view?id=' . $model->id, true ),
+    ['class'=>'btn btn-primary']
+);
+?>
+</p>
 <div class="ask-view">
     <h1><?= Html::encode( $view->title ); ?></h1>
     <?= DetailView::widget([
