@@ -16,13 +16,11 @@
     <title>{$this->title}</title>
     {$this->head()}
 </head>
-<body id="{Helper::pageId()}">
+<body>
 {$this->beginBody()}
 
 <div class="wrap">
     <div id="main-container" class="container">
-        {Html::a( Yii::t('app', 'Asks'), Url::to( 'http://admin.onelove.by/ask', true ), ['class'=>'btn btn-primary'])}
-        <br>
         {$content}
     </div>
 </div>

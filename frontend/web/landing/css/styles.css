@@ -424,13 +424,7 @@ header.active #logo a.logo-final {
     text-align: left;
     font-weight: bold;
 }
-.registration-info p:last-child {
-    padding-left: 3px;
-    width: 270px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
+
 .registration-info span.age-old {
     margin: 0 0 0 auto;
 }
@@ -965,9 +959,6 @@ footer .registration-description li {
 footer .registration-description ul {
     padding-left: 210px;
 }
-footer .registration-info, footer [type="submit"] {
-    margin: 0 0 0 131px;
-}   
 .contact>h2 {
 	margin-bottom: 30px;
 }
@@ -1302,10 +1293,6 @@ html body .diagram.active > .graph-rows.graph-row-6 .graph-right::after {
 	    margin: 0 auto;
 	    position: absolute;
 	    left: 0;
-	}
-	footer .registration-info, 
-	footer [type="submit"] {
-	    margin: 0 0 0 81px;
 	}
 }
 @media screen and (max-width: 1190px) {
@@ -2057,8 +2044,8 @@ section>div.landing-wrapper>h2 {
     margin-right: 5px;
 }
 
-#registration-form>.row {
-    font-size: 16px;
+.ask-form>.row {
+    font-size: 16px !important;
 }
 
 .modal-body p {

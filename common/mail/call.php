@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $view yii\web\View */
-/* @var $model common\models\Ask */
+/* @var $model common\models\CallForm */
 $view = Yii::$app->view;
 $view->title = $model->label;
 \yii\web\YiiAsset::register( $view );
@@ -22,8 +22,6 @@ echo Html::a(
         'attributes' => [
             'name',
             'maskedPhone',
-            'sexLabel',
-            'ageLabel',
             'created_at:datetime'
         ]
     ]); ?>

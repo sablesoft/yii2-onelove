@@ -90,7 +90,7 @@ return [
     'in {delta, plural, =1{an hour} other{# hours}}' => '',
     'just now' => '',
     'the input value' => '',
-    '{attribute} "{value}" has already been taken.' => '',
+    '{attribute} "{value}" has already been taken.' => '{attribute} "{value}" уже добавлен.',
     '{attribute} cannot be blank.' => 'Значение "{attribute}" не может быть пустым.',
     '{attribute} contains wrong subnet mask.' => '',
     '{attribute} is invalid.' => '',

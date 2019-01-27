@@ -17,7 +17,7 @@ return [
             'from' => [ 'noreply@onelove.by' => 'OneLove CRM']
         ],
         'viewPath' => '@common/mail',
-        'htmlLayout' => 'layouts/backend.tpl',
+        'htmlLayout' => '@common/mail/layouts/backend.tpl',
         'enableSwiftMailerLogging' => true
     ],
     'session' => [

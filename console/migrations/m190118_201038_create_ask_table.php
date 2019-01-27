@@ -13,7 +13,7 @@ class m190118_201038_create_ask_table extends Migration {
     public function safeUp() {
         $table = Ask::tableName();
         $this->createTable( $table, [
-            'name'  => $this->string(10)
+            'name'  => $this->string(20)
                 ->comment('Client real or nickname'),
             'phone' => $this->string(20)->null()->unique()
                 ->comment('Client international format phone number'),

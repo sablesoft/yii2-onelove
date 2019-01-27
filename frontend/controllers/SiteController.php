@@ -3,9 +3,10 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\Ask;
-use common\models\Helper;
 use yii\web\Controller;
 use common\models\Party;
+use common\models\Helper;
+use common\models\CallForm;
 use frontend\assets\LandingAsset;
 
 /**
@@ -29,7 +30,7 @@ class SiteController extends Controller {
     }
 
     /**
-     * Displays homepage.
+     * Landing page.
      *
      * @return mixed
      */
@@ -40,7 +41,8 @@ class SiteController extends Controller {
             'crossorigin'   => 'anonymous',
             'integrity' => 'sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP',
             'href' => 'https://use.fontawesome.com/releases/v5.6.1/css/all.css']);
-        $ask = new Ask(['sex' => 1]);
+        $ask = new Ask();
+        $call = new CallForm();
         /** @var Party $party */
         $party = Party::findNearest();
         $party = $party ?: new Party();
@@ -68,7 +70,7 @@ class SiteController extends Controller {
 
         return $this->render(
             'index.tpl',
-            compact('ask', 'party', 'successModal', 'failModal')
+            compact('ask', 'party', 'call', 'successModal', 'failModal')
         );
     }
 }

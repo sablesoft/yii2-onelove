@@ -10,7 +10,7 @@
     }
     document.addEventListener('scroll', addHeaderInTop);
 	if (window.innerWidth < 991) {
-	//обработчик нопки на телефонах
+	//обработчик кнопки на телефонах
 		document.querySelector('header').addEventListener('click', function (e) {
 			if (e.target.classList.contains('hamburger')) {
 				document.querySelector('header nav').classList.toggle('active');
@@ -109,33 +109,7 @@
 			}
 		});
 	});
-	// ajax отправка форм
-    function addMail(form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-        	let formData = new FormData(form);
-        	let xhr = new XMLHttpRequest();
-        	xhr.open('POST', 'mail.php');
-        	xhr.onload = function(evt) {
-            if (xhr.status == 200) {
-                alert("Отправлено");
-                for(let i = form.length - 1; i> -1;i--) {
-                    if (form[i].type === "radio" || form[i].type === "submit") continue;
-                    form[i].value='';
-                }
-            } else {
-                alert("К сожалению произошла ошибка - " + evt.status);
-            }
-          };
-        	xhr.send(formData);
-        });
-    }
-    let form2 = document.forms.namedItem('registrationBottom');
-    let form3 = document.forms.namedItem('registrationPopup');
-    let form4 = document.forms.namedItem('registrationBackCall');
-    addMail(form2);
-    addMail(form3);
-    addMail(form4);
+
     //обработчик ЧаВо
     setTimeout(function() {
     	let wrapperFAQ = document.querySelector('.wrapper-FAQ');
@@ -172,15 +146,7 @@
     	document.querySelector('.wrapper-FAQ .item-1 h3').click();
     },1000);
 })();
-$(function(){
-  $('#registration-form [type="tel"]').mask("+375(99) 999-99-99");
-  $('#registration-form [name="age"]').mask("99");
-  $('#registration-form-footer [type="tel"]').mask("+375(99) 999-99-99");
-  $('#registration-form-footer [name="age"]').mask("99");
-  $('#registration-form-bottom [type="tel"]').mask("+375(99) 999-99-99");
-  $('#registration-form-bottom [name="age"]').mask("99");
-  $('#registration-form-back-call [type="tel"]').mask("+375(99) 999-99-99");
-});
+
 $(document).ready(function(){
     $('header nav').on("click","a", function (event) {
         event.preventDefault();
@@ -199,13 +165,16 @@ jQuery('.ask-form').on('beforeSubmit', function() {
 			type   : 'post',
 			data   : form.serialize(),
 			success: function( res ) {
+				jQuery('.form-modal').removeClass('active');
 				if( res.success ) {
+                    form.trigger('reset');
 					jQuery('#askSuccess').modal('show');
 				} else { // todo - show error
 					jQuery('#askFail').modal('show');
 				}
 			},
 			error  : function ( res ) {
+                jQuery('.form-modal').removeClass('active');
                 jQuery('#askFail').modal('show');
 				console.error( res );
 			}

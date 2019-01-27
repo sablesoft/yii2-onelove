@@ -41,9 +41,10 @@ class Ask extends BaseModel {
      */
     public function rules() {
         return [
-            [['name', 'phone'], 'required'],
+            [['name', 'phone', 'age', 'sex'], 'required'],
             [['sex'], 'integer', 'min' => 0, 'max' => 1],
             [['name'], 'trim'],
+            [['name'], 'string', 'max' => 20 ],
             [['name'], 'validateName'],
             [['phone'], 'validatePhone'],
             [['age'], 'integer', 'min' => $this->minAge, 'max' => $this->maxAge ],

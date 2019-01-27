@@ -10,28 +10,25 @@
     }
     {/registerCss}
     <main>
-
     {$sections = Helper::getSettings('section', true )}
-
         {include '@frontend/views/site/landing/registration.tpl'}
         {include '@frontend/views/site/landing/about.tpl'}
         {include '@frontend/views/site/landing/reason.tpl'}
-
     {if !empty( $sections['gallery'] )}
         {include '@frontend/views/site/landing/gallery.tpl'}
     {/if}
         {include '@frontend/views/site/landing/statistics.tpl'}
-
     {if !empty( $sections['comments'] )}
         {include '@frontend/views/site/landing/comments.tpl'}
     {/if}
-
         {include '@frontend/views/site/landing/faq.tpl'}
     </main>
-    {include '@frontend/views/site/landing/place.tpl'}
+    {include '@frontend/views/site/landing/footer.tpl'}
 </div>
 {$party->map}
 {use class='yii\helpers\Html'}
+
+{* Success Ask Modal: *}
 {$header = $successModal['header']}
 {Modal options=['id'=> $successModal['id'] ] header="<h3 class='text-center'>$header</h3>"}
     <div class="row">
@@ -46,6 +43,8 @@
         </div>
     </div>
 {/Modal}
+
+{* Fail Ask Modal: *}
 {$header = $failModal['header']}
 {Modal options=['id'=>$failModal['id']] header="<h2 class='text-center'>$header</h2>"}
     <div class="row">

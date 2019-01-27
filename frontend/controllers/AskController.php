@@ -1,11 +1,13 @@
 <?php
 namespace frontend\controllers;
 
+use yii\base\Model;
 use yii\web\Response;
 use common\models\Ask;
 use yii\web\Controller;
 use common\models\Party;
 use yii\mail\BaseMailer;
+use common\models\CallForm;
 use yii\widgets\ActiveForm;
 use yii\base\InvalidConfigException;
 
@@ -47,7 +49,7 @@ class AskController extends Controller {
             $request = \Yii::$app->getRequest();
             if( $request->isPost && $model->load( $request->post() ) ) {
                 if( $model->save() ) {
-                    $this->sendReport( $model );
+                    $this->send( $model, 'ask', 'New party ask!' );
                 } else
                     $response = [
                         'success' => false,
@@ -70,10 +72,49 @@ class AskController extends Controller {
     }
 
     /**
-     * @param Ask $model
+     * @return array
+     */
+    public function actionCall() {
+        $model = new CallForm();
+        $response = [ 'success' => true ];
+        try {
+            $request = \Yii::$app->getRequest();
+            if( $request->isPost && $model->load( $request->post() ) ) {
+                $this->send( $model, 'call', 'New call request!' );
+            } else
+                $response = [
+                    'success' => false,
+                    'errors' => $model->getErrors()
+                ];
+        } catch( \Exception $e ) {
+            $response = [
+                'success' => false,
+                'errors' => [ $e->getMessage() ]
+            ];
+        }
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     */
+    public function actionCallValidate() {
+        $call = new CallForm();
+        $request = \Yii::$app->request;
+        if( $request->isPost && $call->load( $request->post() ) ) {
+            return ActiveForm::validate( $call );
+        } else
+            return [];
+    }
+
+    /**
+     * @param Model $model
+     * @param string $view
+     * @param string $subject
      * @throws InvalidConfigException
      */
-    protected function sendReport( Ask $model ) {
+    protected function send( Model $model, string $view, string $subject ) {
         if( !$party = Party::findNearest() ) {
             \Yii::error( \Yii::t('app', 'Nearest party for ask not founded!') );
             // todo - send mail to admin!
@@ -90,8 +131,8 @@ class AskController extends Controller {
         $mailer->setView( $this->view );
         foreach( $operators as $operator ) {
             $messages[] = $mailer->compose(
-                'ask', [ 'model' => $model ]
-            )->setSubject( \Yii::t('app', 'New party ask!'))
+                $view, [ 'model' => $model ]
+            )->setSubject( \Yii::t('app', $subject ) )
                 ->setTo( $operator->email );
         }
 
