@@ -15,18 +15,6 @@ class AskController extends CrudController {
 
     /**
      * @return \yii\web\Response
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     * @throws \yii\web\NotFoundHttpException
-     */
-    public function actionReject( $id ) {
-        $this->findModel( $id )->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * @return \yii\web\Response
      */
     public function actionRejectAll() {
         Ask::deleteAll();
@@ -40,7 +28,10 @@ class AskController extends CrudController {
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionAccept( $id ) {
-        if( $this->findModel( $id )->accept() )
+        if( !$model = $this->findModel( $id ) )
+            return $this->redirect( $this->id. '/index' );
+
+        if( $model->accept() )
             \Yii::$app->session->addFlash(
                 'success',
                 \Yii::t('app', 'Ask accepted successful!')
@@ -64,8 +55,7 @@ class AskController extends CrudController {
 
     /**
      * @param int $id
-     * @return \yii\db\ActiveRecord|Ask
-     * @throws \yii\web\NotFoundHttpException
+     * @return \yii\db\ActiveRecord|Ask|null
      */
     protected function findModel( $id ) {
         return parent::findModel( $id );

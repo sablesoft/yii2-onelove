@@ -3,6 +3,7 @@ namespace backend\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\db\StaleObjectException;
 use yii\filters\VerbFilter;
 use common\interfaces\SearchInterface;
 use yii\web\NotFoundHttpException;
@@ -49,9 +50,11 @@ class CrudController extends BackendController {
      * Displays a single Place model.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView( $id ) {
+        if( !$model = $this->findModel( $id ) )
+            return $this->redirect($this->id . '/index' );
+
         return $this->render('view', [
             'model' => $this->findModel( $id )
         ]);
@@ -80,14 +83,13 @@ class CrudController extends BackendController {
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate( $id ) {
-        $model = $this->findModel( $id );
+        if( !$model = $this->findModel( $id ) )
+            return $this->redirect( $this->id . '/index' );
 
-        if( $model->load( Yii::$app->request->post() ) && $model->save() ) {
+        if( $model->load( Yii::$app->request->post() ) && $model->save() )
             return $this->redirect([ 'view', 'id' => $model->id ]);
-        }
 
         return $this->render('update', [
             'model' => $model
@@ -99,10 +101,18 @@ class CrudController extends BackendController {
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete( $id ) {
-        $this->findModel( $id )->delete();
+        if( !$model = $this->findModel( $id ) )
+            return $this->redirect( $this->id . '/index' );
+
+        try {
+            $model->delete();
+        } catch ( StaleObjectException $e ) {
+            Yii::$app->session->addFlash('error', $e->getMessage() );
+        } catch ( \Throwable $e ) {
+            Yii::$app->session->addFlash('error', $e->getMessage() );
+        }
 
         return $this->redirect(['index']);
     }
@@ -111,8 +121,7 @@ class CrudController extends BackendController {
      * Finds the model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ActiveRecord the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return ActiveRecord|null the loaded model
      */
     protected function findModel( $id ) {
         /** @var ActiveRecord $class */
@@ -120,8 +129,9 @@ class CrudController extends BackendController {
         if( ( $model = $class::findOne( $id ) ) !== null )
             return $model;
 
-        throw new NotFoundHttpException(
-            \Yii::t('yii', 'The requested page does not exist.')
-        );
+        $error = \Yii::t('yii', 'The requested page does not exist.');
+        Yii::$app->session->addFlash('error', $error );
+
+        return null;
     }
 }
