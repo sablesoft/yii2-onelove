@@ -24,6 +24,11 @@
             <div class="registration-info">
                 <p>Ближайший вечер:<span>{$party->timeLabel}</span></p>
                 {$groups = Helper::getSettings('groups')}
+                {$place = $party->place}
+                <p>Место проведения:
+                    <br><span>{$place->name}</span>
+                    <br><span>({$place->address})</span>
+                </p>
                 <p>Возрастные группы:
                     {foreach from=$groups item=item}
                     <br><span>{$item}</span>
