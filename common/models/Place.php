@@ -99,7 +99,7 @@ class Place extends BaseModel {
     }
 
     /**
-     * @return PlaceQuery
+     * @return Place|null
      */
     public static function findDefault() {
         return static::find()->where(['is_default' => 1])->one();

@@ -22,13 +22,17 @@
             {include '@frontend/views/site/landing/form.tpl'}
 
             <div class="registration-info">
+            {if $party->id}
                 <p>Ближайший вечер:<span>{$party->timeLabel}</span></p>
-                {$groups = Helper::getSettings('groups')}
-                {$place = $party->place}
+            {/if}
+                {$place = $party->currentPlace}
+            {if !is_null( $place )}
                 <p>Место проведения:
                     <br><span>{$place->name}</span>
                     <br><span>({$place->address})</span>
                 </p>
+            {/if}
+                {$groups = Helper::getSettings('groups')}
                 <p>Возрастные группы:
                     {foreach from=$groups item=item}
                     <br><span>{$item}</span>

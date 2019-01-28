@@ -115,7 +115,7 @@ class AskController extends Controller {
      * @throws InvalidConfigException
      */
     protected function send( Model $model, string $view, string $subject ) {
-        if( !$party = Party::findNearest() ) {
+        if( !$party = Party::findCurrent() ) {
             \Yii::error( \Yii::t('app', 'Nearest party for ask not founded!') );
             // todo - send mail to admin!
 

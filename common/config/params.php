@@ -2,6 +2,7 @@
 return [
     'user.passwordResetTokenExpire' => 3600,
     'settings' => [
+        'defaultPhone' => '375296092441',
         // age default params:
         'age' => [
             'min' => 16,

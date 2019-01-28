@@ -1,6 +1,6 @@
 {use class='common\models\Helper'}
 {use class='common\models\Party'}
-{$party = Party::findNearest()}
+{$party = Party::findCurrent()}
 <img class="parallax" src="landing/img/section2.png" alt="Parallax">
 <header>
     <div class="landing-wrapper">
@@ -25,7 +25,7 @@
             <button type="button" class="invite-button">Получить приглашение</button>
             <button type="button" class="button-mob-contact"><i class="fas fa-phone-volume"></i></button>
             <div class="header-info">
-                <span>{$party->maskedPhone}</span>
+                <span>{$party->currentPhone}</span>
                 {$messengers = Helper::getSettings('messenger', true )}
                 {foreach from=$messengers item=messenger}
                 <a href="{$messenger['href']}"

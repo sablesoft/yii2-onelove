@@ -1,24 +1,29 @@
 {use class='common\models\Helper'}
-{$place = $party->place}
-{$price = $party->getPrice( true )}
+{$place = $party->currentPlace}
+{$price = $party->currentPrice}
 <footer>
     {* Place and price: *}
     <div class="landing-wrapper">
 
-
         <article class="contact">
             <div class="wrapper">
                 <h2>Место проведения и стоимость</h2>
+            {if is_object( $place )}
                 <div class="image"><img src="landing/img/article-address.png" alt="{$place->name}"></div>
+            {/if}
                 <div class="address">
+                {if is_object( $place )}
                     <p class="address-title"><b>{$place->name}</b></p>
                     <address>({$place->address})</address>
-                    {if $party->timeLabel}
+                {/if}
+                {if $party->id}
                     <strong>{$party->timeLabel}</strong>
-                    {/if}
+                {/if}
+                {if is_object( $price )}
                     <p><strong>Стоимость участия - <span>{$price->baseLabel}</span></strong></p>
                     <p><strong>Вы пришли не один, то для Вас и ваших друзей стоимость - <span>{$price->companyLabel}</span></strong></p>
                     <p><strong>А если Вы решили прийти к нам еще раз - </strong><span><b>{$price->repeatLabel}</b></span></p>
+                {/if}
                 </div>
             </div>
         </article>
@@ -31,15 +36,15 @@
             {$leftColumnClass = 'col-sm-6 col-sm-offset-2'}
             {include '@frontend/views/site/landing/form.tpl'}
 
+        {if $party->id}
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-2">
                     <div class="registration-info">
-                        {if $party->timeLabel}
                         <p>Ближайший вечер:<span>{$party->timeLabel}</span></p>
-                        {/if}
                     </div>
                 </div>
             </div>
+        {/if}
 
         </article>
         <p class="quote"><b>«Кто ищет, тот всегда найдет!»</b></p>
@@ -58,14 +63,12 @@
         {$rightColumnClass = 'col-sm-12'}
         {$leftColumnClass = 'col-sm-12'}
         {include '@frontend/views/site/landing/form.tpl'}
+    {if $party->id}
         <div class="registration-info">
-            {if $party->timeLabel}
             <p>Ближайший вечер:<span>{$party->timeLabel}</span></p>
-            {/if}
-            {if $party->timeLabel}
             <p>Придет:<span>{$party->membersLabel}</span></p>
-            {/if}
         </div>
+    {/if}
     </article>
 
     {* Call Form: *}

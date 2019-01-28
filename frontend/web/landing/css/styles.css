@@ -926,6 +926,7 @@ footer .wrapper p.address-title {
     font-style: italic;
 }
 .quote {
+    margin-top: 15px;
     text-decoration: none;
     text-align: center;
     width: 100%;

@@ -3,8 +3,10 @@ namespace common\models;
 
 use common\behavior\PhoneBehavior;
 use common\models\query\PartyQuery;
+use common\models\query\PriceQuery;
 use common\models\query\UserQuery;
 use yii\behaviors\AttributeBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -24,11 +26,13 @@ use yii\db\ActiveRecord;
  *
  * @property Ask[] $asks
  * @property Place $place
+ * @property Place|null $currentPlace
  * @property string $placeLabel
  * @property array $placeUrl
  * @property int $membersDelta
  * @property int $membersCount
  * @property Price $price
+ * @property Price $currentPrice
  * @property string $priceLabel
  * @property string $timeLabel
  * @property string $membersLabel
@@ -40,8 +44,11 @@ use yii\db\ActiveRecord;
  * @property string $countryCode
  * @property string $shortPhone
  * @property string $maskedPhone
+ * @property string $currentPhone
  * @property string $phoneLabel
  * @property array $maskedPhoneConfig
+ *
+ * @method string getMaskedPhone( $phone = null );
  */
 class Party extends BaseModel {
 
@@ -162,6 +169,22 @@ class Party extends BaseModel {
     }
 
     /**
+     * @return Place
+     */
+    public function getCurrentPlace() {
+        return $this->place ?: Place::findDefault();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrentPhone() :string {
+        $phone = $this->phone ?: Helper::getSettings('defaultPhone');
+
+        return $this->getMaskedPhone( $phone );
+    }
+
+    /**
      * @return string
      */
     public function getPlaceLabel() : string {
@@ -195,15 +218,17 @@ class Party extends BaseModel {
     }
 
     /**
-     * @return \yii\db\ActiveQuery|ActiveRecord
+     * @return PriceQuery|ActiveQuery
      */
-    public function getPrice( $checkExist = false ) {
-        $query = $this->hasOne(Price::class, ['id' => 'price_id']);
-        if( !$checkExist ) return $query;
-        if( $price = $query->one() )
-            return $price;
+    public function getPrice() {
+        return $this->hasOne(Price::class, ['id' => 'price_id']);
+    }
 
-        return Price::findDefault();
+    /**
+     * @return Price|null
+     */
+    public function getCurrentPrice() {
+        return $this->price ?: Price::findDefault();
     }
 
     /**
@@ -332,7 +357,7 @@ class Party extends BaseModel {
     /**
      * @return array|PartyQuery|Party|null
      */
-    public static function findNearest() {
+    public static function findCurrent() {
         return static::find()->where(['>', 'timestamp', time()])
             ->active()->orderBy('timestamp')->one();
     }

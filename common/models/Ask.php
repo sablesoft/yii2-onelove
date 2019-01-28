@@ -122,7 +122,7 @@ class Ask extends BaseModel {
      */
     public function accept( $partyId = null ) : bool {
         // search and check party:
-        if( !$party = ( $partyId ? Party::findActiveOne(['id' => $partyId ]) : Party::findNearest() ) ) {
+        if( !$party = ( $partyId ? Party::findActiveOne(['id' => $partyId ]) : Party::findCurrent() ) ) {
             $error = Yii::t('app', 'Active party for ticket not found!');
             Yii::error( $error );
             Yii::$app->session->addFlash('error', $error );

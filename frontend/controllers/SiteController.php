@@ -44,7 +44,7 @@ class SiteController extends Controller {
         $ask = new Ask();
         $call = new CallForm();
         /** @var Party $party */
-        $party = Party::findNearest();
+        $party = Party::findCurrent();
         $party = $party ?: new Party();
         $this->layout = 'landing/main.tpl';
         LandingAsset::register( $this->view );
