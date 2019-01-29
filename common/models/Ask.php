@@ -18,6 +18,7 @@ use common\models\query\AskQuery;
  * @property int $age
  * @property int $sex
  * @property int $created_at
+ * @property int $group_id Age search group ID
  *
  * @property int $minAge
  * @property int $maxAge
@@ -51,15 +52,20 @@ class Ask extends BaseModel {
      */
     public function rules() {
         return [
-            [['name', 'phone', 'age', 'sex'], 'required'],
+            [['name', 'phone', 'age', 'sex', 'group_id'], 'required'],
             [['sex'], 'integer', 'min' => 0, 'max' => 1],
             [['name'], 'trim'],
+            [['group_id'], 'integer'],
             [['name'], 'string', 'max' => 20 ],
             [['name'], 'validateName'],
             [['phone'], 'validatePhone'],
             [['age'], 'integer', 'min' => $this->minAge, 'max' => $this->maxAge ],
             [['created_at', 'updated_at'], 'safe'],
-            [['phone'], 'unique']
+            [['phone'], 'unique'],
+            [
+                ['group_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Group::class, 'targetAttribute' => ['group_id' => 'id']
+            ]
         ];
     }
 
@@ -86,6 +92,7 @@ class Ask extends BaseModel {
             'maskedPhone' => \Yii::t('app', 'Phone'),
             'sex' => Yii::t('app', 'Sex'),
             'sexLabel' => \Yii::t('app', 'Sex'),
+            'group_id' => Yii::t('app', 'Group ID'),
             'created_at' => \Yii::t('app', 'Created At'),
             'updated_at' => \Yii::t('app', 'Updated At')
         ];
@@ -97,6 +104,13 @@ class Ask extends BaseModel {
     public function getSexLabel() : string {
         return array_key_exists( (int) $this->sex, Member::getSexDropDownList() )?
             Member::getSexDropDownList()[ (int) $this->sex ] : '';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGroup() {
+        return $this->hasOne(Group::class, ['id' => 'group_id']);
     }
 
     /**

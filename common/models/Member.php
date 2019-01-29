@@ -22,6 +22,7 @@ use yii\behaviors\AttributeBehavior;
  * @property string $ageLabel
  * @property string $dob
  * @property int $sex
+ * @property int $group_id Age search group ID
  * @property string $phone
  * @property string $email
  * @property string $resume
@@ -30,6 +31,7 @@ use yii\behaviors\AttributeBehavior;
  *
  * @property User $user
  * @property Ask[] $asks
+ * @property Ticket[] $tickets
  * @property Party[] $parties
  * @property string $username
  * @property string $sexLabel
@@ -67,8 +69,8 @@ class Member extends BaseModel {
     public function rules() {
         return [
             // todo - validate photo path
-            [['user_id', 'age', 'sex', 'is_blocked', 'trueAge'], 'integer'],
-            [['age', 'sex'], 'required'],
+            [['age', 'sex', 'group_id'], 'required'],
+            [['user_id', 'age', 'sex', 'is_blocked', 'trueAge', 'group_id'], 'integer'],
             [['age'], 'integer', 'min' => $this->minAge, 'max' => $this->maxAge ],
             [['created_at', 'updated_at'], 'safe'],
             [['dob'], 'validateDob'],
@@ -82,6 +84,10 @@ class Member extends BaseModel {
             [['user_id'], 'unique'],
             [['phone'], 'unique'],
             [['email'], 'unique'],
+            [
+                ['group_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Group::class, 'targetAttribute' => ['group_id' => 'id']
+            ],
             [
                 ['user_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']
@@ -104,6 +110,7 @@ class Member extends BaseModel {
             'dob' => \Yii::t('app', 'Day of Birth'),
             'sex' => \Yii::t('app', 'Sex'),
             'sexLabel' => \Yii::t('app', 'Sex'),
+            'group_id' => \Yii::t('app', 'Group ID'),
             'phone' => \Yii::t('app', 'Phone'),
             'maskedPhone' => \Yii::t('app', 'Phone'),
             'photo' => \Yii::t('app', 'Photo'),
@@ -162,6 +169,13 @@ class Member extends BaseModel {
      */
     public function getUser() {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGroup() {
+        return $this->hasOne( Group::class, ['id' => 'group_id']);
     }
 
     /**

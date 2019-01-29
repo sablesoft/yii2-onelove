@@ -13,22 +13,28 @@ return [
                     'url'       => '/ask'
                 ]
             ],
-            'ticket'  => [
-                '_menu' => [
-                    'label'     => 'Tickets',
-                    'url'       => '/ticket'
-                ]
-            ],
             'member'  => [
                 '_menu' => [
                     'label'     => 'Members',
                     'url'       => '/member'
                 ]
             ],
+            'ticket'  => [
+                '_menu' => [
+                    'label'     => 'Tickets',
+                    'url'       => '/ticket'
+                ]
+            ],
             'party'  => [
                 '_menu' => [
                     'label'     => 'Parties',
                     'url'       => '/party'
+                ]
+            ],
+            'group'  => [
+                '_menu' => [
+                    'label'     => 'Groups',
+                    'url'       => '/group'
                 ]
             ],
             'price'  => [

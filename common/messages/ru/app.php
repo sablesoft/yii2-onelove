@@ -87,6 +87,7 @@ return [
     'Operator Phone' => 'Телефон оператора',
     'Our operator will contact you shortly.' => 'Наш оператор свяжется с Вами в ближайшее время.',
     'Operators' => 'Операторы для рассылки',
+    'Operator Comment' => 'Комментарий оператора',
     'Paid' => 'Оплачено',
     'Party Name' => 'Название',
     'Place Name' => 'Название',
