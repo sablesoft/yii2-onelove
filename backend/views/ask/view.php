@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'maskedPhone',
             'sexLabel',
             'ageLabel',
+            'groupLabel',
             'created_at:datetime',
             'updated_at:datetime'
         ]

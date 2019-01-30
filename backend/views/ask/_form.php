@@ -16,17 +16,19 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div class="col-sm-6">
             <?= $form->field( $model, 'name')->textInput(); ?>
-            <?= $form->field($model, 'phone')
+            <?= $form->field( $model, 'phone')
                 ->widget( 'yii\widgets\MaskedInput', $model->maskedPhoneConfig ); ?>
-        </div>
-        <div class="col-sm-6">
-            <?= $form->field($model, 'sex')->dropDownList( Member::getSexDropDownList() ); ?>
-            <?= $form->field( $model, 'age')->input('number'); ?>
-        </div>
-        <?= Html::submitButton(
+            <br>
+            <?= Html::submitButton(
                 Yii::t('yii', 'Save'),
                 ['class' => 'btn btn-success']
-        ); ?>
+            ); ?>
+        </div>
+        <div class="col-sm-6">
+            <?= $form->field( $model, 'sex')->dropDownList( Member::getSexDropDownList() ); ?>
+            <?= $form->field( $model, 'age')->input('number'); ?>
+            <?= $form->field( $model, 'group_id')->dropDownList( \common\models\Group::getDropDownList()[0] ); ?>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

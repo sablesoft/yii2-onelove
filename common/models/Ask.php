@@ -22,6 +22,8 @@ use common\models\query\AskQuery;
  *
  * @property int $minAge
  * @property int $maxAge
+ * @property Group $group
+ * @property string $groupLabel
  * @property string $ageLabel
  * @property string $countryCode
  * @property string $shortPhone
@@ -43,7 +45,7 @@ class Ask extends BaseModel {
     public function attributes() {
         return [
             'name', 'phone', 'sex', 'age',
-            'created_at', 'updated_at'
+            'created_at', 'updated_at', 'group_id'
         ];
     }
 
@@ -92,7 +94,8 @@ class Ask extends BaseModel {
             'maskedPhone' => \Yii::t('app', 'Phone'),
             'sex' => Yii::t('app', 'Sex'),
             'sexLabel' => \Yii::t('app', 'Sex'),
-            'group_id' => Yii::t('app', 'Group ID'),
+            'group_id' => Yii::t('app', 'Group'),
+            'groupLabel' => Yii::t('app', 'Group'),
             'created_at' => \Yii::t('app', 'Created At'),
             'updated_at' => \Yii::t('app', 'Updated At')
         ];
@@ -111,6 +114,15 @@ class Ask extends BaseModel {
      */
     public function getGroup() {
         return $this->hasOne(Group::class, ['id' => 'group_id']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getGroupLabel() :string {
+        $group = $this->group;
+
+        return $group ? $group->label : '';
     }
 
     /**

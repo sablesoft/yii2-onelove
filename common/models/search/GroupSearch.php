@@ -9,24 +9,22 @@ use common\models\Group;
 /**
  * GroupSearch represents the model behind the search form of `common\models\Group`.
  */
-class GroupSearch extends Group
-{
+class GroupSearch extends Group {
+
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'is_blocked'], 'integer'],
-            [['label', 'rule', 'description'], 'safe'],
+            [['label', 'rule', 'description'], 'safe']
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -38,8 +36,7 @@ class GroupSearch extends Group
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search( $params ) {
         $query = Group::find();
 
         // add conditions that should always apply here
@@ -48,7 +45,7 @@ class GroupSearch extends Group
             'query' => $query,
         ]);
 
-        $this->load($params);
+        $this->load( $params );
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

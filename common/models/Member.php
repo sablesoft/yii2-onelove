@@ -52,7 +52,7 @@ class Member extends BaseModel {
             'id', 'user_id', 'is_blocked',
             'name', 'phone', 'sex', 'age',
             'dob', 'photo', 'email', 'resume',
-            'created_at', 'updated_at'
+            'created_at', 'updated_at', 'group_id'
         ];
     }
 
@@ -110,7 +110,8 @@ class Member extends BaseModel {
             'dob' => \Yii::t('app', 'Day of Birth'),
             'sex' => \Yii::t('app', 'Sex'),
             'sexLabel' => \Yii::t('app', 'Sex'),
-            'group_id' => \Yii::t('app', 'Group ID'),
+            'group_id' => \Yii::t('app', 'Group'),
+            'groupLabel' => \Yii::t('app', 'Group'),
             'phone' => \Yii::t('app', 'Phone'),
             'maskedPhone' => \Yii::t('app', 'Phone'),
             'photo' => \Yii::t('app', 'Photo'),
@@ -176,6 +177,15 @@ class Member extends BaseModel {
      */
     public function getGroup() {
         return $this->hasOne( Group::class, ['id' => 'group_id']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getGroupLabel() :string {
+        $group = $this->group;
+
+        return $group ? $group->label : '';
     }
 
     /**

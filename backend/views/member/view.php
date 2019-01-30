@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'photo', // todo show html image!!
             'name',
             'sexLabel',
+            'groupLabel',
             'ageLabel',
             'dob:date',
             'maskedPhone',

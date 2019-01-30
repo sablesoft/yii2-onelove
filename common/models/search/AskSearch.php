@@ -21,7 +21,7 @@ class AskSearch extends Ask implements SearchInterface {
      */
     public function rules() {
         return [
-            [['age', 'sex' ], 'integer'],
+            [['age', 'sex', 'group_id' ], 'integer'],
             [['name', 'phone', 'created_at', 'updated_at'], 'safe']
         ];
     }
@@ -60,7 +60,7 @@ class AskSearch extends Ask implements SearchInterface {
             'query' => $query,
             'sort'  => [
                 'defaultOrder' => [
-                    'created_at' => SORT_DESC
+                    'updated_at' => SORT_DESC
                 ]
             ]
         ]);
@@ -76,7 +76,8 @@ class AskSearch extends Ask implements SearchInterface {
         // grid filtering conditions
         $query->andFilterWhere([
             'age' => $this->age,
-            'sex' => $this->sex
+            'sex' => $this->sex,
+            'group_id' => $this->group_id
         ]);
 
         // date filter:

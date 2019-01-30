@@ -91,8 +91,8 @@ class m190129_140711_install_group_data extends Migration {
      * {@inheritdoc}
      */
     public function safeDown() {
-        echo "m190129_140711_install_group_data cannot be reverted.\n";
+        echo "m190129_140711_install_group_data - no data for revert.\n";
 
-        return false;
+        return true;
     }
 }

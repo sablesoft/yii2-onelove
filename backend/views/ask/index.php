@@ -79,7 +79,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Member::getSexDropDownList()
             ],
             [
-                'attribute' => 'created_at',
+                'attribute' => 'group_id',
+                'value'     => function( $model ) {
+                    /** @var \common\models\Ask $model */
+                    return $model->groupLabel;
+                },
+                'filter' => \common\models\Group::getDropDownList()[0]
+            ],
+            [
+                'attribute' => 'updated_at',
                 'format' => 'datetime',
                 'filter'  => \kartik\date\DatePicker::widget([
                     'model' => $searchModel,

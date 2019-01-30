@@ -37,24 +37,29 @@ use common\models\User;
         <div class="col-sm-4">
             <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) // todo - file uploader ?>
             <?= $form->field($model, 'sex')->dropDownList( Member::getSexDropDownList() ); ?>
+            <?= $form->field( $model, 'group_id')->dropDownList( \common\models\Group::getDropDownList()[0] ); ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'phone')->widget( 'yii\widgets\MaskedInput', $model->maskedPhoneConfig ); ?>
+            <?= $form->field($model, 'email')->textInput(['maxlength' => true]); ?>
             <?= $form->field($model, 'user_id')->dropDownList(
                 ...User::getDropDownList([
                 'prompt' => Yii::t('app', 'Select user account')
             ])
             ); ?>
         </div>
-        <div class="col-sm-4">
-            <?= $form->field($model, 'phone')->widget( 'yii\widgets\MaskedInput', $model->maskedPhoneConfig ); ?>
-            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) // todo - email validation ?>
-            <br>
-            <?= $form->field($model, 'is_blocked')->checkbox(); ?>
-        </div>
     </div>
 
     <?= $form->field($model, 'resume')->textarea(['rows' => 6]); // todo - editor ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('yii', 'Save'), ['class' => 'btn btn-success']) ?>
+    <div class="row">
+        <div class="col-sm-2">
+            <?= $form->field($model, 'is_blocked')->checkbox(); ?>
+        </div>
+        <div class="col-sm-10">
+            <div class="form-group">
+                <?= Html::submitButton(Yii::t('yii', 'Save'), ['class' => 'btn btn-success']) ?>
+            </div>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -1,5 +1,4 @@
 <?php
-
 namespace common\models\query;
 
 /**
@@ -7,19 +6,20 @@ namespace common\models\query;
  *
  * @see \common\models\Group
  */
-class GroupQuery extends \yii\db\ActiveQuery
-{
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
+class GroupQuery extends \yii\db\ActiveQuery {
+
+    /**
+     * @return GroupQuery
+     */
+    public function active() {
+        return $this->andWhere('[[is_blocked]]=0');
+    }
 
     /**
      * {@inheritdoc}
      * @return \common\models\Group[]|array
      */
-    public function all($db = null)
-    {
+    public function all($db = null) {
         return parent::all($db);
     }
 
@@ -27,8 +27,7 @@ class GroupQuery extends \yii\db\ActiveQuery
      * {@inheritdoc}
      * @return \common\models\Group|array|null
      */
-    public function one($db = null)
-    {
+    public function one($db = null) {
         return parent::one($db);
     }
 }

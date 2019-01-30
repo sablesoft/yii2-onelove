@@ -50,6 +50,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ],
                 [
+                    'attribute' => 'group_id',
+                    'value'     => function( $model ) {
+                        /** @var \common\models\Member $model */
+                        return $model->groupLabel;
+                    },
+                    'filter' => \common\models\Group::getDropDownList()[0]
+                ],
+                [
                     'attribute' => 'phone',
                     'value' => function ($model) {
                         /** @var \common\models\Member $model */

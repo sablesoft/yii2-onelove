@@ -7,14 +7,13 @@ use yii\widgets\Pjax;
 /* @var $searchModel common\models\search\GroupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Groups');
+$this->title = Yii::t('app', 'Age Groups');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="group-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode( $this->title ); ?></h1>
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Group'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -26,10 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'label',
             'rule',
-            'is_blocked',
+            'is_blocked:boolean',
             'description:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],

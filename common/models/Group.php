@@ -15,7 +15,7 @@ use Yii;
  * @property Ask[] $asks
  * @property Member[] $members
  */
-class Group extends \yii\db\ActiveRecord {
+class Group extends BaseModel {
 
     /**
      * {@inheritdoc}
@@ -32,6 +32,7 @@ class Group extends \yii\db\ActiveRecord {
             [['label', 'rule'], 'required'],
             [['is_blocked'], 'integer'],
             [['description'], 'string'],
+            [['created_at', 'updated_at'], 'safe'],
             [['label'], 'string', 'max' => 20],
             [['rule'], 'string', 'max' => 10]
         ];
@@ -46,10 +47,25 @@ class Group extends \yii\db\ActiveRecord {
             'label' => Yii::t('app', 'Label'),
             'rule' => Yii::t('app', 'Rule'),
             'is_blocked' => Yii::t('app', 'Is Blocked'),
-            'description' => Yii::t('app', 'Description')
+            'description' => Yii::t('app', 'Description'),
+            'created_at' => \Yii::t('app', 'Created At'),
+            'updated_at' => \Yii::t('app', 'Updated At')
         ];
     }
 
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel(): string {
+        return $this->label;
+    }
 
     /**
      * @return \yii\db\ActiveQuery
