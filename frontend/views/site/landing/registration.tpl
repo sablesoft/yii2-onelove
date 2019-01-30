@@ -32,12 +32,6 @@
                     <br><span>({$place->address})</span>
                 </p>
             {/if}
-                {$groups = Helper::getSettings('groups')}
-                <p>Возрастные группы:
-                    {foreach from=$groups item=item}
-                    <br><span>{$item}</span>
-                    {/foreach}
-                </p>
             </div>
         </article>
     </div>

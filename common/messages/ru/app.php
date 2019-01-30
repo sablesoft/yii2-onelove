@@ -40,6 +40,8 @@ return [
     'Irrelevant' => 'Не имеет значения',
     'My age' => 'Моего возраста',
     'Younger than me' => 'Младше меня',
+    'What age of the opposite sex is preferable for you?'
+        => 'Какой возраст противоположного пола для Вас предпочтителен?',
     'Older than me' => 'Старше меня',
     'Is Blocked' => 'Блокировано',
     'Invalid characters in name.' => 'Недопустимый формат имени',
