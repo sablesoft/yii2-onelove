@@ -35,7 +35,10 @@ class Place extends BaseModel {
 
     public function behaviors() {
         return array_merge( parent::behaviors(), [
-            PhoneBehavior::class
+            [
+                'class'     => PhoneBehavior::class,
+                'operators' => Helper::getSettings('operators')
+            ]
         ]);
     }
 

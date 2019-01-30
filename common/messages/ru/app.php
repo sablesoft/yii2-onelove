@@ -38,6 +38,7 @@ return [
     'Groups' => 'Группы',
     'ID' => '',
     'Irrelevant' => 'Не имеет значения',
+    'Invalid phone operator' => 'Недопустимый код оператора',
     'My age' => 'Моего возраста',
     'Younger than me' => 'Младше меня',
     'What age of the opposite sex is preferable for you?'

@@ -20,6 +20,8 @@ class PhoneBehavior extends Behavior {
 
     /** @var ActiveRecord */
     public $owner;
+    /** @var array $operators */
+    public $operators;
 
     const PHONE_LENGTH = 12;
     const ATTRIBUTE = 'phone';
@@ -48,6 +50,15 @@ class PhoneBehavior extends Behavior {
         $phone = $this->owner->$attribute;
         if( strlen( $phone ) !== self::PHONE_LENGTH )
             $this->owner->addError( $attribute, \Yii::t('app', 'Phone should contain {0} numbers', self::PHONE_LENGTH ) );
+        // validate phone operator
+        if( !empty( $this->operators ) ) {
+            $phone = $this->getShortPhone( $phone );
+            foreach( (array) $this->operators as $operator ) {
+                if( strpos( $phone, $operator ) === 0 )
+                    return;
+            }
+            $this->owner->addError( $attribute, \Yii::t('app', 'Invalid phone operator' ) );
+        }
     }
 
     /**

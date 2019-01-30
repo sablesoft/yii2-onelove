@@ -130,7 +130,10 @@ class Member extends BaseModel {
         return array_merge( parent::behaviors(), [
             AgeBehavior::class,
             NameBehavior::class,
-            PhoneBehavior::class,
+            [
+                'class'     => PhoneBehavior::class,
+                'operators' => Helper::getSettings('operators')
+            ],
             [
                 'class'      => AttributeBehavior::class,
                 'attributes' => [

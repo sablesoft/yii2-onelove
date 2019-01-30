@@ -50,7 +50,10 @@ class CallForm extends Model {
     public function behaviors() {
         return array_merge( parent::behaviors(), [
             NameBehavior::class,
-            PhoneBehavior::class
+            [
+                'class'     => PhoneBehavior::class,
+                'operators' => Helper::getSettings('operators')
+            ]
         ]);
     }
 
