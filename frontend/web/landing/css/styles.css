@@ -2060,3 +2060,9 @@ section>div.landing-wrapper>h2 {
 #registration-form .field-ask-group_id {
     display: none;
 }
+
+.header-info .phone-link {
+    font-size: 18px;
+    color: blue;
+    text-decoration: underline;
+}
