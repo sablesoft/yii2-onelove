@@ -46,9 +46,11 @@ use yii\db\ActiveRecord;
  * @property string $maskedPhone
  * @property string $currentPhone
  * @property string $phoneLabel
+ * @property string $phoneLink
  * @property array $maskedPhoneConfig
  *
  * @method string getMaskedPhone( $phone = null );
+ * @method string getMessengerHref( string $messenger );
  */
 class Party extends BaseModel {
 
@@ -60,8 +62,9 @@ class Party extends BaseModel {
     public function behaviors() {
         return array_merge( parent::behaviors(), [
             [
-                'class'     => PhoneBehavior::class,
-                'operators' => Helper::getSettings('operators')
+                'class'         => PhoneBehavior::class,
+                'operators'     => Helper::getSettings('operators'),
+                'messengers'    => Helper::getSettings('messengersConfig')
             ],
             [
                 'class'      => AttributeBehavior::class,

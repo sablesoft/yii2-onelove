@@ -5,6 +5,8 @@ use yii\base\Behavior;
 use common\models\User;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use common\models\Helper;
+use yii\helpers\Html;
 
 /**
  * Class PhoneBehavior
@@ -14,6 +16,8 @@ use yii\helpers\ArrayHelper;
  * @property string $shortPhone
  * @property string $maskedPhone
  * @property string $phoneLabel
+ * @property string $phoneLink
+ * @property string $phoneHref
  * @property array $maskedPhoneConfig
  */
 class PhoneBehavior extends Behavior {
@@ -22,6 +26,17 @@ class PhoneBehavior extends Behavior {
     public $owner;
     /** @var array $operators */
     public $operators;
+    /**
+     * @var array $messengers
+     *
+     * 'messengers' => [
+     *     'messengerA' => [
+     *          'mobile'    => 'messengerA.mobile.prefix',
+     *          'desktop'   => 'messengerA.desktop.prefix'
+     *      ]
+     * ]
+     */
+    public $messengers;
 
     const PHONE_LENGTH = 12;
     const ATTRIBUTE = 'phone';
@@ -30,6 +45,7 @@ class PhoneBehavior extends Behavior {
     const SHORT_MASK = '(${1}) ${2}-${3}-${4}';
     const SHORT_PATTERN = '/^(\d{2})(\d{3})(\d{2})(\d{2})/';
     const JS_MASK = ' (99) 999-99-99';
+    const PHONE_PREFIX = 'tel:+';
 
     /**
      * @return array
@@ -135,6 +151,53 @@ class PhoneBehavior extends Behavior {
         $phone = $this->getMaskedPhone( $phone );
 
         return $username ? $username . " [ $phone ]" : $phone;
+    }
+
+    /**
+     * @param string|null $phone
+     * @return string
+     */
+    public function getPhoneHref( $phone = null ) : string {
+        $attribute = self::ATTRIBUTE;
+        $link = $this->_clean( $phone ?: $this->owner->$attribute );
+
+        return self::PHONE_PREFIX . $link;
+    }
+
+    /**
+     * @param string $messenger
+     * @param string|null $phone
+     * @return string
+     */
+    public function getMessengerHref( string $messenger, $phone = null ) : string {
+        if( !array_key_exists( $messenger, (array) $this->messengers ) )
+            return '#';
+
+        $attribute = self::ATTRIBUTE;
+        $link = $this->_clean( $phone ?: $this->owner->$attribute );
+        $prefix = $this->messengers[ $messenger ];
+        if( is_string( $prefix ) )
+            return $prefix . $link;
+
+        if( !isset( $prefix['mobile'] ) && Helper::isMobile() )
+            return $prefix['mobile'] . $link;
+
+        return reset( $prefix ) . $link;
+    }
+
+    /**
+     * @param string|null $phone
+     * @return string
+     */
+    public function getPhoneLink( $phone = null ) :string {
+        return Html::a(
+            $this->getMaskedPhone( $phone ),
+            $this->getPhoneHref( $phone ),
+            [
+                'title' => \Yii::t('app', 'Call' ),
+                'class' => 'phone-link'
+            ]
+        );
     }
 
     /**

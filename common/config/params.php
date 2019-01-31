@@ -33,22 +33,26 @@ return [
         // social default params : todo
         'messenger'    => [
             'whatsapp' => [
-                'href'  => '#',
                 'class' => 'whatsapp',
                 'label' => 'WhatsApp',
                 'icon'  => 'fa-whatsapp'
             ],
             'telegram' => [
-                'href'  => '#',
                 'class' => 'telegram',
                 'label' => 'Telegram',
                 'icon'  => 'fa-telegram-plane'
             ],
             'viber' => [
-                'href'  => '#',
                 'class' => 'viber',
                 'label' => 'Viber',
                 'icon'  => 'fa-viber'
+            ]
+        ],
+        'messengersConfig' => [
+            'whatsapp'  => 'whatsapp://send?phone=+',
+            'viber'     => [
+                'mobile'    => 'viber://add?number=+',
+                'desktop'   => 'viber://chat?number=+'
             ]
         ],
         // default map:

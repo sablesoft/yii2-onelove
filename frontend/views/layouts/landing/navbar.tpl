@@ -2,7 +2,6 @@
 {use class='common\models\Party'}
 {$party = Party::findCurrent()}
 {$map = $party->getMap()}
-{$isMobile = Helper::isMobile()}
 {$sections = Helper::getSettings('section', true )}
 <img class="parallax" src="landing/img/section2.png" alt="Parallax">
 <header>
@@ -35,10 +34,10 @@
             <button type="button" class="invite-button">Получить приглашение</button>
             <button type="button" class="button-mob-contact"><i class="fas fa-phone-volume"></i></button>
             <div class="header-info">
-                <span>{$party->currentPhone}</span>
+                <span>{$party->phoneLink}</span>
                 {$messengers = Helper::getSettings('messenger', true )}
                 {foreach from=$messengers item=messenger}
-                <a href="{$messenger['href']}"
+                <a href="{$party->getMessengerHref( $messenger['class'])}"
                    class="{$messenger['class']}-link">
                     <i class="fab {$messenger['icon']}"></i>{$messenger['label']}
                 </a>
