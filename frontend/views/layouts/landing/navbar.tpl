@@ -2,6 +2,7 @@
 {use class='common\models\Party'}
 {$party = Party::findCurrent()}
 {$map = $party->getMap()}
+{$isMobile = Helper::isMobile()}
 {$sections = Helper::getSettings('section', true )}
 <img class="parallax" src="landing/img/section2.png" alt="Parallax">
 <header>

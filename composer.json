@@ -25,7 +25,8 @@
         "kartik-v/yii2-widget-datepicker": "dev-master",
         "dektrium/yii2-rbac": "dev-master",
         "dektrium/yii2-user": "dev-master",
-        "sablesoft/yii2-vue": "^1.0"
+        "sablesoft/yii2-vue": "^1.0",
+        "alexandernst/yii2-device-detect": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-faker": "^2",

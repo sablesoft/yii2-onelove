@@ -181,6 +181,13 @@ class Helper {
     }
 
     /**
+     * @return bool
+     */
+    public static function isMobile() : bool {
+        return \Yii::$app->deviceDetect->isMobile();
+    }
+
+    /**
      * @param array $path
      * @param array $array
      * @param Setting $setting

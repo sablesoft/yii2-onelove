@@ -13,6 +13,9 @@ return [
             ]
         ]
     ],
+    'deviceDetect' => [
+        'class' => 'alexandernst\devicedetect\DeviceDetect'
+    ],
     'errorHandler' => [
         'errorAction' => 'site/error'
     ],
