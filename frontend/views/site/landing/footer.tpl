@@ -1,7 +1,7 @@
 {use class='common\models\Helper'}
 {$place = $party->currentPlace}
 {$price = $party->currentPrice}
-<footer>
+<footer id="place">
     {* Place and price: *}
     <div class="landing-wrapper">
 

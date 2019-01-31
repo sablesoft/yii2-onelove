@@ -2056,3 +2056,7 @@ section>div.landing-wrapper>h2 {
     font-size: 18px;
     margin-bottom: 30px;
 }
+
+#registration-form .field-ask-group_id {
+    display: none;
+}

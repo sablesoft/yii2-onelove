@@ -361,8 +361,10 @@ class Party extends BaseModel {
      * @return array|PartyQuery|Party|null
      */
     public static function findCurrent() {
-        return static::find()->where(['>', 'timestamp', time()])
+        $party = static::find()->where(['>', 'timestamp', time()])
             ->active()->orderBy('timestamp')->one();
+
+        return $party ?: new Party();
     }
 
     /**

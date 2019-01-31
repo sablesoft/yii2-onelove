@@ -1,6 +1,8 @@
 {use class='common\models\Helper'}
 {use class='common\models\Party'}
 {$party = Party::findCurrent()}
+{$map = $party->getMap()}
+{$sections = Helper::getSettings('section', true )}
 <img class="parallax" src="landing/img/section2.png" alt="Parallax">
 <header>
     <div class="landing-wrapper">
@@ -17,9 +19,16 @@
                 <i class="fas fa-bars hamburger"></i>
                 <ul>
                     <li><a href="#instruction-section">О нас</a></li>
+                    {if !empty( $sections['gallery'] )}
                     <li><a href="#photo-section">Фотогалерея</a></li>
+                    {/if}
                     <li><a href="#FAQ-section">Вопрос/Ответ</a></li>
+                    {if !empty( $sections['comments'])}
                     <li><a href="#stories-section">Отзывы</a></li>
+                    {/if}
+                    {if !empty( $map )}
+                        <li><a href="#place">Место</a></li>
+                    {/if}
                 </ul>
             </nav>
             <button type="button" class="invite-button">Получить приглашение</button>
