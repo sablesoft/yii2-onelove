@@ -67,11 +67,15 @@ class Setting extends \yii\db\ActiveRecord {
      */
     public function getDecodedValue() {
         try {
-            // todo - move in model
-            return json_decode( $this->value, true );
+            if( !empty( $this->value ) ) {
+                $value = json_decode( $this->value, true );
+                if( !$value )
+                    $value = $this->value;
+            } else
+                $value = $this->value;
         } catch( \Exception $e ) {}
 
-        return $this->value;
+        return $value;
     }
 
     /**
