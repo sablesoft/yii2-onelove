@@ -893,15 +893,15 @@ footer .wrapper {
 }
 footer .wrapper h2 {
     flex-basis: 93%;
-    text-align: right;
+    text-align: center;
 }
 .registration-description h3 {
     font-size: 29px;
     margin: 0 0 20px 0;
 }
 footer .wrapper .image {
-	width: max-content;
-	margin-right: 0;
+	/*width: max-content;*/
+	/*margin-right: 0;*/
 }
 footer .wrapper p {
 	margin: 0;

@@ -6,12 +6,12 @@
     <div class="landing-wrapper">
 
         <article class="contact">
-            <div class="wrapper">
+            <div class="wrapper row">
                 <h2>Место проведения и стоимость</h2>
             {if is_object( $place )}
-                <div class="image"><img src="landing/img/article-address.png" alt="{$place->name}"></div>
+                <div class="image col-sm-3"><img src="landing/img/article-address.png" alt="{$place->name}"></div>
             {/if}
-                <div class="address">
+                <div class="address col-sm-9">
                 {if is_object( $place )}
                     <p class="address-title"><b>{$place->name}</b></p>
                     <address>({$place->address})</address>
