@@ -147,6 +147,22 @@ class Ask extends BaseModel {
     }
 
     /**
+     * @return Member
+     * @throws \Exception
+     */
+    public function memberSave() : Member {
+        $member = Member::findOne([ 'phone' => $this->phone ]) ?: new Member();
+        $member->setAttributes( $this->getAttributes(['name', 'phone', 'age', 'sex', 'group_id']) );
+        // create or update member:
+        $member->save();
+        // check member save correct:
+        if (!$member->id)
+            throw new \Exception(Yii::t('app', 'Member not saved!'));
+
+        return $member;
+    }
+
+    /**
      * @return bool
      */
     public function accept( $partyId = null ) : bool {
@@ -158,15 +174,9 @@ class Ask extends BaseModel {
 
             return false;
         }
-        // prepare member data:
-        $member = Member::findOne([ 'phone' => $this->phone ]) ?: new Member();
-        $member->setAttributes( $this->getAttributes(['name', 'phone', 'age', 'sex']) );
         try {
             // create or update member:
-            $member->save();
-            // check member save correct:
-            if (!$member->id)
-                throw new \Exception(Yii::t('app', 'Member not saved!'));
+            $member = $this->memberSave();
             // prepare ticket data:
             $data = [
                 'member_id' => $member->id,

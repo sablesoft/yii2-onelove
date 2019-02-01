@@ -23,6 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Helper::button( $area, 'accept', [
             'route' => ['accept', 'id' => $model->id ]
         ]); ?>
+        <?= Helper::button( $area, 'member-save', [
+            'route' => ['member-save', 'id' => $model->id ],
+            'label' => 'Member Save',
+            'class' => 'btn btn-warning'
+        ]); ?>
     </p>
     <?= DetailView::widget([
         'model' => $model,

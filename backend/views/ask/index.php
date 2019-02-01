@@ -106,9 +106,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{accept} {view} {update} {delete}',
-                'visibleButtons' => Helper::visibleButtons( $area, ['accept'] ),
+                'template' => '{member-save} {accept} {view} {update} {delete}',
+                'visibleButtons' => Helper::visibleButtons( $area, ['accept', 'member-save'] ),
                 'buttons' => [
+                    'member-save' => function($url, $model, $key) {
+                        $url = Yii::$app->getUrlManager()->createUrl([ 'ask/member-save','id'=>$model->id ]);
+                        return Html::a( '<span class="glyphicon glyphicon-heart"></span>', $url,
+                            ['title' => Yii::t('app', 'Member Save'), 'data-pjax' => '0']);
+                    },
                     'accept' => function($url, $model, $key) {
                         $url = Yii::$app->getUrlManager()->createUrl([ 'ask/accept','id'=>$model->id ]);
                         return Html::a( '<span class="glyphicon glyphicon-plus"></span>', $url,

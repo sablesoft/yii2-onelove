@@ -55,6 +55,30 @@ class AskController extends CrudController {
 
     /**
      * @param int $id
+     * @return \yii\web\Response
+     */
+    public function actionMemberSave( $id ) {
+        if( !$model = $this->findModel( $id ) )
+            return $this->redirect( 'index' );
+
+        try {
+            $model->memberSave();
+            \Yii::$app->session->addFlash(
+                'success',
+                \Yii::t('app', 'Member saved successful!')
+            );
+        } catch ( \Exception $e ) {
+            \Yii::$app->session->addFlash(
+                'error',
+                \Yii::t('yii', $e->getMessage() )
+            );
+        }
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * @param int $id
      * @return \yii\db\ActiveRecord|Ask|null
      */
     protected function findModel( $id ) {
