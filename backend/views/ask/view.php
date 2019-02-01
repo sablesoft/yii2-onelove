@@ -13,6 +13,8 @@ $this->params['breadcrumbs'][] = [
     'label' => Yii::t('app', 'Asks'),
     'url' => ['index']
 ];
+$member = \common\models\Member::findOne(['phone' => $model->id ]);
+$label = $member ? 'Member Update' : 'Member Save';
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -25,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
         <?= Helper::button( $area, 'member-save', [
             'route' => ['member-save', 'id' => $model->id ],
-            'label' => 'Member Save',
+            'label' => $label,
             'class' => 'btn btn-warning'
         ]); ?>
     </p>

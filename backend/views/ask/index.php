@@ -111,8 +111,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'member-save' => function($url, $model, $key) {
                         $url = Yii::$app->getUrlManager()->createUrl([ 'ask/member-save','id'=>$model->id ]);
-                        return Html::a( '<span class="glyphicon glyphicon-heart"></span>', $url,
-                            ['title' => Yii::t('app', 'Member Save'), 'data-pjax' => '0']);
+                        $class = 'heart-empty';
+                        $label = 'Save';
+                        $member = Member::findOne([ 'phone' => $model->id ]);
+                        if( $member ) {
+                            $class = 'heart';
+                            $label = 'Update';
+                        }
+                        return Html::a( "<span class='glyphicon glyphicon-$class'></span>", $url,
+                            ['title' => Yii::t('app', "Member $label"), 'data-pjax' => '0']);
                     },
                     'accept' => function($url, $model, $key) {
                         $url = Yii::$app->getUrlManager()->createUrl([ 'ask/accept','id'=>$model->id ]);

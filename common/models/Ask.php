@@ -98,7 +98,7 @@ class Ask extends BaseModel {
             'sex' => Yii::t('app', 'Sex'),
             'sexLabel' => \Yii::t('app', 'Sex'),
             'group_id' => Yii::t('app', 'Group'),
-            'groupLabel' => Yii::t('app', 'Group'),
+            'groupLabel' => Yii::t('app', 'Age Group'),
             'created_at' => \Yii::t('app', 'Created At'),
             'updated_at' => \Yii::t('app', 'Updated At')
         ];
