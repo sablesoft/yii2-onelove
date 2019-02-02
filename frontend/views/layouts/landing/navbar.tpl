@@ -37,7 +37,7 @@
                 <span>{$party->getPhoneLink( $party->currentPhone )}</span>
                 {$messengers = Helper::getSettings('messenger', true )}
                 {foreach from=$messengers item=messenger}
-                <a href="{$party->getMessengerHref( $messenger['class'])}"
+                <a href="{$party->getMessengerHref( $messenger['class'], $party->currentPhone )}"
                    class="{$messenger['class']}-link">
                     <i class="fab {$messenger['icon']}"></i>{$messenger['label']}
                 </a>
