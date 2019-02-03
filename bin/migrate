@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
 php yii migrate --migrationPath=@vendor/dektrium/yii2-user/migrations --interactive=0
+php yii migrate --migrationPath=@noam148/imagemanager/migrations --interactive=0
 php yii migrate --migrationPath=@yii/rbac/migrations --interactive=0
 php yii migrate --interactive=0
