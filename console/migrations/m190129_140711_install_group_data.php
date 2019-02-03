@@ -67,24 +67,15 @@ class m190129_140711_install_group_data extends Migration {
             $group->save();
         }
 
-        $asks = Ask::find()->all();
-        /** @var Ask $ask */
-        foreach( (array) $asks as $ask ) {
-            $ask->group_id = 1;
-            $ask->save();
-        }
+        $group = Group::findOne(['rule' => '*']);
+        $id = $group->id;
+
         $this->alterColumn( Ask::tableName(), 'group_id',
-            $this->integer()->notNull()->after("sex")->comment("Age search group ID")
+            $this->integer()->notNull()->defaultValue( $id )->after("sex")->comment("Age search group ID")
         );
 
-        $members = Member::find()->all();
-        /** @var Member $member */
-        foreach( (array) $members as $member ) {
-            $member->group_id = 1;
-            $member->save();
-        }
         $this->alterColumn( Member::tableName(), 'group_id',
-            $this->integer()->notNull()->after("sex")->comment("Age search group ID")
+            $this->integer()->notNull()->defaultValue( $id )->after("sex")->comment("Age search group ID")
         );
     }
 
@@ -92,7 +83,12 @@ class m190129_140711_install_group_data extends Migration {
      * {@inheritdoc}
      */
     public function safeDown() {
-        echo "m190129_140711_install_group_data - no data for revert.\n";
+        $this->alterColumn( Ask::tableName(), 'group_id',
+            $this->integer()->null()->defaultValue(null)->after("sex")->comment("Age search group ID")
+        );
+        $this->alterColumn( Member::tableName(), 'group_id',
+            $this->integer()->null()->defaultValue(null)->after("sex")->comment("Age search group ID")
+        );
 
         return true;
     }

@@ -111,7 +111,7 @@ class Member extends BaseModel {
             'sex' => \Yii::t('app', 'Sex'),
             'sexLabel' => \Yii::t('app', 'Sex'),
             'group_id' => \Yii::t('app', 'Group'),
-            'groupLabel' => \Yii::t('app', 'Group'),
+            'groupLabel' => \Yii::t('app', 'Age Group'),
             'phone' => \Yii::t('app', 'Phone'),
             'maskedPhone' => \Yii::t('app', 'Phone'),
             'photo' => \Yii::t('app', 'Photo'),

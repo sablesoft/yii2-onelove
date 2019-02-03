@@ -1295,6 +1295,7 @@ html body .diagram.active > .graph-rows.graph-row-6 .graph-right::after {
 	}
 	footer .wrapper .image {
 	    margin: 0 auto;
+        margin-top: 40px;
 	    position: absolute;
 	    left: 0;
 	}

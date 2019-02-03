@@ -9,9 +9,9 @@
             <div class="wrapper row">
                 <h2>Место проведения и стоимость</h2>
             {if is_object( $place )}
-                <div class="image col-sm-3"><img src="landing/img/article-address.png" alt="{$place->name}"></div>
+                <div class="image"><img src="landing/img/article-address.png" alt="{$place->name}"></div>
             {/if}
-                <div class="address col-sm-9">
+                <div class="address col-sm-offset-2 col-sm-10">
                 {if is_object( $place )}
                     <p class="address-title"><b>{$place->name}</b></p>
                     <address>({$place->address})</address>
