@@ -17,6 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Access denied' => 'Доступ запрещен!',
     ' and ' => '',
     '"{attribute}" does not support operator "{operator}".' => '',
     '(not set)' => '',

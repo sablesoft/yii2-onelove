@@ -39,7 +39,7 @@ class ActionAccess {
             Yii::info("Access to $permission denied", 'access' );
             $event->handled = true;
             $event->isValid = false;
-            $sender->redirect(['/']);
+            $sender->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl );
         }
     }
 
