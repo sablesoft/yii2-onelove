@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
 
-rm backend/runtime/logs/*
-rm frontend/runtime/logs/*
+rm -R backend/runtime/logs/*
+echo "rm -R backend/runtime/logs/*";
+rm -R backend/runtime/cache/*
+echo "rm -R backend/runtime/cache/*";
+rm -R frontend/runtime/logs/*
+echo "rm -R frontend/runtime/logs/*";
+rm -R frontend/runtime/cache/*
+echo "rm -R frontend/runtime/cache/*";
+
+echo "All clean!";

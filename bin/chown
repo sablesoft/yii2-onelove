@@ -2,3 +2,5 @@
 
 chown -R nginx:nginx *
 chown -R nginx:nginx .*
+
+echo "Chown done";
