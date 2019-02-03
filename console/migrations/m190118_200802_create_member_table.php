@@ -26,7 +26,7 @@ class m190118_200802_create_member_table extends Migration {
                 ->comment('Member sex flag: Female\Male (0\1)'),
             'phone'         => $this->string(20)->null()->unique()
                 ->comment('Member international format phone number'),
-            'email'         => $this->string(20)->null()->unique()
+            'email'         => $this->string(40)->null()->unique()
                 ->comment('Member email'),
             'resume'        => $this->text()->null()->comment('Member self-description'),
             'is_blocked'    => $this->tinyInteger(1)->notNull()

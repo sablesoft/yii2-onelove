@@ -9,12 +9,15 @@
             <div class="wrapper row">
                 <h2>Место проведения и стоимость</h2>
             {if is_object( $place )}
+                {$path = $place->getImagePath()}
+                {if $path}
                 <style type="text/css">
                     .image {
-                        background-image: url("{$place->getImagePath()}");
+                        background-image: url("{$path}");
                     }
                 </style>
                 <div class="image"></div>
+                {/if}
             {/if}
                 <div class="address col-sm-offset-2 col-sm-10">
                 {if is_object( $place )}

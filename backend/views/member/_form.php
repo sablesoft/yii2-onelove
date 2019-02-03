@@ -56,7 +56,7 @@ use noam148\imagemanager\components\ImageManagerInputWidget;
         </div>
     </div>
 
-    <?= $form->field($model, 'resume')->textarea(['rows' => 6]); // todo - editor ?>
+    <?= $form->field($model, 'resume')->textarea(['rows' => 3]); // todo - editor ?>
     <div class="row">
         <div class="col-sm-2">
             <?= $form->field($model, 'is_blocked')->checkbox(); ?>

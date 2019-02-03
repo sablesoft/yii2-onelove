@@ -81,7 +81,10 @@ class Member extends CrudModel {
             [['name'], 'string', 'max' => 10],
             [['name'], 'validateName'],
             [['phone'], 'validatePhone'],
-            [['email'], 'string', 'max' => 20],
+            [['email'], 'string', 'max' => 40],
+            [['email'], 'filter', 'filter' => function( $value ) {
+                if( !$value ) return null;
+            }],
             [['user_id'], 'unique'],
             [['phone'], 'unique'],
             [['email'], 'unique'],

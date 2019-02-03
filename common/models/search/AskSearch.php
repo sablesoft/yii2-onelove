@@ -13,6 +13,7 @@ use yii\db\ActiveQuery;
  * AskSearch represents the model behind the search form of `Ask`.
  *
  * @method ActiveQuery applyDateFilter( string $attribute, ActiveQuery $query );
+ * @method array getAgeCondition( $field = null, $age = null );
  */
 class AskSearch extends Ask implements SearchInterface {
 
@@ -21,8 +22,8 @@ class AskSearch extends Ask implements SearchInterface {
      */
     public function rules() {
         return [
-            [['age', 'sex', 'group_id' ], 'integer'],
-            [['name', 'phone', 'created_at', 'updated_at'], 'safe']
+            [['sex', 'group_id' ], 'integer'],
+            [['name', 'phone', 'created_at', 'updated_at', 'age'], 'safe']
         ];
     }
 
@@ -75,7 +76,6 @@ class AskSearch extends Ask implements SearchInterface {
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'age' => $this->age,
             'sex' => $this->sex,
             'group_id' => $this->group_id
         ]);
@@ -85,7 +85,8 @@ class AskSearch extends Ask implements SearchInterface {
         $query = $this->applyDateFilter( 'updated_at', $query );
 
         $query->andFilterWhere(['like', 'name', $this->name ])
-            ->andFilterWhere(['like', 'phone', $this->phone ]);
+            ->andFilterWhere(['like', 'phone', $this->phone ])
+            ->andFilterWhere( $this->getAgeCondition() );
 
         return $dataProvider;
     }
