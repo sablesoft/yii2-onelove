@@ -71,9 +71,11 @@ class AccessObserver {
      * @return array
      */
     protected static function prepareParams( $controller ) {
-        return [
-            'model' => !empty( $controller->model ) ?
-                $controller->model : null
-        ];
+        try {
+            $model = null;
+            $model = $controller->model;
+        } catch( \Exception $e ) {}
+
+        return [ 'model' => $model ];
     }
 }
