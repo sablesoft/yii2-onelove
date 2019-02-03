@@ -15,7 +15,7 @@ return [
         // or if need different configuration for frontend and backend you may
         // configure in needed configs
     ],
-    'imagemanager' => [
+    'media' => [
         'class' => 'noam148\imagemanager\Module',
         //set accces rules ()
         'canUploadImage' => true,

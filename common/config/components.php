@@ -8,13 +8,14 @@ return [
                 'class' => 'yii\log\FileTarget',
                 'levels' => ['error'],
                 'logFile' => '@common/../logs/error.log',
+                'except' => ['yii\web\HttpException:403'],
                 'exportInterval' => 1
             ],
             'warning' => [
                 'class' => 'yii\log\FileTarget',
                 'levels' => ['warning'],
                 'logFile' => '@common/../logs/warning.log',
-                'exportInterval' => 1,
+                'exportInterval' => 1
             ],
             'email' => [
                 'class' => 'yii\log\EmailTarget',
@@ -24,6 +25,7 @@ return [
                     'to' => ['sable.lair@gmail.com'],
                     'subject' => 'Errors on OneLove',
                 ],
+                'except' => ['yii\web\HttpException:403'],
                 'exportInterval' => 1
             ]
         ]
@@ -104,7 +106,12 @@ return [
     ],
     'urlManager' => [
         'enablePrettyUrl' => true,
-        'showScriptName' => false
+        'showScriptName' => false,
+        'rules' => [
+            '/imagemanager' => '/media',
+            '/imagemanager/<controller>' => '/media/<controller>',
+            '/imagemanager/<controller>/<action>' => '/media/<controller>/<action>',
+        ]
     ],
     'assetManager' => [
         'linkAssets' => true
