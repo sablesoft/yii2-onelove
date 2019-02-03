@@ -15,5 +15,5 @@ $domainName = implode('.', array_slice( explode('.', $hostName ), -2 ) );
 // access handler:
 Event::on( Controller::class,
     Controller::EVENT_BEFORE_ACTION,
-    ['common\observer\ActionAccess', 'beforeAction']
+    ['common\rbac\AccessObserver', 'beforeAction']
 );

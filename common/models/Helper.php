@@ -87,7 +87,7 @@ class Helper {
      */
     public static function viewButtons( string $area, ActiveRecord $model ) :string {
         $buttons = '';
-        if( Yii::$app->user->can( "$area.update" ) )
+        if( Yii::$app->user->can( "$area.update", ['model' => $model ] ) )
             $buttons .= (string) Html::a(
                 Yii::t('yii', 'Update'),
                 ['update', 'id' => $model->id ],
@@ -96,7 +96,7 @@ class Helper {
 
         if( $buttons ) $buttons .= ' ';
 
-        if( Yii::$app->user->can( "$area.delete" ) )
+        if( Yii::$app->user->can( "$area.delete", ['model' => $model ] ) )
             $buttons .= (string) Html::a(
                 Yii::t('yii', 'Delete'),
                 ['delete', 'id' => $model->id ],

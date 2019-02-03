@@ -13,8 +13,6 @@ use common\models\query\PlaceQuery;
  * @property string $map
  * @property string $photo
  * @property int $is_default
- * @property string $created_at
- * @property string $updated_at
  * @property string $countryCode
  * @property string $shortPhone
  * @property string $maskedPhone
@@ -51,7 +49,6 @@ class Place extends CrudModel {
             [['name', 'address'], 'required'],
             [['is_default', 'is_blocked'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            // todo - validate phone operator code
             [['name', 'photo'], 'string', 'max' => 40],
             [['address'], 'string', 'max' => 100],
             [['map'], 'string'],

@@ -1,17 +1,18 @@
 <?php
-namespace common\observer;
+namespace common\rbac;
 
 use Yii;
 use yii\web\Controller;
 use yii\base\ActionEvent;
 use common\models\Helper;
 use yii\helpers\ArrayHelper;
+use backend\models\CrudController;
 
 /**
  * Class ActionAccess
  * @package common\observer
  */
-class ActionAccess {
+class AccessObserver {
 
     /**
      * @param ActionEvent $event
@@ -33,7 +34,7 @@ class ActionAccess {
             'action'        => $sender->action->id
         ]);
         // check permission:
-        If( !Yii::$app->user->can( $permission ) ) {
+        If( !Yii::$app->user->can( $permission, self::prepareParams( $sender ) ) ) {
             $message = Yii::t('yii', 'Access denied');
             Yii::$app->session->setFlash('error', $message );
             Yii::info("Access to $permission denied", 'access' );
@@ -63,5 +64,16 @@ class ActionAccess {
         $settings = Helper::getSettings('access') ?: [];
 
         return ArrayHelper::getValue( $settings, $key, $default );
+    }
+
+    /**
+     * @param Controller|CrudController $controller
+     * @return array
+     */
+    protected static function prepareParams( $controller ) {
+        return [
+            'model' => !empty( $controller->model ) ?
+                $controller->model : null
+        ];
     }
 }

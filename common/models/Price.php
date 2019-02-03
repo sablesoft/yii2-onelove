@@ -39,13 +39,6 @@ class Price extends CrudModel {
         ];
     }
 
-    public function beforeSave( $insert ) {
-
-
-
-        return parent::beforeSave( $insert );
-    }
-
     /**
      * {@inheritdoc}
      */

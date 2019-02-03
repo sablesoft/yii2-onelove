@@ -11,13 +11,10 @@ use common\models\query\AskQuery;
 /**
  * This is the model class for table "ask".
  *
- * @property int $id
  * @property string $name
  * @property string $phone
- * @property string $label
  * @property int $age
  * @property int $sex
- * @property int $created_at
  * @property int $group_id Age search group ID
  *
  * @property int $minAge
@@ -44,7 +41,7 @@ class Ask extends CrudModel {
      */
     public function attributes() {
         return [
-            'name', 'phone', 'sex', 'age',
+            'name', 'phone', 'sex', 'age', 'owner_id',
             'created_at', 'updated_at', 'group_id'
         ];
     }

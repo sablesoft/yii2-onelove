@@ -1,10 +1,11 @@
 <?php
 namespace common\models;
 
-use yii\behaviors\AttributeBehavior;
+use yii\db\Exception;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-use yii\db\Exception;
+use common\behavior\OwnerBehavior;
+use yii\behaviors\AttributeBehavior;
 
 
 /**
@@ -13,11 +14,15 @@ use yii\db\Exception;
  * @package common\models
  *
  * @property int $id
+ * @property int $owner_id
  * @property int|string $created_at
  * @property int|string $updated_at
  * @property int $is_blocked
  * @property bool $isCheckDefault
  * @property string $label
+ * @property User|null $ownerUser
+ *
+ * @method bool isOwner( int $userId );
  */
 abstract class CrudModel extends ActiveRecord {
 
@@ -36,6 +41,16 @@ abstract class CrudModel extends ActiveRecord {
      */
     public function behaviors() {
         return [
+            [
+                'class'     => OwnerBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['owner_id']
+                ],
+                'value' => function( $event ) {
+                    return \Yii::$app->user->getIsGuest() ? null :
+                            \Yii::$app->user->getId();
+                }
+            ],
             [
                 'class'      => AttributeBehavior::class,
                 'attributes' => [

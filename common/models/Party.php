@@ -21,8 +21,6 @@ use yii\db\ActiveRecord;
  * @property integer $closed
  * @property string $description
  * @property string $phone
- * @property string $created_at
- * @property string $updated_at
  *
  * @property Ask[] $asks
  * @property Place $place

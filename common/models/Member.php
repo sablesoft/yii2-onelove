@@ -26,8 +26,6 @@ use yii\behaviors\AttributeBehavior;
  * @property string $phone
  * @property string $email
  * @property string $resume
- * @property string $created_at
- * @property string $updated_at
  *
  * @property User $user
  * @property Ask[] $asks
@@ -51,7 +49,7 @@ class Member extends CrudModel {
         return [
             'id', 'user_id', 'is_blocked',
             'name', 'phone', 'sex', 'age',
-            'dob', 'photo', 'email', 'resume',
+            'dob', 'photo', 'email', 'resume', 'owner_id',
             'created_at', 'updated_at', 'group_id'
         ];
     }

@@ -9,17 +9,13 @@ use yii\behaviors\AttributeBehavior;
 /**
  * This is the model class for table "ticket".
  *
- * @property int $id
  * @property int $party_id Ticket party ID
  * @property int $member_id Ticket member ID
  * @property string $comment Operator comments
  * @property int $visited Is party visited by member flag
  * @property int $paid How much member paid for party
- * @property int $is_blocked Is ticket blocked for use
  * @property int $closed Is ticket closed
  * @property int $updated_by Who make last ticket updates
- * @property int $created_at
- * @property int $updated_at
  *
  * @property Member $member
  * @property Party $party
@@ -50,7 +46,7 @@ class Ticket extends CrudModel {
         return [
             'id', 'member_id', 'party_id', 'updated_by',
             'visited', 'paid', 'is_blocked', 'closed',
-            'comment', 'created_at', 'updated_at'
+            'comment', 'created_at', 'updated_at', 'owner_id'
         ];
     }
 
