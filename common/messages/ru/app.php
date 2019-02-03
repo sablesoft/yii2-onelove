@@ -41,6 +41,7 @@ return [
     'Irrelevant' => 'Не имеет значения',
     'Invalid phone operator' => 'Недопустимый код оператора',
     'My age' => 'Моего возраста',
+    'Media' => 'Медиа',
     'Younger than me' => 'Младше меня',
     'What age of the opposite sex is preferable for you?'
         => 'Какой возраст противоположного пола для Вас предпочтителен?',

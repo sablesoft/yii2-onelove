@@ -2,6 +2,7 @@
 namespace backend\widgets;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use common\interfaces\NavInterface;
 
@@ -50,12 +51,24 @@ class Nav extends \yii\bootstrap\Nav implements NavInterface {
                         $items[ $field ] = Yii::t('app', $value );
                 continue;
             }
-            $newKey = $oldKey ? "$oldKey.$key" : $key;
-            $access = $oldKey ? Yii::$app->user->can( $newKey ) : true;
-            if( $access )
-                $items['items'][] = static::prepareItems( $subConfig, $newKey );
+            if( !static::checkAccess( $subConfig, $key, $oldKey ) )
+                continue;
+            $items['items'][] = static::prepareItems( $subConfig, trim( "$oldKey.$key", '.' ) );
         }
 
         return $items;
+    }
+
+    /**
+     * @param array $config
+     * @param string $key
+     * @param null|string $oldKey
+     * @return bool
+     */
+    protected static function checkAccess( array &$config, string $key, $oldKey = null ) {
+        $default = $oldKey ?  "$oldKey.$key" : "menu.$key";
+        $permission = ArrayHelper::remove( $config, '_access', $default );
+
+        return Yii::$app->user->can( $permission );
     }
 }
