@@ -1,6 +1,33 @@
 <?php
 
 return [
+    'log' => [
+        'flushInterval' => 1,
+        'targets' => [
+            'error' => [
+                'class' => 'yii\log\FileTarget',
+                'levels' => ['error'],
+                'logFile' => '@common/../logs/error.log',
+                'exportInterval' => 1
+            ],
+            'warning' => [
+                'class' => 'yii\log\FileTarget',
+                'levels' => ['warning'],
+                'logFile' => '@common/../logs/warning.log',
+                'exportInterval' => 1,
+            ],
+            'email' => [
+                'class' => 'yii\log\EmailTarget',
+                'levels' => ['error'],
+                'message' => [
+                    'from' => ['noreply@onelove.by'],
+                    'to' => ['sable.lair@gmail.com'],
+                    'subject' => 'Errors on OneLove',
+                ],
+                'exportInterval' => 1
+            ]
+        ]
+    ],
     'user' => [
         'enableAutoLogin' => true,
         'identityCookie' => [
