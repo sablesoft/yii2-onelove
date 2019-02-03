@@ -26,8 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-                // todo - image column!!!
                 'attribute' => 'photo',
+                'value' => function( $model ) {
+                    /** @var \common\models\Place $model */
+                    return $model->getImagePath([ 'width' => 200 ]);
+                },
+                'format' => 'image',
+                'enableSorting' => false,
                 'filter' => false
             ],
             'name',

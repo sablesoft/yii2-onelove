@@ -1,8 +1,10 @@
 <?php
 namespace common\models;
 
+use common\behavior\ImageBehavior;
 use common\behavior\PhoneBehavior;
 use common\models\query\PlaceQuery;
+use noam148\imagemanager\models\ImageManager;
 
 /**
  * This is the model class for table "place".
@@ -13,12 +15,15 @@ use common\models\query\PlaceQuery;
  * @property string $map
  * @property string $photo
  * @property int $is_default
+ * @property string|null $imagePath
  * @property string $countryCode
  * @property string $shortPhone
  * @property string $maskedPhone
  * @property array $maskedPhoneConfig
  *
  * @property Party[] $parties
+ *
+ * @method string|null getImagePath( $options = [] );
  */
 class Place extends CrudModel {
 
@@ -36,7 +41,11 @@ class Place extends CrudModel {
             [
                 'class'     => PhoneBehavior::class,
                 'operators' => Helper::getSettings('operators')
-            ]
+            ],
+            [
+                'class' => ImageBehavior::class,
+                'imageField' => 'photo'
+            ],
         ]);
     }
 
@@ -45,16 +54,19 @@ class Place extends CrudModel {
      */
     public function rules() {
         return [
-            // todo validate photo path
             [['name', 'address'], 'required'],
-            [['is_default', 'is_blocked'], 'integer'],
+            [['is_default', 'is_blocked', 'photo'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['name', 'photo'], 'string', 'max' => 40],
+            [['name'], 'string', 'max' => 40],
             [['address'], 'string', 'max' => 100],
             [['map'], 'string'],
             [['phone'], 'validatePhone'],
             [['name'], 'unique'],
-            [['address'], 'unique']
+            [['address'], 'unique'],
+            [
+                ['photo'], 'exist', 'skipOnError' => true,
+                'targetClass' => ImageManager::class, 'targetAttribute' => ['photo' => 'id']
+            ]
         ];
     }
 
@@ -70,6 +82,7 @@ class Place extends CrudModel {
             'maskedPhone' => \Yii::t('app', 'Phone'),
             'map' => \Yii::t('app', 'Map'),
             'photo' => \Yii::t('app', 'Photo'),
+            'imagePath' => \Yii::t('app', 'Photo'),
             'is_default' => \Yii::t('app', 'Is Default'),
             'is_blocked' => \Yii::t('app', 'Is Blocked'),
             'created_at' => \Yii::t('app', 'Created At'),

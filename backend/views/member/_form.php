@@ -1,9 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use common\models\User;
 use common\models\Member;
 use yii\widgets\ActiveForm;
-use common\models\User;
+use noam148\imagemanager\components\ImageManagerInputWidget;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Member */
@@ -33,11 +34,7 @@ use common\models\User;
                     ]
                 ]
             ); ?>
-        </div>
-        <div class="col-sm-4">
-            <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) // todo - file uploader ?>
             <?= $form->field($model, 'sex')->dropDownList( Member::getSexDropDownList() ); ?>
-            <?= $form->field( $model, 'group_id')->dropDownList( \common\models\Group::getDropDownList()[0] ); ?>
         </div>
         <div class="col-sm-4">
             <?= $form->field($model, 'phone')->widget( 'yii\widgets\MaskedInput', $model->maskedPhoneConfig ); ?>
@@ -47,6 +44,15 @@ use common\models\User;
                 'prompt' => Yii::t('app', 'Select user account')
             ])
             ); ?>
+            <?= $form->field( $model, 'group_id')->dropDownList( \common\models\Group::getDropDownList()[0] ); ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field( $model, 'photo')->widget( ImageManagerInputWidget::class, [
+                'aspectRatio' => ( 16 / 9 ), //set the aspect ratio
+                'cropViewMode' => 1, //crop mode, option info: https://github.com/fengyuanchen/cropper/#viewmode
+                'showPreview' => true, //false to hide the preview
+                'showDeletePickedImageConfirm' => false, //on true show warning before detach image
+            ]); ?>
         </div>
     </div>
 

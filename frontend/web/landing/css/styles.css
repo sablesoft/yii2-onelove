@@ -900,8 +900,17 @@ footer .wrapper h2 {
     margin: 0 0 20px 0;
 }
 footer .wrapper .image {
-	/*width: max-content;*/
-	/*margin-right: 0;*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-box-shadow: inset 0 0 20px 3px #000;
+    -moz-box-shadow: inset 0 0 20px 3px #000;
+    box-shadow: inset 0 0 20px 3px #000;
+    width: 250px;
+    height: 250px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
 footer .wrapper p {
 	margin: 0;

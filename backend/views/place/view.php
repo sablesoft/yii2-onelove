@@ -20,11 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'photo', // todo - image html!!
+            'imagePath:image',
             'name',
             'address',
             'maskedPhone',
-            'map',
+            'map:raw',
             'is_default:boolean',
             'is_blocked:boolean',
             'created_at:datetime',

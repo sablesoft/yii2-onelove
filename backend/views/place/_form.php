@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use noam148\imagemanager\components\ImageManagerInputWidget;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Place */
@@ -26,9 +27,7 @@ $mapUrl = 'https://yandex.ru/map-constructor/'; // todo - move to settings
                 </div>
             </div>
             <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
-        </div>
-        <div class="col-sm-6">
-            <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) // todo - uploader!! ?>
+            <?= $form->field($model, 'map')->textarea(['rows' => 5]); ?>
             <div class="row">
                 <div class="col-sm-6">
                     <br>
@@ -40,10 +39,17 @@ $mapUrl = 'https://yandex.ru/map-constructor/'; // todo - move to settings
                     <?= $form->field($model, 'is_blocked')->checkbox(); ?>
                 </div>
             </div>
+
+        </div>
+        <div class="col-sm-6">
+            <?= $form->field( $model, 'photo')->widget( ImageManagerInputWidget::class, [
+                'aspectRatio' => ( 16 / 9 ), //set the aspect ratio
+                'cropViewMode' => 1, //crop mode, option info: https://github.com/fengyuanchen/cropper/#viewmode
+                'showPreview' => true, //false to hide the preview
+                'showDeletePickedImageConfirm' => false, //on true show warning before detach image
+            ]); ?>
         </div>
     </div>
-
-    <?= $form->field($model, 'map')->textarea(['rows' => 3]); ?>
 
     <div class="form-group">
         <?= Html::a(

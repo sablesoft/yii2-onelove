@@ -1,12 +1,14 @@
 <?php
 namespace common\models;
 
+use common\behavior\ImageBehavior;
 use yii\db\ActiveRecord;
 use common\behavior\AgeBehavior;
 use common\behavior\NameBehavior;
 use common\behavior\PhoneBehavior;
 use common\models\query\MemberQuery;
 use yii\behaviors\AttributeBehavior;
+use noam148\imagemanager\models\ImageManager;
 
 /**
  * This is the model class for table "member".
@@ -26,6 +28,7 @@ use yii\behaviors\AttributeBehavior;
  * @property string $phone
  * @property string $email
  * @property string $resume
+ * @property string|null $imagePath
  *
  * @property User $user
  * @property Ask[] $asks
@@ -37,6 +40,8 @@ use yii\behaviors\AttributeBehavior;
  * @property string $shortPhone
  * @property string $maskedPhone
  * @property array $maskedPhoneConfig
+ *
+ * @method string|null getImagePath( $options = [] );
  */
 class Member extends CrudModel {
 
@@ -66,9 +71,8 @@ class Member extends CrudModel {
      */
     public function rules() {
         return [
-            // todo - validate photo path
             [['age', 'sex', 'group_id'], 'required'],
-            [['user_id', 'age', 'sex', 'is_blocked', 'trueAge', 'group_id'], 'integer'],
+            [['user_id', 'age', 'sex', 'is_blocked', 'trueAge', 'group_id', 'photo'], 'integer'],
             [['age'], 'integer', 'min' => $this->minAge, 'max' => $this->maxAge ],
             [['created_at', 'updated_at'], 'safe'],
             [['dob'], 'validateDob'],
@@ -77,7 +81,6 @@ class Member extends CrudModel {
             [['name'], 'string', 'max' => 10],
             [['name'], 'validateName'],
             [['phone'], 'validatePhone'],
-            [['photo'], 'string', 'max' => 40],
             [['email'], 'string', 'max' => 20],
             [['user_id'], 'unique'],
             [['phone'], 'unique'],
@@ -89,6 +92,10 @@ class Member extends CrudModel {
             [
                 ['user_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']
+            ],
+            [
+                ['photo'], 'exist', 'skipOnError' => true,
+                'targetClass' => ImageManager::class, 'targetAttribute' => ['photo' => 'id']
             ]
         ];
     }
@@ -113,6 +120,7 @@ class Member extends CrudModel {
             'phone' => \Yii::t('app', 'Phone'),
             'maskedPhone' => \Yii::t('app', 'Phone'),
             'photo' => \Yii::t('app', 'Photo'),
+            'imagePath' => \Yii::t('app', 'Photo'),
             'email' => \Yii::t('yii', 'Email'),
             'resume' => \Yii::t('app', 'Member Resume'),
             'is_blocked' => \Yii::t('app', 'Is Blocked'),
@@ -128,6 +136,10 @@ class Member extends CrudModel {
         return array_merge( parent::behaviors(), [
             AgeBehavior::class,
             NameBehavior::class,
+            [
+                'class' => ImageBehavior::class,
+                'imageField' => 'photo'
+            ],
             [
                 'class'     => PhoneBehavior::class,
                 'operators' => Helper::getSettings('operators')
