@@ -1,9 +1,9 @@
 <?php
 namespace backend\controllers;
 
-use backend\models\BackendController;
+use yii\web\Controller;
 
-class AdminController extends BackendController {
+class AdminController extends Controller {
 
     /**
      * @return string

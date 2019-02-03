@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\models\Helper;
 use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
@@ -20,9 +21,16 @@ class SiteController extends Controller {
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@']
+                        'roles' => ['admin', 'operator', 'manager']
                     ]
-                ]
+                ],
+                'denyCallback' => function( $rule, $action ) {
+                    Yii::$app->session->setFlash('yii', 'Access denied');
+                    $redirect = Yii::$app->user->getIsGuest() ?
+                        '/login' : Helper::getSettings('domain.front');
+
+                    return $action->controller->redirect( $redirect );
+                },
             ]
         ];
     }

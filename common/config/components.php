@@ -8,7 +8,10 @@ return [
                 'class' => 'yii\log\FileTarget',
                 'levels' => ['error'],
                 'logFile' => '@common/../logs/error.log',
-                'except' => ['yii\web\HttpException:403'],
+                'except' => [
+                    'yii\web\HttpException:403',
+                    'yii\web\HttpException:404'
+                ],
                 'exportInterval' => 1
             ],
             'warning' => [
@@ -25,7 +28,10 @@ return [
                     'to' => ['sable.lair@gmail.com'],
                     'subject' => 'Errors on OneLove',
                 ],
-                'except' => ['yii\web\HttpException:403'],
+                'except' => [
+                    'yii\web\HttpException:403',
+                    'yii\web\HttpException:404'
+                ],
                 'exportInterval' => 1
             ]
         ]

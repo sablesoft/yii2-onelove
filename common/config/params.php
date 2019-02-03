@@ -2,6 +2,10 @@
 return [
     'user.passwordResetTokenExpire' => 3600,
     'settings' => [
+        'domain' => [
+            'front' => 'http://onelove.by',
+            'back'  => 'http://admin.onelove.by'
+        ],
         'defaultPhone' => '375296092441',
         'operators' => ['25', '29', '33', '44' ],
         // age default params:
@@ -70,6 +74,15 @@ return [
             [
                 "text" => "Вы готовы к общению и открыты для новых знакомств и отношений?<br>Тогда приходите к нам. И за один вечер Вы сможете познакомиться с 10-15  интересными людьми противоположного пола и встретить свою половинку."
             ]
+        ],
+        'access' => [
+            'skipController'    => ['site'],
+            'skipModule'        => ['front', 'user'],
+            'pattern' => [
+                'back'   => "{controller}.{action}",
+                'media'  => "{module}.{action}",
+                'rbac'   => "{controller}.{action}"
+            ],
         ]
     ],
 

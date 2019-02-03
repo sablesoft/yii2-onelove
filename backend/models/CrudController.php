@@ -2,16 +2,16 @@
 namespace backend\models;
 
 use Yii;
+use yii\web\Controller;
 use yii\db\ActiveRecord;
 use yii\db\StaleObjectException;
 use yii\filters\VerbFilter;
 use common\interfaces\SearchInterface;
-use yii\web\NotFoundHttpException;
 
 /**
  * PlaceController implements the CRUD actions for Place model.
  */
-class CrudController extends BackendController {
+class CrudController extends Controller {
 
     protected $modelClass;
     protected $searchModelClass;
