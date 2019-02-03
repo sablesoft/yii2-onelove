@@ -22,7 +22,7 @@ use common\models\query\PlaceQuery;
  *
  * @property Party[] $parties
  */
-class Place extends BaseModel {
+class Place extends CrudModel {
 
     protected $checkDefault = true;
 

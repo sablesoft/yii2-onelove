@@ -19,7 +19,7 @@ use yii\db\Exception;
  * @property bool $isCheckDefault
  * @property string $label
  */
-abstract class BaseModel extends ActiveRecord {
+abstract class CrudModel extends ActiveRecord {
 
     /** @var integer */
     protected $checkDefault;

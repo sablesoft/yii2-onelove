@@ -52,7 +52,7 @@ use yii\db\ActiveRecord;
  * @method string getMaskedPhone( $phone = null );
  * @method string getMessengerHref( string $messenger );
  */
-class Party extends BaseModel {
+class Party extends CrudModel {
 
     const MEMBERS_DELTA = 5;
     const MEMBERS_COUNT = 15;
@@ -372,7 +372,7 @@ class Party extends BaseModel {
 
     /**
      * @param array $condition
-     * @return BaseModel|null
+     * @return CrudModel|null
      */
     public static function findActiveOne( array $condition ) {
         $condition['closed'] = 0;

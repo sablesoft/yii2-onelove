@@ -17,7 +17,7 @@ use yii\base\InvalidConfigException;
  *
  * @property Party[] $parties
  */
-class Price extends BaseModel {
+class Price extends CrudModel {
 
     protected $checkDefault = true;
 

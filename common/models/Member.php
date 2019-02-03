@@ -40,7 +40,7 @@ use yii\behaviors\AttributeBehavior;
  * @property string $maskedPhone
  * @property array $maskedPhoneConfig
  */
-class Member extends BaseModel {
+class Member extends CrudModel {
 
     const YEAR_IN_SECONDS = 31536000;
 

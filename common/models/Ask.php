@@ -30,7 +30,7 @@ use common\models\query\AskQuery;
  * @property string $maskedPhone
  * @property array $maskedPhoneConfig
  */
-class Ask extends BaseModel {
+class Ask extends CrudModel {
 
     /**
      * {@inheritdoc}

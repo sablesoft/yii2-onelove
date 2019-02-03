@@ -15,7 +15,7 @@ use Yii;
  * @property Ask[] $asks
  * @property Member[] $members
  */
-class Group extends BaseModel {
+class Group extends CrudModel {
 
     /**
      * {@inheritdoc}

@@ -124,14 +124,20 @@ class Helper {
         $actions = array_merge(['view', 'update'], $actions );
         foreach( $actions as $action )
             $config[ $action ] = function( $model, $key, $index ) use ( $area, $action ) {
-                /** @var \common\models\BaseModel $model */
-                return Yii::$app->user->can("$area.$action" );
+                /** @var \common\models\CrudModel $model */
+                return Yii::$app->user->can(
+                    "$area.$action",
+                    [ 'model' => $model ]
+                );
             };
 
         $config['delete'] = function( $model, $key, $index ) use ( $area ) {
-            /** @var \common\models\BaseModel $model */
+            /** @var \common\models\CrudModel $model */
             if( $model->isCheckDefault && !empty( $model->is_default ) ) return false;
-            return Yii::$app->user->can("$area.delete" );
+            return Yii::$app->user->can(
+                "$area.delete",
+                [ 'model' => $model ]
+            );
         };
 
         return $config;

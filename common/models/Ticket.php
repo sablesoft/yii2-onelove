@@ -34,7 +34,7 @@ use yii\behaviors\AttributeBehavior;
  * @property string $operatorUrl
  * @property User $updatedBy
  */
-class Ticket extends BaseModel {
+class Ticket extends CrudModel {
 
     /**
      * {@inheritdoc}
