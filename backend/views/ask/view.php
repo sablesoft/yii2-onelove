@@ -10,7 +10,7 @@ use common\models\Helper;
 $area = 'ask';
 $this->title = $model->label;
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('app', 'Asks'),
+    'label' => Yii::t('app/backend', 'Asks'),
     'url' => ['index']
 ];
 $member = \common\models\Member::findOne(['phone' => $model->id ]);

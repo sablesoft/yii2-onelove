@@ -178,7 +178,7 @@ class Member extends CrudModel {
     public function validateDob( string $attribute, $params ) {
         $ages = $this->trueAge;
         if( $ages < $this->minAge )
-            $this->addError( $attribute, \Yii::t('app', 'Invalid day of birth') );
+            $this->addError( $attribute, \Yii::t('app/error', 'Invalid day of birth') );
     }
 
     /**

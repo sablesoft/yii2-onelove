@@ -9,7 +9,7 @@ use common\models\Helper;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $area = 'setting';
-$this->title = Yii::t('app', 'Settings');
+$this->title = Yii::t('app/backend', 'Settings');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="setting-index">

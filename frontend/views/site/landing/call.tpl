@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-sm-12">
                 {$form->field( $call, 'name' )->textInput([
-                    'placeholder' => Yii::t('app', 'Name')
+                    'placeholder' => Yii::t('app/frontend', 'Name')
                 ])->label(false)}
                 {$form->field( $call, 'phone')
                     ->widget(
@@ -21,12 +21,12 @@
                         $ask->getMaskedPhoneConfig([
                         'options' => [
                             'id' => "$formId-phone-mask",
-                            'placeholder' => Yii::t('app', 'Phone')
+                            'placeholder' => Yii::t('app/frontend', 'Phone')
                         ]
                     ])
                 )->label(false)}
                 <div class="form-group">
-                    {Html::input('submit', 'submit', Yii::t('app', 'Send Ask') )}
+                    {Html::input('submit', 'submit', Yii::t('app/frontend', 'Send Ask') )}
                 </div>
             </div>
         </div>

@@ -9,7 +9,7 @@ use common\models\Helper;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $area = 'place';
-$this->title = Yii::t('app', 'Places');
+$this->title = Yii::t('app/backend', 'Places');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="place-index">

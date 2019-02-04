@@ -23,7 +23,7 @@ use noam148\imagemanager\components\ImageManagerInputWidget;
                 'kartik\date\DatePicker',
                 [
                     'options' => [
-                            'placeholder' => Yii::t('app','Select your day of birth') .' ...'
+                            'placeholder' => Yii::t('app/backend','Select your day of birth') .' ...'
                     ],
                     'removeButton'  => false,
                     'pluginOptions' => [
@@ -41,7 +41,7 @@ use noam148\imagemanager\components\ImageManagerInputWidget;
             <?= $form->field($model, 'email')->textInput(['maxlength' => true]); ?>
             <?= $form->field($model, 'user_id')->dropDownList(
                 ...User::getDropDownList([
-                'prompt' => Yii::t('app', 'Select user account')
+                'prompt' => Yii::t('app/backend', 'Select user account')
             ])
             ); ?>
             <?= $form->field( $model, 'group_id')->dropDownList( \common\models\Group::getDropDownList()[0] ); ?>

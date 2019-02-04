@@ -9,7 +9,7 @@ use common\models\Helper;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $area = 'price';
-$this->title = Yii::t('app', 'Prices');
+$this->title = Yii::t('app/backend', 'Prices');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="price-index">

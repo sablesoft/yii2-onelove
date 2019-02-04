@@ -9,7 +9,7 @@ use common\models\Helper;
 $area = 'member';
 $this->title = $model->label;
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('app', 'Members'),
+    'label' => Yii::t('app/backend', 'Members'),
     'url' => ['index']
 ];
 $this->params['breadcrumbs'][] = $this->title;

@@ -10,7 +10,7 @@ $view = Yii::$app->view;
 $view->title = $model->label;
 \yii\web\YiiAsset::register( $view );
 echo Html::a(
-        Yii::t('app', 'Open all asks'),
+        Yii::t('app/backend', 'Open all asks'),
         Url::to( 'http://admin.onelove.by/ask', true ),
         ['class'=>'btn btn-primary']
 );

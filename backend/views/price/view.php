@@ -7,7 +7,7 @@ use common\models\Helper;
 /* @var $model common\models\Price */
 $area = 'price';
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Prices'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/backend', 'Prices'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

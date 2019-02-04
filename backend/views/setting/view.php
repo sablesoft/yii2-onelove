@@ -8,7 +8,7 @@ use common\models\Helper;
 
 $area = 'setting';
 $this->title = $model->label;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Settings'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/backend', 'Settings'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

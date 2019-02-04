@@ -63,7 +63,7 @@ class m190129_140711_install_group_data extends Migration {
         // install default groups:
         foreach( $this->groups as $groupData ) {
             $group = new Group( $groupData );
-            $group->label = Yii::t('app', $group->label );
+            $group->label = Yii::t('app/console', $group->label );
             $group->save();
         }
 

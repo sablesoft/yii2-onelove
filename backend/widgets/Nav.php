@@ -48,7 +48,7 @@ class Nav extends \yii\bootstrap\Nav implements NavInterface {
                 $items = $subConfig;
                 foreach( $items as $field => $value )
                     if( $field == 'label')
-                        $items[ $field ] = Yii::t('app', $value );
+                        $items[ $field ] = Yii::t('app/backend', $value );
                 continue;
             }
             if( !static::checkAccess( $subConfig, $key, $oldKey ) )

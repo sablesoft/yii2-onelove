@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Setting */
 
-$this->title = Yii::t('app', 'Update Setting: {name}', [
+$this->title = Yii::t('app/backend', 'Update Setting: {name}', [
     'name' => $model->label,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Settings'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/backend', 'Settings'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->label, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('yii', 'Update');
 ?>

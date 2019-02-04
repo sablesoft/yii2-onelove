@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Member */
 
-$this->title = Yii::t('app', 'Create Member');
+$this->title = Yii::t('app/backend', 'Create Member');
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('app', 'Members'),
+    'label' => Yii::t('app/backend', 'Members'),
     'url' => ['index']
 ];
 $this->params['breadcrumbs'][] = $this->title;

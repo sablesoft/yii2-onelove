@@ -154,7 +154,7 @@ class Ask extends CrudModel {
         $member->save();
         // check member save correct:
         if (!$member->id)
-            throw new \Exception(Yii::t('app', 'Member not saved!'));
+            throw new \Exception(Yii::t('app/error', 'Member not saved!'));
 
         return $member;
     }
@@ -165,7 +165,7 @@ class Ask extends CrudModel {
     public function accept( $partyId = null ) : bool {
         // search and check party:
         if( !$party = ( $partyId ? Party::findActiveOne(['id' => $partyId ]) : Party::findCurrent() ) ) {
-            $error = Yii::t('app', 'Active party for ticket not found!');
+            $error = Yii::t('app/error', 'Active party for ticket not found!');
             Yii::error( $error );
             Yii::$app->session->addFlash('error', $error );
 
@@ -195,7 +195,7 @@ class Ask extends CrudModel {
                 foreach( $ticket->getErrors() as $error )
                     Yii::$app->session->addFlash('error', reset( $error ) );
 
-                throw new \Exception(Yii::t('app', 'Ticket not saved!'));
+                throw new \Exception(Yii::t('app/error', 'Ticket not saved!'));
             }
 
             $this->delete();

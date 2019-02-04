@@ -7,7 +7,7 @@ use common\models\Helper;
 /* @var $model common\models\Party */
 $area = 'party';
 $this->title = $model->label;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Parties'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/backend', 'Parties'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

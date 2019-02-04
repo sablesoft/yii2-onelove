@@ -73,7 +73,7 @@ class PhoneBehavior extends Behavior {
                 if( strpos( $phone, $operator ) === 0 )
                     return;
             }
-            $this->owner->addError( $attribute, \Yii::t('app', 'Invalid phone operator' ) );
+            $this->owner->addError( $attribute, \Yii::t('app/error', 'Invalid phone operator' ) );
         }
     }
 
@@ -221,7 +221,7 @@ class PhoneBehavior extends Behavior {
     protected function _check( $attribute  = self::ATTRIBUTE ) : bool {
         if( !$this->owner->canGetProperty( $attribute ) ||
             !$this->owner->canSetProperty( $attribute ) ) {
-            \Yii::error( \Yii::t('app', 'Model not have phone attribute!' ) );
+            \Yii::error( \Yii::t('app/error', 'Model not have phone attribute!' ) );
 
             return false;
         }

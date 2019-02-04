@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Group */
 
 $this->title = $model->label;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Groups'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/backend', 'Groups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

@@ -51,13 +51,13 @@ class SiteController extends Controller {
         $modalsSettings = Helper::getSettings('modal', true );
         $successModal = [
             'id' => 'askSuccess',
-            'header' => Yii::t('app', $modalsSettings['success']['header'] ),
-            'message' => Yii::t('app', $modalsSettings['success']['message'] ),
+            'header' => Yii::t('app/frontend', $modalsSettings['success']['header'] ),
+            'message' => Yii::t('app/frontend', $modalsSettings['success']['message'] ),
         ];
         $failModal = [
             'id' => 'askFail',
-            'header' => Yii::t('app', $modalsSettings['fail']['header'] ),
-            'message' => Yii::t('app', $modalsSettings['fail']['message'] ),
+            'header' => Yii::t('app/frontend', $modalsSettings['fail']['header'] ),
+            'message' => Yii::t('app/frontend', $modalsSettings['fail']['message'] ),
         ];
 
         return $this->render(

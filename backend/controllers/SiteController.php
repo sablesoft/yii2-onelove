@@ -52,7 +52,7 @@ class SiteController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        $this->view->title = Yii::t('app', 'Admin Panel');
-        return $this->render('index');
+        $this->view->title = Yii::t('app/backend', 'Admin Panel');
+        return $this->render('index.tpl');
     }
 }

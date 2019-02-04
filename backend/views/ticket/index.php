@@ -9,7 +9,7 @@ use common\models\Helper;
 /* @var $searchModel common\models\search\TicketSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $area = 'ticket';
-$this->title = Yii::t('app', 'Tickets');
+$this->title = Yii::t('app/backend', 'Tickets');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ticket-index">

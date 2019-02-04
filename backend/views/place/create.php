@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Place */
 
-$this->title = Yii::t('app', 'Create Place');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Places'), 'url' => ['index']];
+$this->title = Yii::t('app/backend', 'Create Place');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/backend', 'Places'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="place-create">

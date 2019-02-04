@@ -12,7 +12,7 @@
     <div class="row">
         <div class="{$leftColumnClass}">
             {$form->field( $ask, 'name' )->textInput([
-                'placeholder' => Yii::t('app', 'Name')
+                'placeholder' => Yii::t('app/frontend', 'Name')
             ])->label(false)}
             {$form->field( $ask, 'phone')
                 ->widget(
@@ -20,20 +20,20 @@
                     $ask->getMaskedPhoneConfig([
                     'options' => [
                         'id' => "$formId-phone-mask",
-                        'placeholder' => Yii::t('app', 'Phone')
+                        'placeholder' => Yii::t('app/frontend', 'Phone')
                     ]
                 ])
             )->label(false)}
-            {$form->field( $ask, 'group_id' )->label(Yii::t('app', 'What age of the opposite sex is preferable for you?'))
+            {$form->field( $ask, 'group_id' )->label(Yii::t('app/frontend', 'What age of the opposite sex is preferable for you?'))
                 ->dropDownList( $groupList )}
             <div class="form-group">
-                {Html::input('submit', 'submit', Yii::t('app', 'Send Ask') )}
+                {Html::input('submit', 'submit', Yii::t('app/frontend', 'Send Ask') )}
             </div>
         </div>
         <div class="{$rightColumnClass}">
             {$form->field( $ask, 'sex' )->radioList([
-                1 => Yii::t('app', 'M'),
-                0 => Yii::t('app', 'Ж')
+                1 => Yii::t('app/frontend', 'M'),
+                0 => Yii::t('app/frontend', 'F')
             ])}
             {$form->field( $ask, 'age' )->input('number')}
         </div>

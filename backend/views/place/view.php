@@ -8,7 +8,7 @@ use common\models\Helper;
 $area = 'place';
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('app', 'Places'),
+    'label' => Yii::t('app/backend', 'Places'),
     'url' => ['index']
 ];
 $this->params['breadcrumbs'][] = $this->title;

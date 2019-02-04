@@ -11,21 +11,21 @@ $view->title = $model->label;
 \yii\web\YiiAsset::register( $view ); ?>
 <p style="font-weight: bold;">
 <?php echo Html::a(
-        Yii::t('app', 'Open all asks'),
+        Yii::t('app/backend', 'Open all asks'),
         Url::to( 'http://admin.onelove.by/ask', true ),
         ['class'=>'btn btn-primary']
 );
 ?>
 <span> | </span>
 <?php echo Html::a(
-    Yii::t('app', 'View Ask'),
+    Yii::t('app/backend', 'View Ask'),
     Url::to( 'http://admin.onelove.by/ask/view?id=' . $model->id, true ),
     ['class'=>'btn btn-primary']
 );
 ?>
 <span> | </span>
 <?php echo Html::a(
-    Yii::t('app', 'Accept Ask'),
+    Yii::t('app/backend', 'Accept Ask'),
     Url::to( 'http://admin.onelove.by/ask/accept?id=' . $model->id, true ),
     ['class'=>'btn btn-primary']
 );

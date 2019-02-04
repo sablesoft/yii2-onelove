@@ -26,7 +26,7 @@ class NameBehavior extends Behavior {
             !preg_match( self::CYRILLIC_PATTERN, $name ) )
             $this->owner->addError(
                 $attribute,
-                \Yii::t('app', 'Invalid characters in name.')
+                \Yii::t('app/error', 'Invalid characters in name.')
             );
     }
 }

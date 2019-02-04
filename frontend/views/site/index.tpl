@@ -37,7 +37,7 @@
     <div class="row">
         <div class="col-sm-offset-5 col-sm-7">
             {Html::button(
-                Yii::t('app','Success'),
+                Yii::t('app/frontend','Success'),
                 ['data-dismiss' => 'modal', 'class' => 'btn btn-success btn-lg']
             )}
         </div>
@@ -53,7 +53,7 @@
     <div class="row">
         <div class="col-sm-offset-5 col-sm-7">
             {Html::button(
-                Yii::t('app','Fail'),
+                Yii::t('app/frontend','Fail'),
                 ['data-dismiss' => 'modal', 'class' => 'btn btn-danger btn-lg']
             )}
         </div>

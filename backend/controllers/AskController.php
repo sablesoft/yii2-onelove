@@ -34,7 +34,7 @@ class AskController extends CrudController {
         if( $model->accept() )
             \Yii::$app->session->addFlash(
                 'success',
-                \Yii::t('app', 'Ask accepted successful!')
+                \Yii::t('app/backend', 'Ask accepted successful!')
             );
 
         return $this->redirect(['index']);
@@ -47,7 +47,7 @@ class AskController extends CrudController {
         if( Ask::acceptAll() )
             \Yii::$app->session->addFlash(
                 'success',
-                \Yii::t('app', 'All asks accepted successful!')
+                \Yii::t('app/backend', 'All asks accepted successful!')
             );
 
         return $this->redirect(['index']);
@@ -65,7 +65,7 @@ class AskController extends CrudController {
             $model->memberSave();
             \Yii::$app->session->addFlash(
                 'success',
-                \Yii::t('app', 'Member saved successful!')
+                \Yii::t('app/backend', 'Member saved successful!')
             );
         } catch ( \Exception $e ) {
             \Yii::$app->session->addFlash(

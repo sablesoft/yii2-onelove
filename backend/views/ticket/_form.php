@@ -22,15 +22,15 @@ use yii\widgets\ActiveForm;
                     <?= $form->field( $model, 'party_id' )
                         // todo - only active parties?
                         ->dropDownList( ...Party::getDropDownList([
-                            'prompt' => Yii::t('app', 'Select asked party')
-                        ]) )->label( Yii::t('app', 'Party' ) ); ?>
+                            'prompt' => Yii::t('app/backend', 'Select asked party')
+                        ]) )->label( Yii::t('app/backend', 'Party' ) ); ?>
                 </div>
                 <div class="col-sm-12">
                     <?php // todo - disabled for not new: ?>
                     <?= $form->field($model, 'member_id')
                         ->dropDownList( ...Member::getDropDownList([
-                            'prompt' => Yii::t('app', 'Select ask member')
-                        ]) )->label( Yii::t('app', 'Member' ) ); ?>
+                            'prompt' => Yii::t('app/backend', 'Select ask member')
+                        ]) )->label( Yii::t('app/backend', 'Member' ) ); ?>
                 </div>
             </div>
         </div>

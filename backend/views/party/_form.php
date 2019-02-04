@@ -20,7 +20,7 @@ use kartik\select2\Select2;
         <div class="col-sm-4">
             <?= $form->field( $model, 'place_id')
                 ->dropDownList( ...Place::getDropDownList([ 'selected' => true ]) )
-                ->label( Yii::t('app', 'Place') ); ?>
+                ->label( Yii::t('app/backend', 'Place') ); ?>
         </div>
         <div class="col-sm-4">
             <?= $form->field($model, 'name')->textInput(); ?>
@@ -31,7 +31,7 @@ use kartik\select2\Select2;
                 [
                     'options' => [
                         'autocomplete' => 'off',
-                        'placeholder' => Yii::t('app','Select party date and time') .' ...'
+                        'placeholder' => Yii::t('app/backend','Select party date and time') .' ...'
                     ],
                     'removeButton'  => false,
                     'pluginOptions' => [
@@ -48,7 +48,7 @@ use kartik\select2\Select2;
         <div class="col-sm-4">
             <?= $form->field($model, 'price_id')
                 ->dropDownList( ...Price::getDropDownList([ 'selected' => true ]) )
-                ->label( Yii::t('app', 'Price') ); ?>
+                ->label( Yii::t('app/backend', 'Price') ); ?>
         </div>
         <div class="col-sm-4">
             <?= $form->field($model, 'phone')->dropDownList( ...User::findPhonesList() ); ?>

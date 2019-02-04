@@ -50,7 +50,8 @@ class AskController extends Controller {
             $request = \Yii::$app->getRequest();
             if( $request->isPost && $model->load( $request->post() ) ) {
                 if( $model->save() ) {
-                    $this->send( $model, 'ask', 'New party ask!' );
+                    $subject = \Yii::t('app/frontend', 'New party ask!' );
+                    $this->send( $model, 'ask', $subject );
                 } else
                     $response = [
                         'success' => false,
@@ -59,7 +60,7 @@ class AskController extends Controller {
             } else {
                 $response = [
                     'success' => false,
-                    'errors' => [ \Yii::t('app','Ask data not loaded!') ]
+                    'errors' => [ \Yii::t('app/error','Ask data not loaded!') ]
                 ];
             }
         } catch( \Exception $e ) {
@@ -81,7 +82,8 @@ class AskController extends Controller {
         try {
             $request = \Yii::$app->getRequest();
             if( $request->isPost && $model->load( $request->post() ) ) {
-                $this->send( $model, 'call', 'New call request!' );
+                $subject = \Yii::t('app/frontend', 'New call request!' );
+                $this->send( $model, 'call', $subject );
             } else
                 $response = [
                     'success' => false,
@@ -117,7 +119,7 @@ class AskController extends Controller {
      */
     protected function send( Model $model, string $view, string $subject ) {
         if( !$party = Party::findCurrent() ) {
-            $error = \Yii::t('app', 'Nearest party for ask not founded!');
+            $error = \Yii::t('app/error', 'Nearest party for ask not founded!');
             \Yii::error( $error );
 
             return;
@@ -133,7 +135,7 @@ class AskController extends Controller {
         foreach( $operators as $operator ) {
             $messages[] = $mailer->compose(
                 $view, [ 'model' => $model ]
-            )->setSubject( \Yii::t('app', $subject ) )
+            )->setSubject( \Yii::t('app/frontend', $subject ) )
                 ->setFrom( Helper::getSettings('email.manager' ) )
                 ->setTo( $operator->email );
         }

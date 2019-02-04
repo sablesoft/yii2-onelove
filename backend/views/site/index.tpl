@@ -1,15 +1,8 @@
-<?php
-
-/* @var $this yii\web\View */
-?>
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>OneLove CRM</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <h1>{Yii::t('app/backend', 'OneLove CRM')}</h1>
+        <p class="lead">{Yii::t('app/backend', 'Welcome to Party Management System!')}</p>
     </div>
 
     <div class="body-content">

@@ -10,7 +10,7 @@ use common\models\Member;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $area = 'member';
-$this->title = Yii::t('app', 'Members');
+$this->title = Yii::t('app/backend', 'Members');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="member-index">

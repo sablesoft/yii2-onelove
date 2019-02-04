@@ -8,7 +8,7 @@ use common\models\Helper;
 /* @var $searchModel common\models\search\TicketSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $area = 'ask';
-$this->title = Yii::t('app', 'Asks');
+$this->title = Yii::t('app/backend', 'Asks');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ticket-index">
@@ -22,11 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Helper::button(
                 $area, 'reject-all',
                 [
-                    'label'     => 'Reject All',
+                    'label'     => Yii::t('app/backend', 'Reject All'),
                     'class'     => 'btn btn-danger',
                     'callback'  => ['common\models\Ask', 'noEmpty' ],
                     'data' => [
-                        'confirm' => Yii::t('app',
+                        'confirm' => Yii::t('app/backend',
                             'Are you sure you want to reject all asks?'
                         ),
                         'method' => 'post'
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => 'btn btn-warning',
                     'callback'  => ['common\models\Ask', 'noEmpty' ],
                     'data' => [
-                        'confirm' => Yii::t('app',
+                        'confirm' => Yii::t('app/backend',
                             'Are you sure you want to accept all asks?'
                         ),
                         'method' => 'post'
@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'created_at',
                     'options' => [
                         'autocomplete' => 'off',
-                        'placeholder' => Yii::t('app','Date filter') .'...'
+                        'placeholder' => Yii::t('app/backend','Date filter') .'...'
                     ],
                     'pluginOptions' => [
                         'forceParse' => true,
@@ -119,12 +119,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             $label = 'Update';
                         }
                         return Html::a( "<span class='glyphicon glyphicon-$class'></span>", $url,
-                            ['title' => Yii::t('app', "Member $label"), 'data-pjax' => '0']);
+                            ['title' => Yii::t('app/backend', "Member $label"), 'data-pjax' => '0']);
                     },
                     'accept' => function($url, $model, $key) {
                         $url = Yii::$app->getUrlManager()->createUrl([ 'ask/accept','id'=>$model->id ]);
                         return Html::a( '<span class="glyphicon glyphicon-plus"></span>', $url,
-                            ['title' => Yii::t('app', 'Accept Ask'), 'data-pjax' => '0']);
+                            ['title' => Yii::t('app/backend', 'Accept Ask'), 'data-pjax' => '0']);
                     }
                 ]
             ]

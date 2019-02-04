@@ -11,7 +11,7 @@ use common\models\Helper;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $area = 'party';
-$this->title = Yii::t('app', 'Parties');
+$this->title = Yii::t('app/backend', 'Parties');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="party-index">
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'timestamp',
                     'options' => [
                         'autocomplete' => 'off',
-                        'placeholder' => Yii::t('app','Date filter') .'...'
+                        'placeholder' => Yii::t('app/backend','Date filter') .'...'
                     ],
                     'pluginOptions' => [
                         'forceParse' => true,
