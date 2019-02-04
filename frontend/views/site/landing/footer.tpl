@@ -12,7 +12,7 @@
                 {$path = $place->getImagePath()}
                 {if $path}
                 <style type="text/css">
-                    .image {
+                   .contact .image {
                         background-image: url("{$path}");
                     }
                 </style>
