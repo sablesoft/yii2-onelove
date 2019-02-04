@@ -64,7 +64,7 @@ class Group extends CrudModel {
      * @return string
      */
     public function getLabel(): string {
-        return $this->label;
+        return Yii::t('app', $this->label );
     }
 
     /**
