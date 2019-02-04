@@ -40,7 +40,7 @@ return [
         'enableAutoLogin' => true,
         'identityCookie' => [
             'name'     => '_oneloveId',
-            'domain'   => ".$domainName",
+            'domain'   => ".$domain",
             'path'     => '/',
             'httpOnly' => true
         ]
@@ -72,7 +72,7 @@ return [
         'cookieParams'  => [
             'httpOnly'  => true,
             'path'      => '/',
-            'domain'    => ".$domainName"
+            'domain'    => ".$domain"
         ]
     ],
     'cache' => [

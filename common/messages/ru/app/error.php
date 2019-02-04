@@ -17,6 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Invalid phone operator' => 'Неправильный код оператора!',
     'Member not saved!' => '',
     'Model not have phone attribute!' => '',
     'Ticket not saved!' => 'Билет не сохранен!',

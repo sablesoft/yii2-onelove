@@ -21,6 +21,7 @@ return [
     'Fail' => 'Очень жаль!',
     'M' => 'М',
     'Name' => 'Имя',
+    'Ask sent' => 'Заявка отправлена!',
     'New call request!' => 'Запрос на обратный звонок!',
     'New party ask!' => 'Новая заявка на участие!',
     'Our operator will contact you shortly.' => 'Наш оператор свяжется с Вами в ближайшее время.',

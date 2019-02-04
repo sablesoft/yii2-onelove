@@ -94,8 +94,8 @@ class PhoneBehavior extends Behavior {
      * @return string
      */
     public function getCountryCode() : string {
-        return !empty( \Yii::$app->params[ static::COUNTRY_CODE_PARAM ] ) ?
-            \Yii::$app->params[ static::COUNTRY_CODE_PARAM ] : static::COUNTRY_CODE;
+        return Helper::getSettings(self::COUNTRY_CODE_PARAM ) ?:
+            self::COUNTRY_CODE;
     }
 
     /**
