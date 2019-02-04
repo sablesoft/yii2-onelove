@@ -5,7 +5,6 @@
 -- Server version	8.0.12
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
  SET NAMES utf8mb4 ;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
@@ -19,7 +18,22 @@
 -- Table structure for table `auth_item`
 --
 
+DROP TABLE IF EXISTS `auth_item_child`;
 DROP TABLE IF EXISTS `auth_item`;
+DROP TABLE IF EXISTS `auth_rule`;
+
+CREATE TABLE `auth_rule` (
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `data` blob,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `auth_rule`
+--
+
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `auth_item` (
@@ -40,6 +54,29 @@ CREATE TABLE `auth_item` (
 --
 -- Dumping data for table `auth_item`
 --
+
+--
+-- Table structure for table `auth_item_child`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE `auth_item_child` (
+   `parent` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+   `child` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+   PRIMARY KEY (`parent`,`child`),
+   KEY `child` (`child`),
+   CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+   CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `auth_rule` WRITE;
+/*!40000 ALTER TABLE `auth_rule` DISABLE KEYS */;
+INSERT INTO `auth_rule` (`name`, `data`, `created_at`, `updated_at`) VALUES
+('isOwner', 0x4f3a32313a22636f6d6d6f6e5c726261635c4f776e657252756c65223a333a7b733a343a226e616d65223b733a373a2269734f776e6572223b733a393a22637265617465644174223b693a313534393238323037303b733a393a22757064617465644174223b693a313534393238323037303b7d, 1549282070, 1549282070);
+/*!40000 ALTER TABLE `auth_rule` ENABLE KEYS */;
+UNLOCK TABLES;
 
 LOCK TABLES `auth_item` WRITE;
 /*!40000 ALTER TABLE `auth_item` DISABLE KEYS */;
@@ -184,23 +221,6 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 ('user.place', 2, 'Доступ участника к данным мест', NULL, NULL, 1548040380, 1548040380);
 /*!40000 ALTER TABLE `auth_item` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `auth_item_child`
---
-
-DROP TABLE IF EXISTS `auth_item_child`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `auth_item_child` (
-  `parent` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `child` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`parent`,`child`),
-  KEY `child` (`child`),
-  CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `auth_item_child`
@@ -398,25 +418,6 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('user', 'user.member'),
 ('user', 'user.party');
 /*!40000 ALTER TABLE `auth_item_child` ENABLE KEYS */;
-UNLOCK TABLES;
-
-DROP TABLE IF EXISTS `auth_rule`;
-CREATE TABLE `auth_rule` (
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `data` blob,
-  `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Дамп данных таблицы `auth_rule`
---
-
-LOCK TABLES `auth_rule` WRITE;
-/*!40000 ALTER TABLE `auth_rule` DISABLE KEYS */;
-INSERT INTO `auth_rule` (`name`, `data`, `created_at`, `updated_at`) VALUES
-('isOwner', 0x4f3a32313a22636f6d6d6f6e5c726261635c4f776e657252756c65223a333a7b733a343a226e616d65223b733a373a2269734f776e6572223b733a393a22637265617465644174223b693a313534393238323037303b733a393a22757064617465644174223b693a313534393238323037303b7d, 1549282070, 1549282070);
-/*!40000 ALTER TABLE `auth_rule` ENABLE KEYS */;
 UNLOCK TABLES;
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
