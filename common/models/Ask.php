@@ -7,6 +7,7 @@ use common\behavior\AgeBehavior;
 use common\behavior\NameBehavior;
 use common\behavior\PhoneBehavior;
 use common\models\query\AskQuery;
+use yii\db\StaleObjectException;
 
 /**
  * This is the model class for table "ask".
@@ -153,8 +154,16 @@ class Ask extends CrudModel {
         // create or update member:
         $member->save();
         // check member save correct:
-        if (!$member->id)
+        if( !$member->id )
             throw new \Exception(Yii::t('app/error', 'Member not saved!'));
+
+        try {
+            $this->delete();
+        } catch (StaleObjectException $e) {
+        } catch (\Throwable $e) {
+            Yii::error( $e->getMessage() );
+            Yii::$app->session->addFlash('error', $e->getMessage() );
+        }
 
         return $member;
     }
@@ -172,7 +181,7 @@ class Ask extends CrudModel {
             return false;
         }
         try {
-            // create or update member:
+            // create or update member and delete ask:
             $member = $this->memberSave();
             // prepare ticket data:
             $data = [
@@ -197,8 +206,6 @@ class Ask extends CrudModel {
 
                 throw new \Exception(Yii::t('app/error', 'Ticket not saved!'));
             }
-
-            $this->delete();
         } catch ( \Throwable $e ) {
             Yii::error( $e->getMessage() );
             Yii::$app->session->addFlash('error', $e->getMessage() );
