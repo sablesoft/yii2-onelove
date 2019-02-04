@@ -77,7 +77,7 @@ class Helper {
         if( !empty( $config['data'] ) )
             $options['data'] = $config['data'];
 
-        return Html::a( Yii::t('app', $config['label'] ), $route, $options );
+        return Html::a( Yii::t('app/backend', $config['label'] ), $route, $options );
     }
 
     /**

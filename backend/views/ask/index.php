@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Helper::button(
                 $area, 'accept-all',
                 [
-                    'label' => 'Accept All',
+                    'label' => Yii::t('app/backend', 'Accept All'),
                     'class' => 'btn btn-warning',
                     'callback'  => ['common\models\Ask', 'noEmpty' ],
                     'data' => [
