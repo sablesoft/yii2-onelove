@@ -13,16 +13,20 @@ use yii\console\Controller;
  */
 class AccessController extends Controller {
 
+    // todo - as console argument:
+    public $path = '@console/sql/rbac.sql';
+
     /**
      * Install app access sql
      */
     public function actionInstall() {
-        $path = Yii::getAlias('@console/sql/rbac.sql');
+        $path = Yii::getAlias( $this->path );
         if( file_exists( $path ) ) {
             try {
                 Yii::$app->getDb()->createCommand(
-                    file_get_contents($path)
+                    file_get_contents( $path )
                 )->execute();
+                $this->stdout("SQL executing done!\n", Console::BOLD );
                 // check dev role:
                 $auth = Yii::$app->authManager;
                 $admin = User::findOne(['username' => 'admin']);
