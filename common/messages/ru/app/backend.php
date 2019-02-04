@@ -38,7 +38,6 @@ return [
     'Create Ticket' => 'Создать билет',
     'Date filter' => 'Фильтр даты',
     'Groups' => 'Группы',
-    'Irrelevant' => 'Не имеет значения',
     'Manager' => 'Менеджер',
     'Map Constructor' => 'Конструктор карт',
     'Media' => 'Медиа',
@@ -47,8 +46,6 @@ return [
     'Member Update' => 'Обновить участника',
     'Member saved successful!' => 'Участник успешно сохранен!',
     'Members' => 'Участники',
-    'My age' => 'Моего возраста',
-    'Older than me' => 'Старше меня',
     'OneLove CRM' => '',
     'Open all asks' => 'Открыть все заявки',
     'Operator' => 'Оператор',
@@ -77,5 +74,4 @@ return [
     'Update Ticket: {name}' => 'Обновить билет: {name}',
     'View Ask' => 'Показать заявку',
     'Welcome to Party Management System!' => 'Welcome to Party Management System!',
-    'Younger than me' => 'Младше меня',
 ];

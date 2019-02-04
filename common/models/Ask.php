@@ -122,7 +122,7 @@ class Ask extends CrudModel {
     public function getGroupLabel() :string {
         $group = $this->group;
 
-        return $group ? $group->label : '';
+        return $group ? Yii::t('app', $group->label ) : '';
     }
 
     /**
