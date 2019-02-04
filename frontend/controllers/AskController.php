@@ -7,6 +7,7 @@ use common\models\Ask;
 use yii\web\Controller;
 use common\models\Party;
 use yii\mail\BaseMailer;
+use common\models\Helper;
 use common\models\CallForm;
 use yii\widgets\ActiveForm;
 use yii\base\InvalidConfigException;
@@ -116,8 +117,8 @@ class AskController extends Controller {
      */
     protected function send( Model $model, string $view, string $subject ) {
         if( !$party = Party::findCurrent() ) {
-            \Yii::error( \Yii::t('app', 'Nearest party for ask not founded!') );
-            // todo - send mail to admin!
+            $error = \Yii::t('app', 'Nearest party for ask not founded!');
+            \Yii::error( $error );
 
             return;
         }
@@ -133,6 +134,7 @@ class AskController extends Controller {
             $messages[] = $mailer->compose(
                 $view, [ 'model' => $model ]
             )->setSubject( \Yii::t('app', $subject ) )
+                ->setFrom( Helper::getSettings('email.manager' ) )
                 ->setTo( $operator->email );
         }
 

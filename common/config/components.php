@@ -24,9 +24,9 @@ return [
                 'class' => 'yii\log\EmailTarget',
                 'levels' => ['error'],
                 'message' => [
-                    'from' => ['noreply@onelove.by'],
-                    'to' => ['sable.lair@gmail.com'],
-                    'subject' => 'Errors on OneLove',
+                    'from'      => ['dev@onelove.by'],
+                    'to'        => ['admin@onelove.by'],
+                    'subject'   => 'Errors on OneLove'
                 ],
                 'except' => [
                     'yii\web\HttpException:403',

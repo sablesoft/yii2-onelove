@@ -14,9 +14,22 @@ return [
             'max' => 70
         ],
         'owner' => 'ИП Лебедкина Ирина Владимировна УНП №191781611',
-        // mail default params:todo
-        'mail' => [
-            'sendFrom' => 'noreply@onelove.by'
+        'email' => [
+            'default'   => [
+                'noreply@onelove.by'    => 'OneLove CRM'
+            ],
+            'dev'       => [
+                'dev@onelove.by'        => 'OneLove Dev'
+            ],
+            'admin'     => [
+                'admin@onelove.by'      => 'OneLove Admin'
+            ],
+            'manager'  => [
+                'manager@onelove.by'   => 'OneLove Manager'
+            ],
+            'operator'  => [
+                'operator@onelove.by'   => 'OneLove Operator'
+            ]
         ],
         'members' => [
             'delta' => 5,

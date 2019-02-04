@@ -167,7 +167,8 @@ class Helper {
         if( $checkNamespace ) {
             $settings = $query->where(['like', 'key', $key . '.' ])->all();
         } else {
-            $settings = [ $query->where(['key' => $key ])->one() ];
+            $setting = $query->where(['key' => $key ])->one();
+            $settings = $setting ? [ $setting ] : [];
         }
         $array = [];
         foreach( $settings as $setting ) {
