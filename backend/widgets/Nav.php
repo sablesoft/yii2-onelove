@@ -51,6 +51,10 @@ class Nav extends \yii\bootstrap\Nav implements NavInterface {
                         $items[ $field ] = Yii::t('app/backend', $value );
                 continue;
             }
+            if( strpos( $key, '_divider' ) !== false ) {
+                $items['items'][] = "<li class='divider'></li>";
+                continue;
+            }
             if( !static::checkAccess( $subConfig, $key, $oldKey ) )
                 continue;
             $items['items'][] = static::prepareItems( $subConfig, trim( "$oldKey.$key", '.' ) );

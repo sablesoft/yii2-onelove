@@ -36,6 +36,7 @@ return [
     'Create Price' => 'Создать расценки',
     'Create Setting' => 'Создать настройку',
     'Create Ticket' => 'Создать билет',
+    'Dashboard' => 'Доска',
     'Date filter' => 'Фильтр даты',
     'Groups' => 'Группы',
     'Manager' => 'Менеджер',
@@ -46,9 +47,12 @@ return [
     'Member Update' => 'Обновить участника',
     'Member saved successful!' => 'Участник успешно сохранен!',
     'Members' => 'Участники',
+    'Here is the information needed for the operator to work.'
+        => 'Здесь находится вся информация, необходимая для работы оператора',
     'OneLove CRM' => '',
     'Open all asks' => 'Открыть все заявки',
     'Operator' => 'Оператор',
+    'Operator Panel' => 'Доска оператора',
     'Parties' => 'Встречи',
     'Party' => 'Встреча',
     'Place' => 'Место',
@@ -73,5 +77,5 @@ return [
     'Update Setting: {name}' => 'Обновить настройку',
     'Update Ticket: {name}' => 'Обновить билет: {name}',
     'View Ask' => 'Показать заявку',
-    'Welcome to Party Management System!' => 'Welcome to Party Management System!',
+    'Welcome to Party Management System!' => 'Добро пожаловать в систему управления встречами!',
 ];

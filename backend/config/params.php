@@ -7,6 +7,13 @@ return [
                 'label'     => 'Operator',
                 'linkOptions' => []
             ],
+            'index'  => [
+                '_menu' => [
+                    'label'     => 'Dashboard',
+                    'url'       => '/operator',
+                ]
+            ],
+            '_divider'  => true,
             'ask'  => [
                 '_menu' => [
                     'label'     => 'Asks',
@@ -24,18 +31,18 @@ return [
                     'label'     => 'Members',
                     'url'       => '/member'
                 ]
-            ]
-        ],
-        'manager' => [
-            '_menu' => [
-                'label'     => 'Manager',
-                'linkOptions' => []
             ],
             'party'  => [
                 '_menu' => [
                     'label'     => 'Parties',
                     'url'       => '/party'
                 ]
+            ]
+        ],
+        'manager' => [
+            '_menu' => [
+                'label'     => 'Manager',
+                'linkOptions' => []
             ],
             'price'  => [
                 '_menu' => [
