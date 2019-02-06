@@ -67,6 +67,12 @@ return [
                     'label' => 'Media',
                     'url'   => '/media'
                 ]
+            ],
+            'statistic' => [
+                '_menu' => [
+                    'label' => 'Statistics',
+                    'url'   => '/statistic'
+                ]
             ]
         ],
         'admin' => [
