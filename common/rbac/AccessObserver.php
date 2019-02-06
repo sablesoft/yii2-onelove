@@ -73,7 +73,7 @@ class AccessObserver {
     protected static function prepareParams( $controller ) {
         try {
             $model = null;
-            $model = $controller->model;
+            $model = $controller->getModel();
         } catch( \Exception $e ) {}
 
         return [ 'model' => $model ];

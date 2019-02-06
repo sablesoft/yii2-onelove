@@ -91,7 +91,8 @@ return [
         'pattern' => [
             'back'   => "{controller}.{action}",
             'media'  => "{module}.{action}",
-            'rbac'   => "{controller}.{action}"
+            'rbac'   => "{controller}.{action}",
+            'gii'    => "{module}"
         ]
     ]
 ];

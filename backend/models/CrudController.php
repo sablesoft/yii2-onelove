@@ -5,7 +5,6 @@ use Yii;
 use yii\web\Controller;
 use yii\db\ActiveRecord;
 use yii\filters\VerbFilter;
-use common\models\CrudModel;
 use yii\db\StaleObjectException;
 use common\interfaces\SearchInterface;
 
@@ -17,8 +16,19 @@ class CrudController extends Controller {
     protected $modelClass;
     protected $searchModelClass;
 
-    /** @var CrudModel $model */
-    public $model;
+    /** @var ActiveRecord $model */
+    protected $model;
+
+    public function setModel( ActiveRecord $model ) {
+        $this->model = $model;
+    }
+
+    /**
+     * @return ActiveRecord
+     */
+    public function getModel() {
+        return $this->model;
+    }
 
     /**
      * {@inheritdoc}
@@ -42,7 +52,7 @@ class CrudController extends Controller {
      */
     public function runAction( $id, $params = [] ) {
         if( !empty( $params['id'] ) )
-            $this->model = $this->findModel( $params['id'] );
+            $this->setModel( $this->findModel( $params['id'] ) );
 
         return parent::runAction( $id, $params );
     }
@@ -68,11 +78,11 @@ class CrudController extends Controller {
      * @return mixed
      */
     public function actionView() {
-        if( !$this->model )
+        if( !$this->getModel() )
             return $this->redirect( 'index' );
 
         return $this->render('view', [
-            'model' => $this->model
+            'model' => $this->getModel()
         ]);
     }
 
@@ -101,14 +111,20 @@ class CrudController extends Controller {
      * @return mixed
      */
     public function actionUpdate() {
-        if( !$this->model )
+        if( !$this->getModel() )
             return $this->redirect( 'index' );
 
-        if( $this->model->load( Yii::$app->request->post() ) && $this->model->save() )
-            return $this->redirect([ 'view', 'id' => $this->model->id ]);
+        if( $this->getModel()->load( Yii::$app->request->post() ) ) {
+            if( $this->getModel()->save() ) {
+                return $this->redirect([ 'view', 'id' => $this->getModel()->id ]);
+            } else {
+                foreach( $this->getModel()->getErrors() as $error )
+                    Yii::$app->session->addFlash('error', reset( $error ) );
+            }
+        }
 
         return $this->render('update', [
-            'model' => $this->model
+            'model' => $this->getModel()
         ]);
     }
 
@@ -119,11 +135,11 @@ class CrudController extends Controller {
      * @return mixed
      */
     public function actionDelete() {
-        if( !$this->model )
+        if( !$this->getModel() )
             return $this->redirect( 'index' );
 
         try {
-            $this->model->delete();
+            $this->getModel()->delete();
         } catch ( StaleObjectException $e ) {
             Yii::$app->session->addFlash('error', $e->getMessage() );
         } catch ( \Throwable $e ) {
