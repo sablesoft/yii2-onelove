@@ -20,6 +20,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Helper::createButton( $area ); ?>
         <?= Helper::button(
+            $area, 'make',
+            [
+                'label'     => Yii::t('app/backend', 'Make Ask'),
+                'class'     => 'btn btn-success'
+            ]
+        ); ?>
+        <?= Helper::button(
+            $area, 'accept-all',
+            [
+                'label' => Yii::t('app/backend', 'Accept All'),
+                'class' => 'btn btn-warning',
+                'callback'  => ['common\models\Ask', 'noEmpty' ],
+                'data' => [
+                    'confirm' => Yii::t('app/backend',
+                        'Are you sure you want to accept all asks?'
+                    ),
+                    'method' => 'post'
+                ]
+            ]
+        ); ?>
+        <?= Helper::button(
                 $area, 'reject-all',
                 [
                     'label'     => Yii::t('app/backend', 'Reject All'),
@@ -28,20 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'data' => [
                         'confirm' => Yii::t('app/backend',
                             'Are you sure you want to reject all asks?'
-                        ),
-                        'method' => 'post'
-                    ]
-                ]
-        ); ?>
-        <?= Helper::button(
-                $area, 'accept-all',
-                [
-                    'label' => Yii::t('app/backend', 'Accept All'),
-                    'class' => 'btn btn-warning',
-                    'callback'  => ['common\models\Ask', 'noEmpty' ],
-                    'data' => [
-                        'confirm' => Yii::t('app/backend',
-                            'Are you sure you want to accept all asks?'
                         ),
                         'method' => 'post'
                     ]
@@ -106,11 +113,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{member-save} {accept} {view} {update} {delete}',
-                'visibleButtons' => Helper::visibleButtons( $area, ['accept', 'member-save'] ),
+                'template' => '{member} {accept} {view} {update} {reject} {delete}', // todo
+                'visibleButtons' => Helper::visibleButtons( $area, ['accept', 'member', 'reject'] ),
                 'buttons' => [
-                    'member-save' => function($url, $model, $key) {
-                        $url = Yii::$app->getUrlManager()->createUrl([ 'ask/member-save','id'=>$model->id ]);
+                    'member' => function( $url, $model, $key ) {
+                        $url = Yii::$app->getUrlManager()->createUrl([ 'ask/member','id'=>$model->id ]);
                         $class = 'heart-empty';
                         $label = 'Save';
                         $member = Member::findOne([ 'phone' => $model->id ]);
@@ -121,10 +128,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a( "<span class='glyphicon glyphicon-$class'></span>", $url,
                             ['title' => Yii::t('app/backend', "Member $label"), 'data-pjax' => '0']);
                     },
-                    'accept' => function($url, $model, $key) {
+                    'accept' => function( $url, $model, $key ) {
                         $url = Yii::$app->getUrlManager()->createUrl([ 'ask/accept','id'=>$model->id ]);
                         return Html::a( '<span class="glyphicon glyphicon-plus"></span>', $url,
                             ['title' => Yii::t('app/backend', 'Accept Ask'), 'data-pjax' => '0']);
+                    },
+                    'reject' => function( $url, $model, $key ) {
+                        $url = Yii::$app->getUrlManager()->createUrl([ 'ask/reject','id'=>$model->id ]);
+                        return Html::a( '<span class="glyphicon glyphicon-trash"></span>', $url,
+                            ['title' => Yii::t('app/backend', 'Reject Ask'), 'data-pjax' => '0']);
                     }
                 ]
             ]

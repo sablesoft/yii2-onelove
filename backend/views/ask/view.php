@@ -25,8 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Helper::button( $area, 'accept', [
             'route' => ['accept', 'id' => $model->id ]
         ]); ?>
-        <?= Helper::button( $area, 'member-save', [
-            'route' => ['member-save', 'id' => $model->id ],
+        <?= Helper::button( $area, 'reject', [
+                'route' => ['reject', 'id' => $model->id ],
+                'class' => 'btn btn-danger'
+        ]); ?>
+        <?= Helper::button( $area, 'member', [
+            'route' => ['member', 'id' => $model->id ],
             'label' => $label,
             'class' => 'btn btn-warning'
         ]); ?>

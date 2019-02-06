@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Ask;
 use backend\models\CrudController;
+use yii\db\StaleObjectException;
 
 /**
  * AskController implements the CRUD actions for Ask model.
@@ -14,12 +15,19 @@ class AskController extends CrudController {
     protected $searchModelClass = 'common\models\search\AskSearch';
 
     /**
-     * @return \yii\web\Response
+     * @return mixed|string|\yii\web\Response
      */
-    public function actionRejectAll() {
-        Ask::deleteAll();
+    public function actionMake() {
+        $class = $this->modelClass;
+        /** @var Ask $ask */
+        $ask = new $class();
 
-        return $this->redirect(['index']);
+        if( $ask->load( \Yii::$app->request->post() ) && $ask->make() )
+            return $this->redirect([ 'view', 'id' => $ask->id ]);
+
+        return $this->render('make', [
+            'model' => $ask
+        ]);
     }
 
     /**
@@ -41,28 +49,15 @@ class AskController extends CrudController {
     }
 
     /**
-     * @return \yii\web\Response
-     */
-    public function actionAcceptAll() {
-        if( Ask::acceptAll() )
-            \Yii::$app->session->addFlash(
-                'success',
-                \Yii::t('app/backend', 'All asks accepted successful!')
-            );
-
-        return $this->redirect(['index']);
-    }
-
-    /**
      * @param int $id
      * @return \yii\web\Response
      */
-    public function actionMemberSave( $id ) {
+    public function actionMember( $id ) {
         if( !$model = $this->findModel( $id ) )
             return $this->redirect( 'index' );
 
         try {
-            $model->memberSave();
+            $model->member();
             \Yii::$app->session->addFlash(
                 'success',
                 \Yii::t('app/backend', 'Member saved successful!')
@@ -73,6 +68,49 @@ class AskController extends CrudController {
                 \Yii::t('yii', $e->getMessage() )
             );
         }
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * @return mixed|\yii\web\Response
+     */
+    public function actionReject() {
+        /** @var Ask $model */
+        if( !$model = $this->getModel() )
+            return $this->redirect( 'index' );
+
+        try {
+            $model->reject();
+        } catch ( \Throwable $e ) {
+            \Yii::$app->session->addFlash('error', $e->getMessage() );
+        }
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * @return \yii\web\Response
+     */
+    public function actionRejectAll() {
+        if( Ask::rejectAll() )
+            \Yii::$app->session->addFlash(
+                'success',
+                \Yii::t('app/backend', 'All asks rejected successful!')
+            );
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * @return \yii\web\Response
+     */
+    public function actionAcceptAll() {
+        if( Ask::acceptAll() )
+            \Yii::$app->session->addFlash(
+                'success',
+                \Yii::t('app/backend', 'All asks accepted successful!')
+            );
 
         return $this->redirect(['index']);
     }
