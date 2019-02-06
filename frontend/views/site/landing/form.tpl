@@ -6,7 +6,7 @@
 {use class="common\models\Group"}
 {$groupList = Group::getDropDownList()}
 {$groupList = $groupList[0]}
-{ActiveForm assign='form' action='/ask/create'
+{ActiveForm assign='form' action='/ask/make'
     options=['id' => $formId, 'class' => 'registration-form ask-form' ]
     enableAjaxValidation=true validationUrl='/ask/validate'}
     <div class="row">

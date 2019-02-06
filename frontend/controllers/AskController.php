@@ -43,13 +43,13 @@ class AskController extends Controller {
     /**
      * @return array
      */
-    public function actionCreate() : array {
+    public function actionMake() : array {
         $model = new Ask();
         $response = [ 'success' => true ];
         try {
             $request = \Yii::$app->getRequest();
             if( $request->isPost && $model->load( $request->post() ) ) {
-                if( $model->save() ) {
+                if( $model->make() ) {
                     $subject = \Yii::t('app/frontend', 'New party ask!' );
                     $this->send( $model, 'ask', $subject );
                 } else
