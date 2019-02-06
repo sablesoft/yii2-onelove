@@ -136,7 +136,9 @@ class Member extends CrudModel {
      * @return array
      */
     public function behaviors() {
-        return array_merge( parent::behaviors(), [
+        $behaviors = parent::behaviors();
+        $behaviors['owner']['value'] = $this->owner_id;
+        return array_merge( $behaviors, [
             AgeBehavior::class,
             NameBehavior::class,
             [

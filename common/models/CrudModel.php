@@ -41,7 +41,7 @@ abstract class CrudModel extends ActiveRecord {
      */
     public function behaviors() {
         return [
-            [
+            'owner' => [
                 'class'     => OwnerBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['owner_id']
@@ -51,7 +51,7 @@ abstract class CrudModel extends ActiveRecord {
                             \Yii::$app->user->getId();
                 }
             ],
-            [
+            'created.save' => [
                 'class'      => AttributeBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
@@ -62,7 +62,7 @@ abstract class CrudModel extends ActiveRecord {
                         strtotime( $this->created_at ) : time();
                 }
             ],
-            [
+            'updated.save' => [
                 'class'      => AttributeBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['updated_at'],
@@ -72,7 +72,7 @@ abstract class CrudModel extends ActiveRecord {
                     return time();
                 }
             ],
-            [
+            'created.find' => [
                 'class'      => AttributeBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_AFTER_FIND => ['created_at'],
@@ -81,7 +81,7 @@ abstract class CrudModel extends ActiveRecord {
                     return date('Y-m-d H:i', $this->created_at );
                 }
             ],
-            [
+            'updated.find' => [
                 'class'      => AttributeBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_AFTER_FIND => ['updated_at'],
