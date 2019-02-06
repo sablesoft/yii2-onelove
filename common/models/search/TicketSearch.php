@@ -33,7 +33,7 @@ class TicketSearch extends Ticket {
     public function behaviors() {
         // unset updatedBy behavior:
         $parent = parent::behaviors();
-        unset( $parent['updatedBy'] );
+        unset( $parent['operator'] );
 
         return array_merge([
             // attach age behavior:
@@ -54,11 +54,11 @@ class TicketSearch extends Ticket {
                 [
                     'id', 'party_id', 'member_id', 'visited',
                     'paid', 'is_blocked', 'closed', 'updated_by',
-                    'created_at', 'updated_at', 'memberSex'
+                     'memberSex'
                 ], 'integer'
             ],
             [['memberAge'], 'string'],
-            [['comment'], 'safe']
+            [['comment', 'created_at', 'updated_at' ], 'safe']
         ];
     }
 
@@ -81,7 +81,7 @@ class TicketSearch extends Ticket {
         $query = Ticket::find()
             ->joinWith('party')
             ->joinWith('member')
-            ->joinWith('updatedBy');
+            ->joinWith('operator');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
