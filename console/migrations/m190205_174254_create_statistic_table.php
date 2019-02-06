@@ -19,6 +19,10 @@ class m190205_174254_create_statistic_table extends Migration {
             'ask_reject'    => $this->integer()->unsigned()->notNull()->defaultValue(0),
             'ask_member'    => $this->integer()->unsigned()->notNull()->defaultValue(0),
             'ask_accept'    => $this->integer()->unsigned()->notNull()->defaultValue(0),
+            'party_close'   => $this->integer()->unsigned()->notNull()->defaultValue(0),
+            'ticket_close'  => $this->integer()->unsigned()->notNull()->defaultValue(0),
+            'member_visit'  => $this->integer()->unsigned()->notNull()->defaultValue(0),
+            'member_pay'    => $this->integer()->unsigned()->notNull()->defaultValue(0),
             'operator_id'   => $this->integer()->notNull()
         ]);
 

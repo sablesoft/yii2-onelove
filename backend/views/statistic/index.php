@@ -23,8 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             [
                 'attribute' => 'date',
                 'filter' => \kartik\date\DatePicker::widget([
@@ -46,6 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'ask_reject',
             'ask_member',
             'ask_accept',
+            'party_close',
+            'ticket_close',
+            'member_visit',
+            'member_pay',
             [
                 'attribute' => 'operator_id',
                 'format' => 'raw',

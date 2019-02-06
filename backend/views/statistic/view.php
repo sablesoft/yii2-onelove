@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Statistic */
 $area = 'statistic';
 $this->title = $model->date;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Statistics'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/backend', 'Statistics'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register( $this );
 ?>
@@ -25,7 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'ask_reject',
             'ask_member',
             'ask_accept',
-            'operator_id',
+            'party_close',
+            'ticket_close',
+            'member_visit',
+            'member_pay',
+            'operatorLabel',
         ]
     ]); ?>
 

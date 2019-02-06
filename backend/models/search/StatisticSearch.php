@@ -15,7 +15,12 @@ class StatisticSearch extends Statistic {
      */
     public function rules() {
         return [
-            [['id', 'ask_make', 'ask_reject', 'ask_member', 'ask_accept', 'operator_id'], 'integer'],
+            [
+                ['id', 'ask_make', 'ask_reject', 'ask_member',
+                'ask_accept', 'party_close', 'ticket_close',
+                'member_visit', 'member_pay', 'operator_id'],
+                'integer'
+            ],
             [['date'], 'safe'],
         ];
     }
@@ -24,9 +29,7 @@ class StatisticSearch extends Statistic {
      * @return array
      */
     public function behaviors() {
-        $parent = parent::behaviors();
-        unset( $parent['operator'] );
-        return $parent;
+        return [];
     }
 
     /**
@@ -69,6 +72,10 @@ class StatisticSearch extends Statistic {
             'ask_reject' => $this->ask_reject,
             'ask_member' => $this->ask_member,
             'ask_accept' => $this->ask_accept,
+            'party_close' => $this->party_close,
+            'ticket_close' => $this->ticket_close,
+            'member_visit' => $this->member_visit,
+            'member_pay' => $this->member_pay,
             'operator_id' => $this->operator_id
         ]);
 

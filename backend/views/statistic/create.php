@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Statistic */
 
-$this->title = Yii::t('app', 'Create Statistic');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Statistics'), 'url' => ['index']];
+$this->title = Yii::t('app/backend', 'Create Statistic');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/backend', 'Statistics'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="statistic-create">

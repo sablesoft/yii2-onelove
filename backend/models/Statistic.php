@@ -17,6 +17,10 @@ use yii\db\ActiveRecord;
  * @property int $ask_reject
  * @property int $ask_member
  * @property int $ask_accept
+ * @property int $party_close
+ * @property int $ticket_close
+ * @property int $member_visit
+ * @property int $member_pay
  * @property int $operator_id
  *
  * @property User $operator
@@ -40,8 +44,17 @@ class Statistic extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['date', 'operator_id'], 'required'],
-            [['date'], 'safe'],
-            [['ask_make', 'ask_reject', 'ask_member', 'ask_accept', 'operator_id'], 'integer'],
+            [
+                ['ask_make', 'ask_reject', 'ask_member', 'ask_accept',
+                  'party_close', 'ticket_close', 'member_visit', 'member_pay',
+                'operator_id'],
+                'integer'
+            ],
+            [
+                ['ask_make', 'ask_reject', 'ask_member', 'ask_accept',
+                    'party_close', 'ticket_close', 'member_visit', 'member_pay'],
+                'default', 'value' => 0
+            ],
             [['operator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['operator_id' => 'id']],
             [['date', 'operator_id'], 'unique', 'targetAttribute' => ['date', 'operator_id']]
         ];
@@ -58,7 +71,12 @@ class Statistic extends \yii\db\ActiveRecord {
             'ask_reject' => Yii::t('app/backend', 'Ask Reject'),
             'ask_member' => Yii::t('app/backend', 'Ask Member'),
             'ask_accept' => Yii::t('app/backend', 'Ask Accept'),
-            'operator_id' => Yii::t('app/backend', 'Operator')
+            'party_close' => Yii::t('app/backend', 'Party Close'),
+            'ticket_close' => Yii::t('app/backend', 'Ticket Close'),
+            'member_visit' => Yii::t('app/backend', 'Member Visit'),
+            'member_pay' => Yii::t('app/backend', 'Member Pay'),
+            'operator_id' => Yii::t('app/backend', 'Operator'),
+            'operatorLabel' => Yii::t('app/backend', 'Operator')
         ];
     }
 
