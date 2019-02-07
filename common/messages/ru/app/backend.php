@@ -27,14 +27,14 @@ return [
     'Are you sure you want to reject all asks?' => 'Вы уверены, что хотите отклонить все заявки?',
     'Ask accepted successful!' => 'Заявка успешно подтверждена!',
     'Asks' => 'Заявки',
-    'Ask Make' => 'Заявок добавлено',
-    'Ask Reject' => 'Заявок отклонено',
-    'Ask Member' => 'Участников из заявок',
-    'Ask Accept' => 'Билетов из заявок',
+    'Ask Make' => 'Заявок',
+    'Ask Reject' => 'Отклонено',
+    'Ask Member' => 'Участников',
+    'Ask Accept' => 'Приглашений',
     'Make Ask'   => 'Добавить заявку',
     'Reject Ask' => 'Отклонить заявку',
-    'Party Close' => 'Встреч закрыто',
-    'Ticket Close' => 'Билетов закрыто',
+    'Party Close' => 'Встреч',
+    'Ticket Close' => 'Билетов',
     'Member Visit' => 'Посетило',
     'Member Pay' => 'Заплатили',
     'Control' => 'Контроль',
@@ -106,4 +106,12 @@ return [
     'Update Ticket: {name}' => 'Обновить билет: {name}',
     'View Ask' => 'Показать заявку',
     'Welcome to Party Management System!' => 'Добро пожаловать в систему управления встречами!',
+    'How many views of the offer per time was received from desktop and mobile phone'
+        => 'Сколько просмотров предложения за выбранное время было получено с компьютера и мобильного телефона',
+    'How many asks per time was making, accepted, rejected or saved'
+        => 'Сколько заявок за выбранное время было сделано, принято, отклонено или сохранено как участник',
+    'How many parties per time was closed, how many tickets per time was closed'
+        => 'Сколько вечеринок за выбранное время было проведено и сколько билетов за выбранное время было закрыто',
+    'How many members per time was visited parties, how much members per time was paid'
+        => 'Сколько участников за выбранное время посетили вечеринки и сколько они заплатили'
 ];

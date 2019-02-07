@@ -57,16 +57,11 @@ use yii\widgets\ActiveForm;
             )->label(false); ?>
         </div>
         <div class="col-sm-4">
-            <div class="row">
-                <div class="col-sm-4">
-                    <?= $form->field($model, 'showViews')->checkbox(); ?>
-                </div>
-                <div class="col-sm-4">
-                    <?= $form->field($model, 'showAsks')->checkbox(); ?>
-                </div>
-                <div class="col-sm-4">
-                    <?= $form->field($model, 'showParties')->checkbox(); ?>
-                </div>
+            <div class="form-group">
+                <?= Html::submitButton(
+                    Yii::t('app/backend', 'Search Statistic'),
+                    ['class' => 'btn btn-primary']
+                ); ?>
             </div>
         </div>
     </div>
@@ -90,18 +85,46 @@ use yii\widgets\ActiveForm;
                 ]);
             ?>
         </div>
-        <div class="col-sm-4">
-            <br>
-            <div class="form-group">
-                <?= Html::submitButton(
-                        Yii::t('app/backend', 'Search Statistic'),
-                        ['class' => 'btn btn-primary']
-                ); ?>
-            </div>
-        </div>
-
     </div>
 
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <h4>
+                    <?= $form->field($model, 'showViews')->checkbox(); ?>
+                </h4>
+                <p>
+                    <?= Yii::t('app/backend', 'How many views of the offer per time was received from desktop and mobile phone'); ?>
+                </p>
+            </div>
+            <div class="col-sm-3">
+                <h4>
+                    <?= $form->field($model, 'showAsks')->checkbox(); ?>
+                </h4>
+                <p>
+                    <?= Yii::t('app/backend', 'How many asks per time was making, accepted, rejected or saved'); ?>
+                </p>
+            </div>
+            <div class="col-sm-3">
+                <h4>
+                    <?= $form->field($model, 'showParties')->checkbox(); ?>
+                </h4>
+                <p>
+                    <?= Yii::t('app/backend', 'How many parties per time was closed, how many tickets per time was closed'); ?>
+                </p>
+            </div>
+            <div class="col-sm-3">
+                <h4>
+                    <?= $form->field($model, 'showMembers')->checkbox(); ?>
+                </h4>
+                <p>
+                    <?= Yii::t('app/backend', 'How many members per time was visited parties, how much members per time was paid'); ?>
+                </p>
+            </div>
+        </div>
+    </div>
+    <br>
     <?php ActiveForm::end(); ?>
 
 </div>

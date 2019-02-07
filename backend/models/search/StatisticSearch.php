@@ -26,6 +26,7 @@ class StatisticSearch extends Statistic {
     const SHOW_VIEWS    = 0;
     const SHOW_ASKS     = 1;
     const SHOW_PARTIES  = 2;
+    const SHOW_MEMBERS  = 3;
 
     public $dateTo;
     public $dateFrom;
@@ -34,6 +35,7 @@ class StatisticSearch extends Statistic {
     public $showViews   = 1;
     public $showAsks    = 1;
     public $showParties = 1;
+    public $showMembers = 1;
 
     /** @var array $_show - show flags */
     protected $_show = [];
@@ -41,13 +43,15 @@ class StatisticSearch extends Statistic {
     protected $_groups = [
         self::SHOW_VIEWS    => 'views',
         self::SHOW_ASKS     => 'asks',
-        self::SHOW_PARTIES  => 'parties'
+        self::SHOW_PARTIES  => 'parties',
+        self::SHOW_MEMBERS  => 'members'
     ];
     /** @var array $_fields - show fields */
     protected $_fields = [
         self::SHOW_VIEWS    => ['view_desk', 'view_mobile'],
         self::SHOW_ASKS     => ['ask_make', 'ask_reject', 'ask_member', 'ask_accept'],
-        self::SHOW_PARTIES  => ['party_close', 'ticket_close', 'member_visit', 'member_pay']
+        self::SHOW_PARTIES  => ['party_close', 'ticket_close'],
+        self::SHOW_MEMBERS  => ['member_visit', 'member_pay']
     ];
 
     public $groupBy = self::GROUP_DATE;
@@ -80,7 +84,7 @@ class StatisticSearch extends Statistic {
      */
     public function rules() {
         return [
-            [['groupBy', 'showViews', 'showAsks', 'showParties'],'integer'],
+            [['groupBy', 'showViews', 'showAsks', 'showParties', 'showMembers'], 'integer'],
             [['dateFrom', 'dateTo'], 'date', 'format' => 'php:Y-m-d'],
             [['dateFrom', 'dateTo'], 'validateRange'],
             [['operatorIds'], 'safe'],
@@ -164,7 +168,8 @@ class StatisticSearch extends Statistic {
             'operatorIds'   => \Yii::t('app/backend', 'Operators filter'),
             'showViews'     => \Yii::t('app/backend', 'Views'),
             'showAsks'      => \Yii::t('app/backend', 'Asks'),
-            'showParties'   => \Yii::t('app/backend', 'Parties')
+            'showParties'   => \Yii::t('app/backend', 'Parties'),
+            'showMembers'   => \Yii::t('app/backend', 'Members')
         ]);
     }
 
