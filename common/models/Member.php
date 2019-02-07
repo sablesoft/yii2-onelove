@@ -270,7 +270,8 @@ class Member extends CrudModel {
         $label = $this->name;
         if( $username = $this->username )
             $label .= " [ $username ]";
-        $label .= ' ( ' . $this->ageLabel . ' )';
+        $label .= ' ( ' . $this->ageLabel . ' ):';
+        $label .= ' ' . $this->maskedPhone;
 
         return $label;
     }

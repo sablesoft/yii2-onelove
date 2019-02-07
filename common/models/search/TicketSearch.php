@@ -172,11 +172,7 @@ class TicketSearch extends Ticket {
             ],
             'visited:boolean',
             'closed:boolean',
-            'created_at:datetime',
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'visibleButtons' => Helper::visibleButtons('ticket')
-            ]
+            'created_at:datetime'
         ];
         // check manager ticket fields:
         if( \Yii::$app->user->can('manager') ) {
@@ -198,6 +194,11 @@ class TicketSearch extends Ticket {
                 ]
             ]);
         }
+        // action column:
+        $columns[] =             [
+            'class' => 'yii\grid\ActionColumn',
+            'visibleButtons' => Helper::visibleButtons('ticket')
+        ];
 
         return $columns;
     }
