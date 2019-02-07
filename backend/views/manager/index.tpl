@@ -1,8 +1,8 @@
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>{Yii::t('app/backend','Operator Panel')}</h1>
-        <p class="lead">{Yii::t('app/backend','Here is the information needed for the operator to work.')}</p>
+        <h1>{Yii::t('app/backend','Manager Panel')}</h1>
+        <p class="lead">{Yii::t('app/backend','Here is the information needed for the manager to work.')}</p>
     </div>
 
     <div class="body-content">

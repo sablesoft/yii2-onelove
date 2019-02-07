@@ -44,6 +44,13 @@ return [
                 'label'     => 'Manager',
                 'linkOptions' => []
             ],
+            'index'  => [
+                '_menu' => [
+                    'label'     => 'Dashboard',
+                    'url'       => '/manager',
+                ]
+            ],
+            '_divider'  => true,
             'price'  => [
                 '_menu' => [
                     'label'     => 'Prices',
@@ -60,12 +67,6 @@ return [
                 '_menu' => [
                     'label'     => 'Groups',
                     'url'       => '/group'
-                ]
-            ],
-            'media' => [
-                '_menu' => [
-                    'label' => 'Media',
-                    'url'   => '/media'
                 ]
             ],
             'statistic' => [
@@ -89,6 +90,12 @@ return [
                     '_menu' => [
                         'label' => 'Control',
                         'url'   => '/user/admin'
+                    ]
+                ],
+                'media' => [
+                    '_menu' => [
+                        'label' => 'Media',
+                        'url'   => '/media'
                     ]
                 ]
             ]

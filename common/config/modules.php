@@ -7,7 +7,7 @@ return [
     'user' => [
         'class' => 'dektrium\user\Module',
         'enableConfirmation' => false,
-        'admins' => ['admin','Irina'],
+        'admins' => [ 'dev', 'admin' ],
         'modelMap' => [
             'User' => 'common\models\User'
         ]
