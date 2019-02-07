@@ -17,9 +17,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'F' => 'Ж',
+    'F' => 'Я женщина',
     'Fail' => 'Очень жаль!',
-    'M' => 'М',
+    'M' => 'Я мужчина',
     'Name' => 'Имя',
     'Ask sent' => 'Заявка отправлена!',
     'New call request!' => 'Запрос на обратный звонок!',

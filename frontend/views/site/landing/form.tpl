@@ -32,9 +32,9 @@
         </div>
         <div class="{$rightColumnClass}">
             {$form->field( $ask, 'sex' )->radioList([
-                1 => Yii::t('app/frontend', 'M'),
-                0 => Yii::t('app/frontend', 'F')
-            ])}
+                0 => Yii::t('app/frontend', 'F'),
+                1 => Yii::t('app/frontend', 'M')
+            ])->label(false)}
             {$form->field( $ask, 'age' )->input('number')}
         </div>
     </div>
