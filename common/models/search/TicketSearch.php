@@ -171,14 +171,13 @@ class TicketSearch extends Ticket {
                 }
             ],
             'visited:boolean',
-            'closed:boolean',
-            'created_at:datetime'
+            'closed:boolean'
         ];
         // check manager ticket fields:
         if( \Yii::$app->user->can('manager') ) {
             $columns = array_merge( $columns, [
-                'paid:currency',
                 'is_blocked:boolean',
+                'paid:currency',
                 [
                     'attribute' => 'updated_by',
                     'format' => 'raw',
@@ -195,7 +194,8 @@ class TicketSearch extends Ticket {
             ]);
         }
         // action column:
-        $columns[] =             [
+        $columns[] =  'created_at:datetime';
+        $columns[] = [
             'class' => 'yii\grid\ActionColumn',
             'visibleButtons' => Helper::visibleButtons('ticket')
         ];
