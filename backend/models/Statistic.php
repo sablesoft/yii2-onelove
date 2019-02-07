@@ -29,6 +29,8 @@ use yii\db\ActiveRecord;
  */
 class Statistic extends \yii\db\ActiveRecord {
 
+    /** @var string $time - for diff time groups */
+    public $time;
     public $isCheckDefault = false;
 
     /**
