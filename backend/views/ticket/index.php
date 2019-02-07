@@ -2,8 +2,6 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-use common\models\Party;
-use common\models\Member;
 use common\models\Helper;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\TicketSearch */
@@ -24,62 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         echo GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
-
-                [
-                    'attribute' => 'party_id',
-                    'format' => 'raw',
-                    'value' => function ($model) {
-                        /** @var \common\models\Ticket $model */
-                        return Helper::canLink('party.view', $model->partyLabel, $model->partyUrl);
-                    },
-                    'filter' => Party::getDropDownList()[0]
-                ],
-                [
-                    'attribute' => 'member_id',
-                    'format' => 'raw',
-                    'value' => function ($model) {
-                        /** @var \common\models\Ticket $model */
-                        return Helper::canLink('member.view', $model->memberLabel, $model->memberUrl);
-                    },
-                    'filter' => Member::getDropDownList()[0]
-                ],
-                [
-                    'attribute' => 'memberSex',
-                    'value' => function ($model) {
-                        /** @var \common\models\Ticket $model */
-                        return $model->memberSexLabel;
-                    },
-                    'filter' => Member::getSexDropDownList()
-                ],
-                [
-                    'attribute' => 'memberAge',
-                    'value' => function ($model) {
-                        /** @var \common\models\Ticket $model */
-                        return $model->memberAgeLabel;
-                    }
-                ],
-                'visited:boolean',
-                'paid:currency',
-                'is_blocked:boolean',
-                'closed:boolean',
-                [
-                    'attribute' => 'updated_by',
-                    'format' => 'raw',
-                    'value' => function ($model) {
-                        /** @var \common\models\Ticket $model */
-                        return Helper::canLink('user.view', $model->operatorLabel, $model->operatorUrl);
-                    },
-                    'filter' => \common\models\User::findRoleList()[0]
-                ],
-                'created_at:datetime',
-
-                [
-                    'class' => 'yii\grid\ActionColumn',
-                    'visibleButtons' => Helper::visibleButtons($area)
-                ]
-            ]
+            'columns' => $searchModel->columns
         ]);
     } catch( Exception $e ) {
         \Yii::$app->session->addFlash('error', $e->getMessage() );

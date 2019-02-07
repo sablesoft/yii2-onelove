@@ -2,12 +2,17 @@
 
 namespace common\models\search;
 
+use common\models\Helper;
+use common\models\Member;
+use common\models\Party;
 use yii\base\Model;
 use common\models\Ticket;
 use yii\data\ActiveDataProvider;
 
 /**
  * TicketSearch represents the model behind the search form of `common\models\Ticket`.
+ *
+ * @property array $columns
  *
  * @method array getAgeCondition( $field = null, $age = null );
  */
@@ -115,6 +120,86 @@ class TicketSearch extends Ticket {
                 ->andFilterWhere( $this->getAgeCondition() );
 
         return $dataProvider;
+    }
+
+    /**
+     * @return array
+     */
+    public function getColumns() : array {
+        // init operator ticket fields:
+        $columns = [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'party_id',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    /** @var \common\models\Ticket $model */
+                    return Helper::canLink(
+                        'party.view',
+                        $model->partyLabel,
+                        $model->partyUrl
+                    );
+                },
+                'filter' => Party::getDropDownList()[0]
+            ],
+            [
+                'attribute' => 'member_id',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    /** @var \common\models\Ticket $model */
+                    return Helper::canLink(
+                        'member.view',
+                        $model->memberLabel,
+                        $model->memberUrl
+                    );
+                },
+                'filter' => Member::getDropDownList()[0]
+            ],
+            [
+                'attribute' => 'memberSex',
+                'value' => function ($model) {
+                    /** @var \common\models\Ticket $model */
+                    return $model->memberSexLabel;
+                },
+                'filter' => Member::getSexDropDownList()
+            ],
+            [
+                'attribute' => 'memberAge',
+                'value' => function ($model) {
+                    /** @var \common\models\Ticket $model */
+                    return $model->memberAgeLabel;
+                }
+            ],
+            'visited:boolean',
+            'closed:boolean',
+            'created_at:datetime',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' => Helper::visibleButtons('ticket')
+            ]
+        ];
+        // check manager ticket fields:
+        if( \Yii::$app->user->can('manager') ) {
+            $columns = array_merge( $columns, [
+                'paid:currency',
+                'is_blocked:boolean',
+                [
+                    'attribute' => 'updated_by',
+                    'format' => 'raw',
+                    'value' => function( $model ) {
+                        /** @var \common\models\Ticket $model */
+                        return Helper::canLink(
+                            'user.view',
+                            $model->operatorLabel,
+                            $model->operatorUrl
+                        );
+                    },
+                    'filter' => \common\models\User::findRoleList()[0]
+                ]
+            ]);
+        }
+
+        return $columns;
     }
 
     /**
