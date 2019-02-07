@@ -56,6 +56,19 @@ use yii\widgets\ActiveForm;
                 ]
             )->label(false); ?>
         </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'showViews')->checkbox(); ?>
+                </div>
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'showAsks')->checkbox(); ?>
+                </div>
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'showParties')->checkbox(); ?>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">

@@ -23,9 +23,32 @@ class StatisticSearch extends Statistic {
     const GROUP_WEEK        = 1;
     const GROUP_MONTH       = 2;
 
+    const SHOW_VIEWS    = 0;
+    const SHOW_ASKS     = 1;
+    const SHOW_PARTIES  = 2;
+
     public $dateTo;
     public $dateFrom;
     public $operatorIds;
+
+    public $showViews   = 1;
+    public $showAsks    = 1;
+    public $showParties = 1;
+
+    /** @var array $_show - show flags */
+    protected $_show = [];
+    /** @var array $_groups - show groups */
+    protected $_groups = [
+        self::SHOW_VIEWS    => 'views',
+        self::SHOW_ASKS     => 'asks',
+        self::SHOW_PARTIES  => 'parties'
+    ];
+    /** @var array $_fields - show fields */
+    protected $_fields = [
+        self::SHOW_VIEWS    => ['view_desk', 'view_mobile'],
+        self::SHOW_ASKS     => ['ask_make', 'ask_reject', 'ask_member', 'ask_accept'],
+        self::SHOW_PARTIES  => ['party_close', 'ticket_close', 'member_visit', 'member_pay']
+    ];
 
     public $groupBy = self::GROUP_DATE;
 
@@ -57,12 +80,22 @@ class StatisticSearch extends Statistic {
      */
     public function rules() {
         return [
-            [['groupBy'],'integer'],
+            [['groupBy', 'showViews', 'showAsks', 'showParties'],'integer'],
             [['dateFrom', 'dateTo'], 'date', 'format' => 'php:Y-m-d'],
             [['dateFrom', 'dateTo'], 'validateRange'],
             [['operatorIds'], 'safe'],
             [['time'],'string']
         ];
+    }
+
+    public function afterValidate() {
+        parent::afterValidate();
+        // prepare column groups flags if no errors:
+        if( !$this->hasErrors() )
+            foreach( $this->_groups as $i => $group ) {
+                $field = 'show' . ucfirst( $group );
+                $this->_show[ $i ] = $this->$field;
+            }
     }
 
     /**
@@ -106,13 +139,18 @@ class StatisticSearch extends Statistic {
     }
 
     /**
+     * @param null|integer $group
      * @return array
      */
-    public function getSumFields() : array {
-        return [
-            'ask_make', 'ask_reject', 'ask_member', 'ask_accept',
-            'party_close', 'ticket_close', 'member_visit', 'member_pay'
-        ];
+    public function getSumFields( $group = null ) : array {
+        $fields = [];
+        if( !is_null( $group ) && array_key_exists( $group, $this->_fields ) )
+            return $this->_fields[ $group ];
+
+        foreach( $this->_fields as $showGroup )
+            $fields = array_merge( $fields, $showGroup );
+
+        return $fields;
     }
 
     /**
@@ -123,7 +161,10 @@ class StatisticSearch extends Statistic {
             'dateTo'        => \Yii::t('app/backend', 'To'),
             'dateFrom'      => \Yii::t('app/backend', 'From'),
             'groupBy'       => \Yii::t('app/backend', 'Group By'),
-            'operatorIds'   => \Yii::t('app/backend', 'Operators filter')
+            'operatorIds'   => \Yii::t('app/backend', 'Operators filter'),
+            'showViews'     => \Yii::t('app/backend', 'Views'),
+            'showAsks'      => \Yii::t('app/backend', 'Asks'),
+            'showParties'   => \Yii::t('app/backend', 'Parties')
         ]);
     }
 
@@ -164,16 +205,18 @@ class StatisticSearch extends Statistic {
                 'group' => true
             ];
 
-        foreach( $this->sumFields as $field )
-            $sums[] = [
-                'attribute' => $field,
-                'pageSummary' => true,
-                'enableSorting' => false,
-                'pageSummaryFunc' => GridView::F_SUM,
-                'filter' => false
-            ];
+        foreach( $this->_show as $group => $show )
+            if( $show )
+                foreach( $this->getSumFields( $group ) as $field )
+                    $sums[] = [
+                        'attribute' => $field,
+                        'pageSummary' => true,
+                        'enableSorting' => false,
+                        'pageSummaryFunc' => GridView::F_SUM,
+                        'filter' => false
+                    ];
 
-        return array_merge( $columns, $sums );
+        return array_merge( $columns, (array) $sums );
     }
 
     /**

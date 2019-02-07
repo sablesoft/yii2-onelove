@@ -9,12 +9,12 @@ class m190207_081143_add_views_statistic_fields extends Migration {
     protected $table = 'statistic';
     /** @var array $fields - all fields with new */
     protected $fields = [
-        'view_desc', 'view_mobile',
+        'view_desk', 'view_mobile',
         'ask_make', 'ask_reject', 'ask_member', 'ask_accept',
         'party_close', 'ticket_close', 'member_visit', 'member_pay'
     ];
     /** @var array $newFields - new fields for install */
-    protected $newFields = [ 'view_desc' => 'date', 'view_mobile' => 'view_desc' ];
+    protected $newFields = [ 'view_desk' => 'date', 'view_mobile' => 'view_desk' ];
 
     /**
      * {@inheritdoc}

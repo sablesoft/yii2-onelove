@@ -13,6 +13,8 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property string $date
+ * @property int $view_desk
+ * @property int $view_mobile
  * @property int $ask_make
  * @property int $ask_reject
  * @property int $ask_member
@@ -47,9 +49,8 @@ class Statistic extends \yii\db\ActiveRecord {
         return [
             [['date', 'operator_id'], 'required'],
             [
-                ['ask_make', 'ask_reject', 'ask_member', 'ask_accept',
-                  'party_close', 'ticket_close', 'member_visit', 'member_pay',
-                'operator_id'],
+                [ 'view_desk', 'view_mobile', 'ask_make', 'ask_reject', 'ask_member', 'ask_accept',
+                  'party_close', 'ticket_close', 'member_visit', 'member_pay', 'operator_id'],
                 'integer'
             ],
             [
@@ -69,6 +70,8 @@ class Statistic extends \yii\db\ActiveRecord {
         return [
             'id' => Yii::t('app/backend', 'ID'),
             'date' => Yii::t('app/backend', 'Date'),
+            'view_desk' => Yii::t('app/backend', 'Desktop Views'),
+            'view_mobile' => Yii::t('app/backend', 'Mobile Views'),
             'ask_make' => Yii::t('app/backend', 'Ask Make'),
             'ask_reject' => Yii::t('app/backend', 'Ask Reject'),
             'ask_member' => Yii::t('app/backend', 'Ask Member'),
