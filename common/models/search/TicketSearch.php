@@ -122,8 +122,14 @@ class TicketSearch extends Ticket {
      */
     protected function getDataSort() : array {
         return [
+            'defaultOrder' => ['created_at' => SORT_DESC ],
             'attributes' => [
-                'paid', 'closed', 'visited', 'is_blocked', 'updated_at', 'created_at',
+                'paid' => [ 'default' => SORT_DESC ],
+                'closed' => [ 'default' => SORT_ASC ],
+                'visited' => [ 'default' => SORT_ASC ],
+                'is_blocked' => [ 'default' => SORT_ASC ],
+                'updated_at' => [ 'default' => SORT_DESC ],
+                'created_at' => [ 'default' => SORT_DESC ],
                 'memberSex' => [
                     'asc' => [ 'member.sex' => SORT_ASC ],
                     'desc' => [ 'member.sex' => SORT_DESC ],

@@ -73,6 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'filter' => \common\models\User::findRoleList()[0]
                 ],
+                'created_at:datetime',
 
                 [
                     'class' => 'yii\grid\ActionColumn',
