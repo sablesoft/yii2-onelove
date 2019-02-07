@@ -27,7 +27,8 @@
         "dektrium/yii2-user": "dev-master",
         "sablesoft/yii2-vue": "^1.0",
         "alexandernst/yii2-device-detect": "dev-master",
-        "noam148/yii2-image-manager": "*"
+        "noam148/yii2-image-manager": "*",
+        "kartik-v/yii2-grid": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-faker": "^2",

@@ -10,5 +10,8 @@ return [
             'controllers' => [ 'recovery', 'registration', 'settings']
         ],
         'enableRegistration' => false
+    ],
+    'gridview' =>  [
+        'class' => '\kartik\grid\Module'
     ]
 ];
