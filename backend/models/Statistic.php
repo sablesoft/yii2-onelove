@@ -4,6 +4,7 @@ namespace backend\models;
 
 use Yii;
 use common\models\User;
+use common\models\Helper;
 use common\behavior\OperatorBehavior;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
@@ -138,5 +139,13 @@ class Statistic extends \yii\db\ActiveRecord {
             // todo
         }
             return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function addBrowsing() : bool {
+        $statField = Helper::isMobile() ? 'view_mobile' : 'view_desk';
+        return static::add( $statField );
     }
 }

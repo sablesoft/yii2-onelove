@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use backend\models\Statistic;
 use Yii;
 use common\models\Ask;
 use yii\web\Controller;
@@ -59,6 +60,9 @@ class SiteController extends Controller {
             'header' => Yii::t('app/frontend', $modalsSettings['fail']['header'] ),
             'message' => Yii::t('app/frontend', $modalsSettings['fail']['message'] ),
         ];
+
+        // add landing browsing in statistic: todo - make by ajax after page load
+        Statistic::addBrowsing();
 
         return $this->render(
             'index.tpl',
