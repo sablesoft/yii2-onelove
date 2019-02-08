@@ -25,63 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'name',
-            [
-                'attribute' => 'place_id',
-                'value' => function( $model ) {
-                    /** @var \common\models\Party $model */
-                    return $model->placeLabel;
-                },
-                'filter' => Place::getDropDownList()[0]
-            ],
-            [
-                'attribute' => 'timestamp',
-                'format' => 'datetime',
-                'filter'  => \kartik\date\DatePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'timestamp',
-                    'options' => [
-                        'autocomplete' => 'off',
-                        'placeholder' => Yii::t('app/backend','Date filter') .'...'
-                    ],
-                    'pluginOptions' => [
-                        'forceParse' => true,
-                        'format' => 'yyyy-mm-dd',
-                        'autoclose' => true,
-                        'todayHighlight' => true
-                    ]
-                ])
-            ],
-            [
-                'attribute' => 'price_id',
-                'value' => function( $model ) {
-                    /** @var \common\models\Party $model */
-                    return $model->priceLabel;
-                },
-                'filter' => Price::getDropDownList()[0]
-            ],
-            [
-                'attribute' => 'phone',
-                'value' => function( $model ) {
-                    /** @var \common\models\Party $model */
-                    return $model->maskedPhone;
-                }
-            ],
-            'max_members',
-            'is_blocked:boolean',
-            'closed:boolean',
-
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'visibleButtons' => Helper::visibleButtons( $area )
-            ]
-        ]
+        'columns' => $searchModel->columns
     ]); ?>
     <?php // todo - add paid column!!! ?>
     <?php // todo - add members column!!! ?>
-    <?php // todo - add is_complete column!!! ?>
     <?php Pjax::end(); ?>
 </div>

@@ -13,7 +13,19 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="party-view">
     <h1><?= Html::encode($this->title) ?></h1>
-    <p><?= Helper::viewButtons( $area, $model ); ?></p>
+    <p>
+        <?= Helper::viewButtons( $area, $model ); ?>
+        <?= Helper::button( $area, 'close', [
+            'route' => ['close', 'id' => $model->id ],
+            'class' => 'btn btn-warning',
+            'data' => [
+                'confirm' => Yii::t('app/backend',
+                    'Are you sure you want to close this party?'
+                ),
+                'method' => 'post'
+            ]
+        ]); ?>
+    </p>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
