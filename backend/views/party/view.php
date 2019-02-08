@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
         <?= Helper::viewButtons( $area, $model ); ?>
+        <?php if( !$model->closed ) { ?>
         <?= Helper::button( $area, 'close', [
             'route' => ['close', 'id' => $model->id ],
             'class' => 'btn btn-warning',
@@ -25,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post'
             ]
         ]); ?>
+        <?php } ?>
     </p>
     <?= DetailView::widget([
         'model' => $model,

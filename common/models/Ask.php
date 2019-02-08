@@ -153,7 +153,7 @@ class Ask extends CrudModel {
         $success = $this->save();
 
         if( $success )
-            Statistic::add('ask_make');
+            Statistic::add(Statistic::ASK_MAKE );
 
         return $success;
     }
@@ -173,7 +173,7 @@ class Ask extends CrudModel {
             throw new \Exception(Yii::t('app/error', 'Member not saved!'));
 
         if( $isNew )
-            Statistic::add( 'ask_member' );
+            Statistic::add( Statistic::ASK_MEMBER );
 
         try {
             $this->delete();
@@ -231,7 +231,7 @@ class Ask extends CrudModel {
             return false;
         }
 
-        Statistic::add( 'ask_accept' );
+        Statistic::add( Statistic::ASK_ACCEPT );
 
         return true;
     }
@@ -244,7 +244,7 @@ class Ask extends CrudModel {
             if ($this->delete() === false)
                 return false;
 
-            Statistic::add('ask_reject');
+            Statistic::add( Statistic::ASK_REJECT );
 
             return true;
         } catch (StaleObjectException $e) {
@@ -267,7 +267,7 @@ class Ask extends CrudModel {
                 $success = false;
             } else $count++;
 
-        Statistic::add('ask_accept', $count );
+        Statistic::add( Statistic::ASK_ACCEPT, $count );
 
         return $success;
     }
@@ -279,7 +279,7 @@ class Ask extends CrudModel {
         $count = static::find()->count();
         $result = static::deleteAll();
         if( $result )
-            Statistic::add('ask_reject', $count );
+            Statistic::add( Statistic::ASK_REJECT, $count );
 
         return $result;
     }

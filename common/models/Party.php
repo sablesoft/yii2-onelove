@@ -1,9 +1,11 @@
 <?php
 namespace common\models;
 
+use backend\models\Statistic;
 use common\behavior\PhoneBehavior;
 use common\models\query\PartyQuery;
 use common\models\query\PriceQuery;
+use common\models\query\TicketQuery;
 use common\models\query\UserQuery;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveQuery;
@@ -38,6 +40,7 @@ use yii\db\ActiveRecord;
  * @property string $map
  * @property array $priceUrl
  * @property Member[] $members
+ * @property Ticket[] $tickets
  * @property User[] $operators
  * @property string $countryCode
  * @property string $shortPhone
@@ -46,6 +49,7 @@ use yii\db\ActiveRecord;
  * @property string $phoneLabel
  * @property string $phoneLink
  * @property array $maskedPhoneConfig
+ * @property integer $paid
  *
  * @method string getMaskedPhone( $phone = null );
  * @method string getMessengerHref( string $messenger );
@@ -265,6 +269,13 @@ class Party extends CrudModel {
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getTickets() {
+        return $this->hasMany( Ticket::class, ['party_id' => 'id'] );
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getMembers() {
         return $this->hasMany( Member::class, ['id' => 'member_id'] )
             ->viaTable( Ask::tableName(), ['party_id' => 'id'] );
@@ -356,6 +367,39 @@ class Party extends CrudModel {
             $label .= $operator->username . ' (' . $operator->email . '), ';
 
         return trim( $label, ',\ ' );
+    }
+
+    /**
+     * @return bool
+     */
+    public function close() :bool {
+        if( $this->closed )
+            return false; // todo
+
+        /** @var TicketQuery $query */
+        $query = $this->getTickets();
+        $tickets = $query->active()->closed( false )->all();
+        /** @var Ticket $ticket */
+        foreach( (array) $tickets as $ticket )
+            if( !$ticket->close() )
+                return false; // todo
+            
+        $this->closed = true;
+        if( $closed = $this->save() ) {
+            Statistic::add(Statistic::PARTY_CLOSE );
+            Statistic::add( Statistic::MEMBER_PAY, $this->paid );
+        }
+
+        return $closed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaid() {
+        /** @var TicketQuery $query */
+        $query = $this->getTickets();
+        return $query->active()->sum('paid');
     }
 
     /**

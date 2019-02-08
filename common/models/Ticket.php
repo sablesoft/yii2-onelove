@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use backend\models\Statistic;
 use common\behavior\OperatorBehavior;
 
 /**
@@ -216,6 +217,20 @@ class Ticket extends CrudModel {
      */
     public function getLabel(): string {
         return $this->partyLabel . ' - ' . $this->memberLabel;
+    }
+
+    /**
+     * @return bool
+     */
+    public function close() : bool {
+        if( $this->closed )
+            return false; // todo
+
+        $this->closed = true;
+        if( $closed = $this->save() )
+            Statistic::add(Statistic::TICKET_CLOSE );
+
+        return $closed;
     }
 
     /**

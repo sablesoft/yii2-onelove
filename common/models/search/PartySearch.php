@@ -156,6 +156,8 @@ class PartySearch extends Party implements SearchInterface {
             'visibleButtons' => Helper::visibleButtons( 'party', ['close'] ),
             'buttons' => [
                 'close' => function( $url, $model, $key ) {
+                    /** @var Party $model */
+                    if( $model->closed ) return '';
                     $url = Yii::$app->getUrlManager()->createUrl([ 'party/close','id'=>$model->id ]);
                     return Html::a( '<span class="glyphicon glyphicon-ok"></span>', $url,
                         [

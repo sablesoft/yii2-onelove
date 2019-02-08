@@ -9,10 +9,30 @@ namespace common\models\query;
  */
 class TicketQuery extends \yii\db\ActiveQuery {
 
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
+    /**
+     * @return TicketQuery
+     */
+    public function active() {
+        return $this->andWhere('[[is_blocked]]=0');
+    }
+
+    /**
+     * @param bool $closed
+     * @return TicketQuery
+     */
+    public function closed( $closed = true ) {
+        $closed = $closed ? 1 : 0;
+        return $this->andWhere("[[closed]]=$closed");
+    }
+
+    /**
+     * @param bool $visited
+     * @return TicketQuery
+     */
+    public function visited( $visited = true ) {
+        $visited = $visited ? 1 : 0;
+        return $this->andWhere("[[visited]]=$visited");
+    }
 
     /**
      * {@inheritdoc}
