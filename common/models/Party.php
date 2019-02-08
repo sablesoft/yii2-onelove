@@ -50,6 +50,7 @@ use yii\db\ActiveRecord;
  * @property string $phoneLink
  * @property array $maskedPhoneConfig
  * @property integer $paid
+ * @property integer $visited
  *
  * @method string getMaskedPhone( $phone = null );
  * @method string getMessengerHref( string $messenger );
@@ -387,10 +388,21 @@ class Party extends CrudModel {
         $this->closed = true;
         if( $closed = $this->save() ) {
             Statistic::add(Statistic::PARTY_CLOSE );
+            Statistic::add( Statistic::MEMBER_VISIT, $this->visited );
             Statistic::add( Statistic::MEMBER_PAY, $this->paid );
         }
 
         return $closed;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVisited() :int {
+        /** @var TicketQuery $query */
+        $query = $this->getTickets();
+
+        return (int) $query->active()->visited()->count();
     }
 
     /**

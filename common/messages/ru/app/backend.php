@@ -35,6 +35,7 @@ return [
     'Make Ask'   => 'Добавить заявку',
     'Reject Ask' => 'Отклонить заявку',
     'Party Close' => 'Встреч',
+    'Party closed successful!' => 'Встреча успешно завершена!',
     'Ticket Close' => 'Билетов',
     'Member Visit' => 'Посетило',
     'Member Pay' => 'Заплатили',

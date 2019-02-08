@@ -61,12 +61,12 @@ class Statistic extends \yii\db\ActiveRecord {
         return [
             [['date', 'operator_id'], 'required'],
             [
-                [ self::VIEW_DESK, self::VIEW_MOBILE, self::ASK_MAKE, self::ASK_REJECT, self::ASK_MEMBER, self::ASK_REJECT,
+                [ self::VIEW_DESK, self::VIEW_MOBILE, self::ASK_MAKE, self::ASK_REJECT, self::ASK_MEMBER, self::ASK_ACCEPT,
                   self::PARTY_CLOSE, self::TICKET_CLOSE, self::MEMBER_VISIT, self::MEMBER_PAY, 'operator_id'],
                 'integer'
             ],
             [
-                [self::ASK_MAKE, self::ASK_REJECT, self::ASK_MEMBER, self::ASK_REJECT,
+                [ self::VIEW_DESK, self::VIEW_MOBILE, self::ASK_MAKE, self::ASK_REJECT, self::ASK_MEMBER, self::ASK_ACCEPT,
                     self::PARTY_CLOSE, self::TICKET_CLOSE, self::MEMBER_VISIT, self::MEMBER_PAY],
                 'default', 'value' => 0
             ],
@@ -87,7 +87,7 @@ class Statistic extends \yii\db\ActiveRecord {
             self::ASK_MAKE => Yii::t('app/backend', 'Ask Make'),
             self::ASK_REJECT => Yii::t('app/backend', 'Ask Reject'),
             self::ASK_MEMBER => Yii::t('app/backend', 'Ask Member'),
-            self::ASK_REJECT => Yii::t('app/backend', 'Ask Accept'),
+            self::ASK_ACCEPT => Yii::t('app/backend', 'Ask Accept'),
             self::PARTY_CLOSE => Yii::t('app/backend', 'Party Close'),
             self::TICKET_CLOSE => Yii::t('app/backend', 'Ticket Close'),
             self::MEMBER_VISIT => Yii::t('app/backend', 'Member Visit'),
