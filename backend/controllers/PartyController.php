@@ -12,6 +12,9 @@ class PartyController extends CrudController {
     protected $modelClass       = 'common\models\Party';
     protected $searchModelClass = 'common\models\search\PartySearch';
 
+    /**
+     * @return \yii\web\Response
+     */
     public function actionClose() {
         /** @var Party $model */
         if( !$model = $this->getModel() )

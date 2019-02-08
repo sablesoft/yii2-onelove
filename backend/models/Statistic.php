@@ -32,6 +32,17 @@ use yii\db\ActiveRecord;
  */
 class Statistic extends \yii\db\ActiveRecord {
 
+    const VIEW_DESK     = 'view_desk';
+    const VIEW_MOBILE   = 'view_mobile';
+    const ASK_MAKE      = 'ask_make';
+    const ASK_REJECT    = 'ask_reject';
+    const ASK_MEMBER    = 'ask_member';
+    const ASK_ACCEPT    = 'ask_accept';
+    const PARTY_CLOSE   = 'party_close';
+    const TICKET_CLOSE  = 'ticket_close';
+    const MEMBER_VISIT  = 'member_visit';
+    const MEMBER_PAY    = 'member_pay';
+
     /** @var string $time - for diff time groups */
     public $time;
     public $isCheckDefault = false;
@@ -50,13 +61,13 @@ class Statistic extends \yii\db\ActiveRecord {
         return [
             [['date', 'operator_id'], 'required'],
             [
-                [ 'view_desk', 'view_mobile', 'ask_make', 'ask_reject', 'ask_member', 'ask_accept',
-                  'party_close', 'ticket_close', 'member_visit', 'member_pay', 'operator_id'],
+                [ self::VIEW_DESK, self::VIEW_MOBILE, self::ASK_MAKE, self::ASK_REJECT, self::ASK_MEMBER, self::ASK_REJECT,
+                  self::PARTY_CLOSE, self::TICKET_CLOSE, self::MEMBER_VISIT, self::MEMBER_PAY, 'operator_id'],
                 'integer'
             ],
             [
-                ['ask_make', 'ask_reject', 'ask_member', 'ask_accept',
-                    'party_close', 'ticket_close', 'member_visit', 'member_pay'],
+                [self::ASK_MAKE, self::ASK_REJECT, self::ASK_MEMBER, self::ASK_REJECT,
+                    self::PARTY_CLOSE, self::TICKET_CLOSE, self::MEMBER_VISIT, self::MEMBER_PAY],
                 'default', 'value' => 0
             ],
             [['operator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['operator_id' => 'id']],
@@ -71,16 +82,16 @@ class Statistic extends \yii\db\ActiveRecord {
         return [
             'id' => Yii::t('app/backend', 'ID'),
             'date' => Yii::t('app/backend', 'Date'),
-            'view_desk' => Yii::t('app/backend', 'Desktop Views'),
-            'view_mobile' => Yii::t('app/backend', 'Mobile Views'),
-            'ask_make' => Yii::t('app/backend', 'Ask Make'),
-            'ask_reject' => Yii::t('app/backend', 'Ask Reject'),
-            'ask_member' => Yii::t('app/backend', 'Ask Member'),
-            'ask_accept' => Yii::t('app/backend', 'Ask Accept'),
-            'party_close' => Yii::t('app/backend', 'Party Close'),
-            'ticket_close' => Yii::t('app/backend', 'Ticket Close'),
-            'member_visit' => Yii::t('app/backend', 'Member Visit'),
-            'member_pay' => Yii::t('app/backend', 'Member Pay'),
+            self::VIEW_DESK => Yii::t('app/backend', 'Desktop Views'),
+            self::VIEW_MOBILE => Yii::t('app/backend', 'Mobile Views'),
+            self::ASK_MAKE => Yii::t('app/backend', 'Ask Make'),
+            self::ASK_REJECT => Yii::t('app/backend', 'Ask Reject'),
+            self::ASK_MEMBER => Yii::t('app/backend', 'Ask Member'),
+            self::ASK_REJECT => Yii::t('app/backend', 'Ask Accept'),
+            self::PARTY_CLOSE => Yii::t('app/backend', 'Party Close'),
+            self::TICKET_CLOSE => Yii::t('app/backend', 'Ticket Close'),
+            self::MEMBER_VISIT => Yii::t('app/backend', 'Member Visit'),
+            self::MEMBER_PAY => Yii::t('app/backend', 'Member Pay'),
             'operator_id' => Yii::t('app/backend', 'Operator'),
             'operatorLabel' => Yii::t('app/backend', 'Operator')
         ];
@@ -145,7 +156,7 @@ class Statistic extends \yii\db\ActiveRecord {
      * @return bool
      */
     public static function addBrowsing() : bool {
-        $statField = Helper::isMobile() ? 'view_mobile' : 'view_desk';
+        $statField = Helper::isMobile() ? self::VIEW_MOBILE : self::VIEW_DESK;
         return static::add( $statField );
     }
 }

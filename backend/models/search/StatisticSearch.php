@@ -48,10 +48,13 @@ class StatisticSearch extends Statistic {
     ];
     /** @var array $_fields - show fields */
     protected $_fields = [
-        self::SHOW_VIEWS    => ['view_desk', 'view_mobile'],
-        self::SHOW_ASKS     => ['ask_make', 'ask_reject', 'ask_member', 'ask_accept'],
-        self::SHOW_PARTIES  => ['party_close', 'ticket_close'],
-        self::SHOW_MEMBERS  => ['member_visit', 'member_pay']
+        self::SHOW_VIEWS    => [ Statistic::VIEW_DESK, Statistic::VIEW_MOBILE ],
+        self::SHOW_ASKS     => [
+            Statistic::ASK_MAKE, Statistic::ASK_REJECT,
+            Statistic::ASK_MEMBER, Statistic::ASK_ACCEPT
+        ],
+        self::SHOW_PARTIES  => [ Statistic::PARTY_CLOSE, Statistic::TICKET_CLOSE ],
+        self::SHOW_MEMBERS  => [ Statistic::MEMBER_VISIT, Statistic::MEMBER_PAY ]
     ];
 
     public $groupBy = self::GROUP_DATE;
