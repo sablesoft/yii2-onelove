@@ -136,3 +136,7 @@ a.desc:after {
     -moz-border-radius: 4px;
     border-radius: 4px;: ;
 }
+
+.gallery-view .edit-control {
+    margin-top: 12px;
+}

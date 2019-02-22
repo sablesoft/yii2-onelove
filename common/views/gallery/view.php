@@ -99,7 +99,7 @@ JS
                         } catch (Exception $e) {}
                     ?>
                 </div>
-                <div class="col-sm-11">
+                <div class="col-sm-11 edit-control">
                  <?php
                 if( Yii::$app->user->can( "$area.photos-delete" ) )
                     echo Html::a('<i class="glyphicon glyphicon-pencil"></i>', ['#'],
