@@ -8,7 +8,7 @@ use yii\bootstrap\Modal;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $area = 'gallery';
-$this->title = 'Photo-gallery';
+$this->title = Yii::t('app/backend', 'Gallery');
 $dataProvider->pagination->pageSize = 20;
 ?>
 <div class="gallery-index">

@@ -13,8 +13,10 @@ use noam148\imagemanager\components\ImageManagerInputWidget;
 /* @var $photoModel \common\models\GalleryPhoto */
 
 $area = 'gallery';
-$this->params['breadcrumbs'][] = ['label' => 'Gallery', 'url' => ["/$area"]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/backend', 'Gallery'), 'url' => ["/$area"]];
 $this->params['breadcrumbs'][] = $model->name;
+
+$this->title = Yii::t('app/backend', 'Gallery' ) . ' : ' . $model->name;
 
 $this->registerJs(<<<JS
 $('#preloader').show();

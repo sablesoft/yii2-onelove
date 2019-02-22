@@ -47,7 +47,7 @@ try {
         <a class="image-wrap" href="<?= Url::toRoute(["view", 'id'=>$model->gallery_id]) ?>">
             <?php
             foreach( $model->galleryPhotos as $prevPhoto ) {
-                echo \yii\helpers\Html::img( $imageManager->getImagePath( $prevPhoto->name, $size, $size ) );
+                echo \yii\helpers\Html::img( $imageManager->getImagePath( $prevPhoto->image_id, $size, $size ) );
             };
             ?>
         </a>

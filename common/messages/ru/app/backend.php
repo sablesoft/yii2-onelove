@@ -50,6 +50,8 @@ return [
     'Create Price' => 'Создать расценки',
     'Create Setting' => 'Создать настройку',
     'Create Ticket' => 'Создать билет',
+    'Gallery' => 'Галлерея',
+    'Photo-gallery' => 'Галлерея',
     'Search Statistic' => 'Подсчитать',
     'Dashboard' => 'Доска',
     'Date' => 'Дата',
