@@ -28,7 +28,8 @@
         "sablesoft/yii2-vue": "^1.0",
         "alexandernst/yii2-device-detect": "dev-master",
         "noam148/yii2-image-manager": "*",
-        "kartik-v/yii2-grid": "@dev"
+        "kartik-v/yii2-grid": "@dev",
+        "onmotion/yii2-gallery": "*"
     },
     "require-dev": {
         "yiisoft/yii2-faker": "^2",
