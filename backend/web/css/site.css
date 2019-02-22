@@ -140,3 +140,16 @@ a.desc:after {
 .gallery-view .edit-control {
     margin-top: 12px;
 }
+
+.gallery-view .panel>.panel-heading {
+    background-color: #222;
+}
+.gallery-view .panel a {
+    color: #9d9d9d;
+}
+
+.gallery-view .panel a:focus,
+.gallery-view .panel a:hover {
+    text-decoration: none;
+    color: #fff;
+}
