@@ -118,3 +118,21 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.gallery-view-control {
+    margin-top: 10px;
+}
+
+.gallery-view .image-manager-input {
+    width: 30px;
+}
+
+.gallery-view .image-manager-input input[type=text]{
+    display: none;
+}
+
+.gallery-view .image-manager-input .input-group-addon {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;: ;
+}
