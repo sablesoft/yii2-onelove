@@ -69,6 +69,12 @@ return [
                     'url'       => '/group'
                 ]
             ],
+            'gallery'  => [
+                '_menu' => [
+                    'label'     => 'Gallery',
+                    'url'       => '/gallery'
+                ]
+            ],
             'statistic' => [
                 '_menu' => [
                     'label' => 'Statistics',

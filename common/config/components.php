@@ -120,7 +120,12 @@ return [
         ]
     ],
     'assetManager' => [
-        'linkAssets' => true
+        'linkAssets' => true,
+        'bundles' => [
+            'onmotion\gallery\OnmotionAsset' => [
+                'sourcePath' => '@common/views/gallery/assets'
+            ]
+        ]
     ],
     'vueManager'   => [
         'class'      => 'sablesoft\vue\VueManager',
@@ -129,7 +134,8 @@ return [
     'view' => [
         'theme' => [
             'pathMap' => [
-                '@dektrium/user/views' => '@common/views/user'
+                '@dektrium/user/views' => '@common/views/user',
+                '@vendor/onmotion/yii2-gallery/views/default' => '@common/views/gallery'
             ]
         ],
         'renderers' => [

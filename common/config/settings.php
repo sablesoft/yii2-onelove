@@ -92,6 +92,7 @@ return [
             'back'   => "{controller}.{action}",
             'media'  => "{module}.{action}",
             'rbac'   => "{controller}.{action}",
+            'gallery' => "{module}.{action}",
             'gii'    => "{module}"
         ]
     ]
