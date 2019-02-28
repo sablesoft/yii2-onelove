@@ -256,7 +256,7 @@ class StatisticSearch extends Statistic {
         } else
             $query->groupBy('time');
 
-        $query->select( $select )->orderBy('time');
+        $query->select( $select )->orderBy('time DESC');
 
         // grid filtering conditions
         $query->andFilterWhere([
