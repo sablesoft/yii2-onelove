@@ -20,25 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <p><?= Helper::viewButtons( $area, $model ); ?></p>
     <?= DetailView::widget([
         'model' => $model,
-        'attributes' => [
-            'imagePath:image',
-            'name',
-            'sexLabel',
-            'groupLabel',
-            'ageLabel',
-            'dob:date',
-            'maskedPhone',
-            'email:email',
-            'resume:ntext',
-            'username',
-            'is_blocked:boolean',
-            'created_at:datetime',
-            'updated_at:datetime'
-        ]
+        'attributes' => $model->columns
     ]); ?>
-
-<?php // todo - add paid sum!!! ?>
-<?php // todo - add parties sum!!! ?>
 </div>
 
 <?php // todo - add parties search!!! ?>

@@ -1,13 +1,15 @@
 <?php
 namespace common\models;
 
-use common\behavior\ImageBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use common\behavior\AgeBehavior;
 use common\behavior\NameBehavior;
 use common\behavior\PhoneBehavior;
+use common\behavior\ImageBehavior;
 use common\models\query\MemberQuery;
 use yii\behaviors\AttributeBehavior;
+use common\models\query\TicketQuery;
 use noam148\imagemanager\models\ImageManager;
 
 /**
@@ -34,6 +36,10 @@ use noam148\imagemanager\models\ImageManager;
  * @property Ask[] $asks
  * @property Ticket[] $tickets
  * @property Party[] $parties
+ * @property array $columns
+ * @property array $visits
+ * @property integer $visitsCount
+ * @property float $visitsPay
  * @property string $username
  * @property string $sexLabel
  * @property string $countryCode
@@ -117,6 +123,8 @@ class Member extends CrudModel {
             'trueAge' => \Yii::t('app', 'Age'),
             'dob' => \Yii::t('app', 'Day of Birth'),
             'sex' => \Yii::t('app', 'Sex'),
+            'visitsCount' => \Yii::t('app', 'Visits Count'),
+            'visitsPay' => \Yii::t('app', 'Visits Pay'),
             'sexLabel' => \Yii::t('app', 'Sex'),
             'group_id' => \Yii::t('app', 'Group'),
             'groupLabel' => \Yii::t('app', 'Age Group'),
@@ -174,6 +182,36 @@ class Member extends CrudModel {
     }
 
     /**
+     * @return array
+     */
+    public function getColumns() {
+        $columns = [
+            'imagePath:image',
+            'name',
+            'sexLabel',
+            'groupLabel',
+            'ageLabel',
+            'dob:date',
+            'maskedPhone',
+            'email:email',
+            'resume:ntext',
+            'username',
+            'visitsCount:integer'
+        ];
+
+        if( \Yii::$app->user->can('manager') )
+            $columns = array_merge( $columns, [
+                'visitsPay:decimal',
+                'is_blocked:boolean',
+            ]);
+
+        return array_merge( $columns, [
+            'created_at:datetime',
+            'updated_at:datetime'
+        ]);
+    }
+
+    /**
      * @param string $attribute
      * @param $params
      */
@@ -219,6 +257,39 @@ class Member extends CrudModel {
     public function getParties() {
         return $this->hasMany( Party::class, ['id' => 'party_id'] )
             ->viaTable( Ask::tableName(), ['member_id' => 'id'] );
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery|TicketQuery
+     */
+    public function getTickets() {
+        return $this->hasMany( Ticket::class, ['member_id' => 'id']);
+    }
+
+    /**
+     * @return array
+     */
+    public function getVisits() {
+        return $this->getTickets()->visited()->select(['party_id', 'paid'])
+            ->asArray()->all();
+    }
+
+    /**
+     * @return int
+     */
+    public function getVisitsCount() {
+        $visits = $this->visits;
+
+        return count( $visits );
+    }
+
+    /**
+     * @return float
+     */
+    public function getVisitsPay() {
+        $visits = $this->visits;
+
+        return (float) array_sum( ArrayHelper::getColumn( $visits, 'paid' ) );
     }
 
     /**

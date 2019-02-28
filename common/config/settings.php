@@ -87,7 +87,7 @@ return [
     ],
     'access' => [
         'skipController'    => ['site'],
-        'skipModule'        => ['front', 'user'],
+        'skipModule'        => ['front', 'user', 'gii'],
         'pattern' => [
             'back'   => "{controller}.{action}",
             'media'  => "{module}.{action}",

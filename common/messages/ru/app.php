@@ -64,6 +64,8 @@ return [
     'Updated By' => 'Обновил',
     'User' => 'Аккаунт',
     'Value' => 'Значение',
+    'Visits Count' => 'Посещений',
+    'Visits Pay' => 'Принес',
     'Visited' => 'Посетил',
     '{0} ages' => '{0} лет',
     '{0} guests' => '{0} гостей',

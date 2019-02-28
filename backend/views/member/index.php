@@ -25,64 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
         echo GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
-
-                [
-                    'attribute' => 'photo',
-                    'value' => function( $model ) {
-                        /** @var \common\models\Member $model */
-                        return $model->getImagePath([ 'width' => 100 ]);
-                    },
-                    'format' => 'image',
-                    'enableSorting' => false,
-                    'filter' => false
-                ],
-                'name',
-                [
-                    'attribute' => 'sex',
-                    'value' => function ($model) {
-                        /** @var \common\models\Member $model */
-                        return $model->sexLabel;
-                    },
-                    'filter' => Member::getSexDropDownList()
-                ],
-                [
-                    'attribute' => 'age',
-                    'value' => function ($model) {
-                        /** @var \common\models\Member $model */
-                        return $model->ageLabel;
-                    }
-                ],
-                [
-                    'attribute' => 'group_id',
-                    'value'     => function( $model ) {
-                        /** @var \common\models\Member $model */
-                        return $model->groupLabel;
-                    },
-                    'filter' => \common\models\Group::getDropDownList()[0]
-                ],
-                [
-                    'attribute' => 'phone',
-                    'value' => function ($model) {
-                        /** @var \common\models\Member $model */
-                        return $model->maskedPhone;
-                    }
-                ],
-                'email:email',
-                'is_blocked:boolean',
-
-                [
-                    'class' => 'yii\grid\ActionColumn',
-                    'visibleButtons' => Helper::visibleButtons($area)
-                ]
-            ]
+            'columns' => $searchModel->columns
         ]);
     } catch( Exception $e ) {
         \Yii::$app->session->addFlash('error', $e->getMessage() );
-        $this->context->redirect(['member/index']);
+        $this->context->redirect(['/']);
     } ?>
-    <?php // todo - add paid sum column!!! ?>
-    <?php // todo - add parties sum column!!! ?>
     <?php Pjax::end(); ?>
 </div>

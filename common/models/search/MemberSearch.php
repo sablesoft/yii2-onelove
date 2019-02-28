@@ -5,6 +5,7 @@ namespace common\models\search;
 use yii\base\Model;
 use yii\db\ActiveQuery;
 use common\models\Member;
+use common\models\Helper;
 use yii\data\ActiveDataProvider;
 use common\interfaces\SearchInterface;
 use common\behavior\DateFilterBehavior;
@@ -42,6 +43,71 @@ class MemberSearch extends Member implements SearchInterface {
     public function behaviors() {
         return array_merge( parent::behaviors(), [
             DateFilterBehavior::class
+        ]);
+    }
+
+    public function getColumns() {
+        $area = 'member';
+        $columns = [
+            ['class' => 'yii\grid\SerialColumn'],
+            // todo - photo column
+
+//                [
+//                    'attribute' => 'photo',
+//                    'value' => function( $model ) {
+//                        /** @var \common\models\Member $model */
+//                        return $model->getImagePath([ 'width' => 100 ]);
+//                    },
+//                    'format' => 'image',
+//                    'enableSorting' => false,
+//                    'filter' => false
+//                ],
+            'name',
+            [
+                'attribute' => 'sex',
+                'value' => function ($model) {
+                    /** @var \common\models\Member $model */
+                    return $model->sexLabel;
+                },
+                'filter' => Member::getSexDropDownList()
+            ],
+            [
+                'attribute' => 'age',
+                'value' => function ($model) {
+                    /** @var \common\models\Member $model */
+                    return $model->ageLabel;
+                }
+            ],
+            [
+                'attribute' => 'group_id',
+                'value'     => function( $model ) {
+                    /** @var \common\models\Member $model */
+                    return $model->groupLabel;
+                },
+                'filter' => \common\models\Group::getDropDownList()[0]
+            ],
+            [
+                'attribute' => 'phone',
+                'value' => function ($model) {
+                    /** @var \common\models\Member $model */
+                    return $model->maskedPhone;
+                }
+            ],
+            'email:email',
+            'visitsCount:integer'
+        ];
+
+        if( \Yii::$app->user->can('manager') )
+            $columns = array_merge( $columns, [
+                'visitsPay:decimal',
+                'is_blocked:boolean'
+            ]);
+
+        return array_merge( $columns, [
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' => Helper::visibleButtons( $area )
+            ]
         ]);
     }
 
