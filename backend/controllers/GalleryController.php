@@ -2,11 +2,37 @@
 namespace backend\controllers;
 
 use yii\web\Response;
+use common\models\Setting;
 use common\models\GalleryPhoto;
+use onmotion\gallery\models\Gallery;
+use onmotion\gallery\models\GallerySearch;
 use onmotion\gallery\controllers\DefaultController;
 
+/**
+ * Class GalleryController
+ * @package backend\controllers
+ */
 class GalleryController extends DefaultController {
 
+    /**
+     * Lists all Gallery models.
+     * @return mixed
+     */
+    public function actionIndex() {
+        $searchModel = new GallerySearch();
+        $dataProvider = $searchModel->search( \Yii::$app->request->queryParams );
+
+        return $this->render('index', [
+            'searchModel'       => $searchModel,
+            'dataProvider'      => $dataProvider,
+            'gallerySelect'     => $this->gallerySelect(),
+            'gallerySetting'    => $this->gallerySetting()
+        ]);
+    }
+
+    /**
+     * @return array
+     */
     public function actionAdd() {
         \Yii::$app->response->format = Response::FORMAT_JSON;
         $photoModel = new GalleryPhoto();
@@ -42,6 +68,9 @@ class GalleryController extends DefaultController {
         ]);
     }
 
+    /**
+     * @return bool|mixed|Response|null
+     */
     public function actionPhotosDelete() {
         $request = \Yii::$app->request;
         $photoIds = $request->post('ids'); // Array or selected records primary keys
@@ -59,5 +88,34 @@ class GalleryController extends DefaultController {
         } else
             return $this->redirect(['index']);
 
+    }
+
+    /**
+     * @return array
+     */
+    protected function gallerySelect() {
+        return \yii\helpers\ArrayHelper::map(
+            Gallery::find()->all(), 'gallery_id', 'name'
+        );
+    }
+
+    /**
+     * @return Setting
+     */
+    protected function gallerySetting() {
+        $setting = Setting::findOne(['key' => Setting::SECTION_GALLERY_ID ]) ?:
+            new Setting([
+                'label' => 'Selected Gallery',
+                'description' => \Yii::t('app/backend', 'Selected gallery for show in landing' ),
+                'key' => Setting::SECTION_GALLERY_ID,
+                'value' => null
+            ]);
+
+        if( $setting->load( \Yii::$app->request->post() ) )
+            if( !$setting->save() )
+                foreach( $setting->getErrors() as $error )
+                    \Yii::$app->session->addFlash('error', reset( $error ) );
+
+        return $setting;
     }
 }

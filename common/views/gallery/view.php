@@ -38,6 +38,7 @@ JS
                         ]
                     ],
                     'options' => [
+
                         'class' => 'header-collapse'
                     ]
                 ]);

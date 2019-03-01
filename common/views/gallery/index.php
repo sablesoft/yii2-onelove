@@ -2,8 +2,11 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
+/* @var $gallerySelect array */
+/* @var $gallerySetting \common\models\Setting */
 /* @var $searchModel onmotion\gallery\models\GallerySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -12,7 +15,7 @@ $this->title = Yii::t('app/backend', 'Gallery');
 $dataProvider->pagination->pageSize = 20;
 ?>
 <div class="gallery-index">
-
+    <h2><?= Yii::t('app/backend', 'All galleries')?></h2>
             <?php
     if( Yii::$app->user->can( "$area.create" ) )
         echo Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
@@ -41,7 +44,46 @@ $dataProvider->pagination->pageSize = 20;
         } catch (Exception $e) {}
 
         ?>
+</div>
+<div class="setting-form">
+
+    <h2><?= Yii::t('app/backend', 'Selected gallery setting')?></h2>
+    <br>
+    <?php $form = ActiveForm::begin(); ?>
+    <div class="row">
+        <div class="col-sm-4">
+            <?= $form->field( $gallerySetting, 'label')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field( $gallerySetting, 'key')->textInput([
+                    'maxlength' => true, 'disabled' => !empty( $gallerySetting->key )
+            ]); ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field( $gallerySetting, 'value')->widget(\kartik\select2\Select2::class, [
+                'data' => $gallerySelect,
+                'language' => 'ru',
+                'options' => [
+                    'placeholder' => Yii::t('app/backend', 'Select gallery for show'),
+                    'multiple' => false
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ]
+            ]); ?>
+        </div>
+        <div class="col-sm-12">
+            <?= $form->field( $gallerySetting, 'description')->textarea(['rows' => 4]) ?>
+        </div>
     </div>
+
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('yii', 'Save'), ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+</div>
 
 <?php
 Modal::begin([
@@ -55,7 +97,10 @@ Modal::begin([
 ]);
 
 echo Html::beginTag('div', ['class' => 'preloader']);
-echo Html::tag('div', Html::tag('span', '100', ['class' => 'sr-only']), ['class'=>"progress-bar progress-bar-striped active", 'role'=>"progressbar",
-  'aria-valuenow'=>"100", 'aria-valuemin'=>"0", 'aria-valuemax'=>"100", 'style'=>"width:100%"]);
+echo Html::tag('div', Html::tag('span', '100', ['class' => 'sr-only']),
+    [
+        'class'=>"progress-bar progress-bar-striped active", 'role'=>"progressbar",
+        'aria-valuenow'=>"100", 'aria-valuemin'=>"0", 'aria-valuemax'=>"100", 'style'=>"width:100%"
+    ]);
 echo Html::endTag('div');
 Modal::end(); ?>

@@ -23,10 +23,10 @@ use kartik\select2\Select2;
                 ->label( Yii::t('app/backend', 'Place') ); ?>
         </div>
         <div class="col-sm-4">
-            <?= $form->field($model, 'name')->textInput(); ?>
+            <?= $form->field( $model, 'name')->textInput(); ?>
         </div>
         <div class="col-sm-4">
-            <?= $form->field($model, 'timestamp')->widget(
+            <?= $form->field( $model, 'timestamp')->widget(
                 'kartik\datetime\DateTimePicker',
                 [
                     'options' => [
@@ -46,12 +46,12 @@ use kartik\select2\Select2;
     </div>
     <div class="row">
         <div class="col-sm-4">
-            <?= $form->field($model, 'price_id')
+            <?= $form->field( $model, 'price_id')
                 ->dropDownList( ...Price::getDropDownList([ 'selected' => true ]) )
                 ->label( Yii::t('app/backend', 'Price') ); ?>
         </div>
         <div class="col-sm-4">
-            <?= $form->field($model, 'phone')->dropDownList( ...User::findPhonesList() ); ?>
+            <?= $form->field( $model, 'phone')->dropDownList( ...User::findPhonesList() ); ?>
         </div>
         <div class="col-sm-4">
             <?= $form->field($model, 'max_members')->input(
@@ -71,11 +71,11 @@ use kartik\select2\Select2;
         </div>
         <div class="col-sm-2">
             <br>
-            <?= $form->field($model, 'is_blocked')->checkbox(); ?>
+            <?= $form->field( $model, 'is_blocked' )->checkbox(); ?>
         </div>
         <div class="col-sm-2">
             <br>
-            <?= $form->field($model, 'closed')->checkbox(); ?>
+            <?= $form->field( $model, 'closed' )->checkbox(); ?>
         </div>
         <div class="col-sm-2">
             <br>
@@ -84,7 +84,7 @@ use kartik\select2\Select2;
             </div>
         </div>
     </div>
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field( $model, 'description')->textarea(['rows' => 6]) ?>
 
     <?php ActiveForm::end(); ?>
 
