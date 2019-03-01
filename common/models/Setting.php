@@ -17,7 +17,7 @@ use Yii;
  */
 class Setting extends \yii\db\ActiveRecord {
 
-    const SECTION_GALLERY_ID = 'section.gallery.id';
+    const SECTION_GALLERY = 'section.gallery';
 
     /** @var integer */
     protected $checkDefault;

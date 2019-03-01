@@ -103,11 +103,11 @@ class GalleryController extends DefaultController {
      * @return Setting
      */
     protected function gallerySetting() {
-        $setting = Setting::findOne(['key' => Setting::SECTION_GALLERY_ID ]) ?:
+        $setting = Setting::findOne(['key' => Setting::SECTION_GALLERY ]) ?:
             new Setting([
                 'label' => 'Selected Gallery',
                 'description' => \Yii::t('app/backend', 'Selected gallery for show in landing' ),
-                'key' => Setting::SECTION_GALLERY_ID,
+                'key' => Setting::SECTION_GALLERY,
                 'value' => null
             ]);
 
