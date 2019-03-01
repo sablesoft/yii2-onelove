@@ -17,6 +17,8 @@ use Yii;
  */
 class Setting extends \yii\db\ActiveRecord {
 
+    const SECTION_GALLERY_ID = 'section.gallery.id';
+
     /** @var integer */
     protected $checkDefault;
 
@@ -84,5 +86,16 @@ class Setting extends \yii\db\ActiveRecord {
      */
     public static function find() {
         return new \common\models\query\SettingQuery(get_called_class());
+    }
+
+    /**
+     * @param string $key
+     * @param null|mixed $default
+     * @return string|null
+     */
+    public static function findValue( string $key, $default = null ) {
+        $setting = static::find()->oneByKey( $key );
+
+        return $setting ? $setting->value : $default;
     }
 }

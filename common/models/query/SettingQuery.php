@@ -24,6 +24,22 @@ class SettingQuery extends \yii\db\ActiveQuery
     }
 
     /**
+     * @param string $key
+     * @return SettingQuery
+     */
+    public function byKey( string $key ) {
+        return $this->andWhere([ 'like', 'key', $key ]);
+    }
+
+    /**
+     * @param string $key
+     * @return array|\common\models\Setting|null
+     */
+    public function oneByKey( string $key ) {
+        return $this->andWhere([ 'key' => $key ])->one();
+    }
+
+    /**
      * {@inheritdoc}
      * @return \common\models\Setting|array|null
      */
