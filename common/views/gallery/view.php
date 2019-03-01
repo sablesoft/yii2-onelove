@@ -59,7 +59,7 @@ JS
                                 'data-id' => $photo->photo_id
                             ]
                         ];
-                };
+                }
             } else {
                 echo 'There is no photos yet...';
             }

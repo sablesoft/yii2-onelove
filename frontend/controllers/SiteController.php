@@ -1,13 +1,14 @@
 <?php
 namespace frontend\controllers;
 
-use backend\models\Statistic;
 use Yii;
 use common\models\Ask;
 use yii\web\Controller;
 use common\models\Party;
 use common\models\Helper;
 use common\models\CallForm;
+use backend\models\Statistic;
+use common\models\GalleryPhoto;
 use frontend\assets\LandingAsset;
 
 /**
@@ -60,13 +61,15 @@ class SiteController extends Controller {
             'header' => Yii::t('app/frontend', $modalsSettings['fail']['header'] ),
             'message' => Yii::t('app/frontend', $modalsSettings['fail']['message'] ),
         ];
+        // load public gallery items
+        $galleryItems = GalleryPhoto::findSelectedItems();
 
         // add landing browsing in statistic: todo - make by ajax after page load
         Statistic::addBrowsing();
 
         return $this->render(
             'index.tpl',
-            compact('ask', 'party', 'call', 'successModal', 'failModal')
+            compact('ask', 'party', 'call', 'successModal', 'failModal', 'galleryItems')
         );
     }
 }

@@ -71,11 +71,6 @@ return [
             'desktop'   => 'viber://chat?number=+'
         ]
     ],
-    // sections default params : todo
-    'section' => [
-        "gallery"   => false,
-        "comments"  => false
-    ],
     'groups' => [
         'от 22 до 34',
         'от 35 и старше'

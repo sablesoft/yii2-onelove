@@ -2,6 +2,8 @@
 {* @var $party Party *}
 {* @var array $failModal *}
 {* @var array $successModal *}
+{* @var array|null $galleryItems *}
+{* @var array|null $commentItems *}
 {use class='common\models\Helper'}
 <div id="landing">
     {registerCss}
@@ -10,15 +12,14 @@
     }
     {/registerCss}
     <main>
-    {$sections = Helper::getSettings('section', true )}
         {include '@frontend/views/site/landing/registration.tpl'}
         {include '@frontend/views/site/landing/about.tpl'}
         {include '@frontend/views/site/landing/reason.tpl'}
-    {if !empty( $sections['gallery'] )}
+    {if !empty( $galleryItems )}
         {include '@frontend/views/site/landing/gallery.tpl'}
     {/if}
         {include '@frontend/views/site/landing/statistics.tpl'}
-    {if !empty( $sections['comments'] )}
+    {if !empty( $commentItems )}
         {include '@frontend/views/site/landing/comments.tpl'}
     {/if}
         {include '@frontend/views/site/landing/faq.tpl'}

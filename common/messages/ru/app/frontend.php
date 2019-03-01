@@ -25,6 +25,7 @@ return [
     'New call request!' => 'Запрос на обратный звонок!',
     'New party ask!' => 'Новая заявка на участие!',
     'Our operator will contact you shortly.' => 'Наш оператор свяжется с Вами в ближайшее время.',
+    'Our public gallery' => 'Наша галлерея',
     'Phone' => 'Телефон',
     'Send Ask' => 'Записаться',
     'Something went wrong. Please try later.' => 'Что-то пошло не так... Пожалуйтса, попробуйте чуть позже!',
