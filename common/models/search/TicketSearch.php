@@ -2,11 +2,12 @@
 
 namespace common\models\search;
 
+use yii\base\Model;
+use common\models\Party;
 use common\models\Helper;
 use common\models\Member;
-use common\models\Party;
-use yii\base\Model;
 use common\models\Ticket;
+use kartik\select2\Select2;
 use yii\data\ActiveDataProvider;
 
 /**
@@ -124,6 +125,7 @@ class TicketSearch extends Ticket {
 
     /**
      * @return array
+     * @throws \Exception
      */
     public function getColumns() : array {
         // init operator ticket fields:
@@ -140,7 +142,17 @@ class TicketSearch extends Ticket {
                         $model->partyUrl
                     );
                 },
-                'filter' => Party::getDropDownList()[0]
+                'filter' => Select2::widget([
+                    'model' => $this,
+                    'attribute' => 'party_id',
+                    'data' => Party::getDropDownList()[0],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                    'options' => [
+                        'placeholder' => \Yii::t('app/backend', 'Party filter')
+                    ]
+                ])
             ],
             [
                 'attribute' => 'member_id',
@@ -153,7 +165,17 @@ class TicketSearch extends Ticket {
                         $model->memberUrl
                     );
                 },
-                'filter' => Member::getDropDownList()[0]
+                'filter' => Select2::widget([
+                    'model' => $this,
+                    'attribute' => 'member_id',
+                    'data' => Member::getDropDownList()[0],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                    'options' => [
+                        'placeholder' => \Yii::t('app/backend', 'Member filter')
+                    ]
+                ])
             ],
             [
                 'attribute' => 'memberSex',
@@ -189,7 +211,17 @@ class TicketSearch extends Ticket {
                             $model->operatorUrl
                         );
                     },
-                    'filter' => \common\models\User::findRoleList()[0]
+                    'filter' => Select2::widget([
+                        'model' => $this,
+                        'attribute' => 'updated_by',
+                        'data' => \common\models\User::findRoleList()[0],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                        'options' => [
+                            'placeholder' => \Yii::t('app/backend', 'Operator filter')
+                        ]
+                    ])
                 ]
             ]);
         }

@@ -21,16 +21,32 @@ use yii\widgets\ActiveForm;
                     <?php // todo - disabled for not new: ?>
                     <?= $form->field( $model, 'party_id' )
                         // todo - only active parties?
-                        ->dropDownList( ...Party::getDropDownList([
-                            'prompt' => Yii::t('app/backend', 'Select asked party')
-                        ]) )->label( Yii::t('app/backend', 'Party' ) ); ?>
+                        ->widget(\kartik\select2\Select2::class, [
+                            'data' => Party::getDropDownList()[0],
+                            'language' => 'ru',
+                            'options' => [
+                                'placeholder' => Yii::t('app/backend', 'Select asked party'),
+                                'multiple' => false
+                            ],
+                            'pluginOptions' => [
+                                'allowClear' => false
+                            ]
+                        ]); ?>
                 </div>
                 <div class="col-sm-12">
                     <?php // todo - disabled for not new: ?>
                     <?= $form->field($model, 'member_id')
-                        ->dropDownList( ...Member::getDropDownList([
-                            'prompt' => Yii::t('app/backend', 'Select ask member')
-                        ]) )->label( Yii::t('app/backend', 'Member' ) ); ?>
+                        ->widget(\kartik\select2\Select2::class, [
+                            'data' => Member::getDropDownList()[0],
+                            'language' => 'ru',
+                            'options' => [
+                                'placeholder' => Yii::t('app/backend', 'Select ask member'),
+                                'multiple' => false
+                            ],
+                            'pluginOptions' => [
+                                'allowClear' => false
+                            ]
+                        ]); ?>
                 </div>
             </div>
         </div>
