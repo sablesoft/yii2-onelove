@@ -9,7 +9,8 @@ namespace common\models;
  */
 class GalleryPhoto extends \onmotion\gallery\models\GalleryPhoto {
 
-    const DEFAULT_SIZE = 100;
+    const DEFAULT_MOBILE_SIZE = 110;
+    const DEFAULT_DESKTOP_SIZE = 220;
 
     /**
      * @inheritdoc
@@ -44,7 +45,9 @@ class GalleryPhoto extends \onmotion\gallery\models\GalleryPhoto {
      */
     public static function asItems( array $photos, $size = null ) {
         $items = [];
-        $size = $size ?: self::DEFAULT_SIZE;
+        $size = $size ?: (
+            Helper::isMobile() ? self::DEFAULT_MOBILE_SIZE : self::DEFAULT_DESKTOP_SIZE
+        );
         /** @var \noam148\imagemanager\components\ImageManagerGetPath $imageManager */
         $imageManager = \Yii::$app->imagemanager;
         foreach( $photos as $photo )
