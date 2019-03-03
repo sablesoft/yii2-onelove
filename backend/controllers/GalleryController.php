@@ -59,7 +59,7 @@ class GalleryController extends DefaultController {
      */
     public function actionView( $id ) {
 
-        $photos = GalleryPhoto::find()->where(['gallery_id' => $id])->orderBy('name')->all();
+        $photos = GalleryPhoto::find()->where(['gallery_id' => $id])->orderBy('order')->all();
 
         return $this->render('view', [
             'model' => $this->findModel( $id ),
