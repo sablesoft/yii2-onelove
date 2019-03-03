@@ -64,12 +64,17 @@ class SiteController extends Controller {
         // load public gallery items
         $galleryItems = GalleryPhoto::findSelectedItems();
 
+        $commentItems = Helper::getParams('comments');
+
         // add landing browsing in statistic: todo - make by ajax after page load
         Statistic::addBrowsing();
 
         return $this->render(
             'index.tpl',
-            compact('ask', 'party', 'call', 'successModal', 'failModal', 'galleryItems')
+            compact('ask', 'party', 'call',
+                'successModal', 'failModal',
+                'galleryItems', 'commentItems'
+            )
         );
     }
 }
