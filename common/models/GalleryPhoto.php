@@ -5,7 +5,8 @@ namespace common\models;
  * Class GalleryPhoto
  * @package common\models
  *
- * @property $image_id
+ * @property integer $image_id
+ * @property integer $order
  */
 class GalleryPhoto extends \onmotion\gallery\models\GalleryPhoto {
 
@@ -17,7 +18,7 @@ class GalleryPhoto extends \onmotion\gallery\models\GalleryPhoto {
      */
     public function rules() {
         return [
-            [['gallery_id', 'image_id'], 'integer'],
+            [['gallery_id', 'image_id', 'order'], 'integer'],
             [['name'], 'string', 'max' => 20 ]
         ];
     }
@@ -29,7 +30,7 @@ class GalleryPhoto extends \onmotion\gallery\models\GalleryPhoto {
         if( !$id = Setting::findValue( Setting::SECTION_GALLERY ) )
             return null;
 
-        return static::find()->where([ 'gallery_id' => $id ])->orderBy('name')->all();
+        return static::find()->where([ 'gallery_id' => $id ])->orderBy('order')->all();
     }
 
     /**
