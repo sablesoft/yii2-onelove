@@ -263,10 +263,12 @@ header.active #logo a.logo-final {
 .header-info span {
     flex-basis: 100%;
     text-align: center;
+    margin-top: -5px;
+    margin-bottom: -5px;
 }
 .header-info span {
 	font-size: 19px;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
     color: rgb(169, 9, 9);
 }
 .header-info a {

@@ -22,6 +22,14 @@
             {include '@frontend/views/site/landing/form.tpl'}
 
             <div class="registration-info">
+            {$groups = Helper::getSettings('groups')}
+            {if !empty($groups) }
+                <p>Возрастные группы:
+                {foreach from=$groups item=group}
+                    <br><span>{$group}</span>
+                {/foreach}
+                </p>
+            {/if}
             {if $party->id}
                 <p>Ближайший вечер:<span>{$party->timeLabel}</span></p>
             {/if}

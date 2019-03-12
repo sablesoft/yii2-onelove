@@ -24,8 +24,8 @@
                     ]
                 ])
             )->label(false)}
-            {$form->field( $ask, 'group_id' )->label(Yii::t('app/frontend', 'What age of the opposite sex is preferable for you?'))
-                ->dropDownList( $groupList )}
+            {*{$form->field( $ask, 'group_id' )->label(Yii::t('app/frontend', 'What age of the opposite sex is preferable for you?'))*}
+                {*->dropDownList( $groupList )}*}
             <div class="form-group">
                 {Html::input('submit', 'submit', Yii::t('app/frontend', 'Send Ask') )}
             </div>

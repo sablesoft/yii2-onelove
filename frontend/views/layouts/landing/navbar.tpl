@@ -34,10 +34,13 @@
             <button type="button" class="invite-button">Получить приглашение</button>
             <button type="button" class="button-mob-contact"><i class="fas fa-phone-volume"></i></button>
             <div class="header-info">
-                <span>{$party->getPhoneLink( $party->currentPhone )}</span>
+                {$phones = $party->phones}
+                {foreach from=$phones item=phone}
+                <span>{$party->getPhoneLink( $phone )}</span>
+                {/foreach}
                 {$messengers = Helper::getSettings('messenger', true )}
                 {foreach from=$messengers item=messenger}
-                <a href="{$party->getMessengerHref( $messenger['class'], $party->currentPhone )}"
+                <a href="{$party->getMessengerHref( $messenger['class'], $phones['default'] )}"
                    class="{$messenger['class']}-link">
                     <i class="fab {$messenger['icon']}"></i>{$messenger['label']}
                 </a>

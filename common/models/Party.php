@@ -51,6 +51,7 @@ use yii\db\ActiveRecord;
  * @property array $maskedPhoneConfig
  * @property integer $paid
  * @property integer $visited
+ * @property string[] phones;
  *
  * @method string getMaskedPhone( $phone = null );
  * @method string getMessengerHref( string $messenger );
@@ -187,10 +188,24 @@ class Party extends CrudModel {
     /**
      * @return string
      */
-    public function getCurrentPhone() :string {
+    public function getCurrentPhone() : string {
         $phone = $this->phone ?: Helper::getSettings('defaultPhone');
 
         return $this->getMaskedPhone( $phone );
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getPhones() : array {
+        $phones = [];
+        $phones['default'] = $this->getMaskedPhone(
+            Helper::getSettings('defaultPhone')
+        );
+        if( $current = $this->phone )
+            $phones['current'] = $this->getMaskedPhone( $current );
+
+        return $phones;
     }
 
     /**
